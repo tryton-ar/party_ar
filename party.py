@@ -1,4 +1,4 @@
-#! -*- coding: utf8 -*-
+# -*- coding: utf8 -*-
 import stdnum.ar.cuit as cuit
 import stdnum.exceptions
 from urllib2 import urlopen
@@ -12,7 +12,7 @@ from trytond.pyson import Bool, Eval, Equal, Not, And, In
 from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
 
-__all__ = ['Party', 'PartyIdentifier', 'AFIPVatCountry', 'GetAFIPData',
+__all__ = ['AFIPVatCountry', 'Party', 'PartyIdentifier', 'GetAFIPData',
            'GetAFIPDataStart']
 __metaclass__ = PoolMeta
 
@@ -66,6 +66,19 @@ PROVINCIAS = {0: u'Ciudad Autónoma de Buenos Aires', 1: u'Buenos Aires',
 12: 'Santa Fe', 13: 'Santiago del Estero', 14: 'Tucuman', 16: 'Chaco',
 17: 'Chubut', 18: 'Formosa', 19: 'Misiones', 20: 'Neuquen', 21: 'La Pampa',
 22: 'Rio Negro', 23: 'Santa Cruz', 24: 'Tierra del Fuego'}
+
+
+class AFIPVatCountry(ModelSQL, ModelView):
+    'AFIP Vat Country'
+    __name__ = 'party.afip.vat.country'
+
+    vat_number = fields.Char('VAT Number')
+    vat_country = fields.Many2One('country.country', 'VAT Country')
+    type_code = fields.Selection([
+        ('0', 'Juridica'),
+        ('1', 'Fisica'),
+        ('2', 'Otro Tipo de Entidad'),
+        ], 'Type Code')
 
 
 class Party:
@@ -279,42 +292,55 @@ class PartyIdentifier:
     def __register__(cls, module_name):
         pool = Pool()
         Country = pool.get('country.country')
+        Party = pool.get('party.party')
         PartyAddress = pool.get('party.address')
         PartyAFIPVatCountry = pool.get('party.afip.vat.country')
         party_afip_vat_country = PartyAFIPVatCountry.__table__()
         party_address = PartyAddress.__table__()
-        country = Country.__table__()
+        party = Party.__table__()
+        country_table = Country.__table__()
         sql_table = cls.__table__()
         cursor = Transaction().cursor
         super(PartyIdentifier, cls).__register__(module_name)
 
         identifiers = []
         cursor.execute(*sql_table.select(
-                sql_table.id, sql_table.party, sql_table.code, sql_table.type))
-        for identifier_id, party_id, code_country, type in cursor.fetchall():
-            if not code_country or type is not None:
+                sql_table.id, sql_table.party, sql_table.code, sql_table.type,
+        where=(sql_table.code != 'AR')))
+        for identifier_id, party_id, code_country, identifier_type in cursor.fetchall():
+            identifiers = []
+            if not code_country or identifier_type is not None:
                 continue
-            type = None
+
+            type = identifier_type
             code = None
             vat_country = ''
-            if code_country.startswith('AR'):
+            cursor.execute(*party.select(
+                party.tipo_documento, where=(party.id == party_id)))
+            party_row = cursor.dictfetchone()
+            if party_row['tipo_documento'] and party_row['tipo_documento'] == '96' and len(code_country) < 11:
+                code = code_country
+                type = 'ar_dni'
+            elif code_country.startswith('AR'):
                 code = code_country[2:]
-                if len(code) < 11:
-                    type = 'ar_dni'
-                elif cuit.is_valid(code):
+                if cuit.is_valid(code):
                     type = 'ar_cuit'
+                else:
+                    type = identifier_type
+            elif len(code_country) < 11:
+                code = code_country
+                type = 'ar_dni'
             else:
                 code = code_country
                 type = 'ar_foreign'
                 cursor_pa = Transaction().cursor
-                cursor_pa.execute(*party_address.join(country,
-                        condition=party_address.country == country.id
-                        ).select(country.code,
+                cursor_pa.execute(*party_address.join(country_table,
+                        condition=party_address.country == country_table.id).select(country_table.code,
                         where=(party_address.party == party_id)))
                 row = cursor_pa.dictfetchone()
                 if row:
                     vat_country = row['code']
-                    country, = Country.search([('code','=',vat_country)])
+                    country, = Country.search([('code', '=', vat_country)])
                     cursor_pa = Transaction().cursor
                     cursor_pa.execute(*party_afip_vat_country.select(
                         party_afip_vat_country.vat_country,
@@ -355,7 +381,8 @@ class PartyIdentifier:
             identifier.check_code()
             if bool(identifier.code) and bool(identifier.vat_country) == False:
                 data = cls.search([
-                    ('code','=', identifier.code),
+                    ('code', '=', identifier.code),
+                    ('party.active', '=', True),
                     ])
                 if len(data) != 1:
                     cls.raise_user_error('unique_vat_number')
@@ -387,19 +414,6 @@ class PartyIdentifier:
                 'code': self.code,
                 'party': self.party.rec_name,
                 })
-
-
-class AFIPVatCountry(ModelSQL, ModelView):
-    'AFIP Vat Country'
-    __name__ = 'party.afip.vat.country'
-
-    vat_number = fields.Char('VAT Number')
-    vat_country = fields.Many2One('country.country', 'VAT Country')
-    type_code = fields.Selection([
-        ('0', 'Juridica'),
-        ('1', 'Fisica'),
-        ('2', 'Otro Tipo de Entidad'),
-        ], 'Type Code')
 
 
 class GetAFIPDataStart(ModelView):
