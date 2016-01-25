@@ -354,7 +354,7 @@ class PartyIdentifier:
                         PartyAFIPVatCountry.save(afip_vat_countrys)
             identifiers.append(
                 cls(id=identifier_id, code=code, type=type, vat_country=vat_country))
-        cls.save(identifiers)
+            cls.save(identifiers)
 
     @classmethod
     def get_types(cls):
