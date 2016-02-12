@@ -278,7 +278,6 @@ class PartyIdentifier:
     def __setup__(cls):
         super(PartyIdentifier, cls).__setup__()
         cls._error_messages.update({
-            'unique_vat_number': 'The VAT number must be unique in each Country.',
             'vat_number_not_found': 'El CUIT no ha sido encontrado',
             })
         VAT_COUNTRIES = [('', '')]
@@ -379,13 +378,6 @@ class PartyIdentifier:
         super(PartyIdentifier, cls).validate(identifiers)
         for identifier in identifiers:
             identifier.check_code()
-            if bool(identifier.code) and bool(identifier.vat_country) == False:
-                data = cls.search([
-                    ('code', '=', identifier.code),
-                    ('party.active', '=', True),
-                    ])
-                if len(data) != 1:
-                    cls.raise_user_error('unique_vat_number')
 
     def check_code(self):
         super(PartyIdentifier, self).check_code()
