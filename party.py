@@ -453,7 +453,8 @@ class GetAFIPData(Wizard):
             else:
                 self.raise_user_error('vat_number_not_found')
 
-            activ  = afip_dict['actividades']
+            activ = afip_dict.get('actividades', {})
+            domicilioFiscal = afip_dict.get('domicilioFiscal', {})
             activ1 = str(activ[0]) if len(activ) >= 1 else ''
             activ2 = str(activ[1]) if len(activ) >= 2 else ''
             if activ1:
@@ -462,13 +463,13 @@ class GetAFIPData(Wizard):
                 activ2 = activ2.rjust(6, '0')
             res = {
                 'nombre': afip_dict['nombre'],
-                'direccion': afip_dict['domicilioFiscal']['direccion'],
-                'codigo_postal': afip_dict['domicilioFiscal']['codPostal'],
+                'direccion': domicilioFiscal.get('direccion', ''),
+                'codigo_postal': domicilioFiscal.get('codPostal', ''),
                 'fecha_inscripcion': afip_dict['fechaInscripcion'],
                 'primary_activity_code': activ1,
                 'secondary_activity_code': activ2,
                 'estado': afip_dict['estadoClave'],
-                'subdivision_code': afip_dict['domicilioFiscal']['idProvincia'],
+                'subdivision_code': domicilioFiscal.get('idProvincia', 0),
                 'afip_data': afip_json,
             }
 
