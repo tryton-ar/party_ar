@@ -3,6 +3,7 @@ import stdnum.ar.cuit as cuit
 import stdnum.exceptions
 from urllib2 import urlopen
 import ssl
+import sys
 from json import loads, dumps
 from actividades import CODES
 
@@ -542,8 +543,11 @@ class GetAFIPData(Wizard):
         try:
             afip_url = 'https://soa.afip.gob.ar/sr-padron/v2/persona/%s' \
                 % vat_number
-            context = ssl._create_unverified_context()
-            afip_stream = urlopen(afip_url, context=context)
+            if sys.version_info >= (2, 7, 9):
+                context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+                afip_stream = urlopen(afip_url, context=context)
+            else:
+                afip_stream = urlopen(afip_url)
             afip_json = afip_stream.read()
             return afip_json
         except Exception:
