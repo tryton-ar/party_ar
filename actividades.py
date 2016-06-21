@@ -416,6 +416,7 @@ CODES = [
     ('431210', u'431210 - Movimiento de suelos y preparación de terrenos para obras'),
     ('431220', u'431220 - Perforación y sondeo, excepto perforación de pozos de petróleo, de gas, de minas e hidráulicos y prospección de yacimientos de petróleo'),
     ('432200', u'432200 - Instalaciones de gas, agua, sanitarios y de climatización, con sus artefactos conexos'),
+    ('432190', u'432190 - Instalación, ejecución y mantenimiento de Instalaciones eléctricas, electromecánicas y electrónicas'),
     ('432910', u'432910 - Instalaciones de ascensores, montacargas y escaleras mecánicas'),
     ('432920', u'432920 - Aislamiento térmico, acústico, hídrico y antivibratorio'),
     ('432990', u'432990 - Instalaciones para edificios y obras de ingeniería civil n.c.p.'),
