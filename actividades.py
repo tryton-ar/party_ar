@@ -8,6 +8,13 @@
 
 CODES = [
     ('', ''),
+    ('000007', u'000007 - Jubilado'),
+    ('000008', u'000008 - Estudiante'),
+    ('000009', u'000009 - Ama de casa'),
+    ('000010', u'000010 - Ex-agente de la adm. publica'),
+    ('000011', u'000011 - Trabajador relac. dependencia'),
+    ('000012', u'000012 - Sin actividad economica'),
+    ('000013', u'000013 - Agricultura familiar'),
     ('011111', u'011111 - Cultivo de arroz'),
     ('011112', u'011112 - Cultivo de trigo'),
     ('011119', u'011119 - Cultivo de cereales n.c.p., excepto los de uso forrajero'),
