@@ -300,7 +300,7 @@ class PartyIdentifier:
         party = Party.__table__()
         country_table = Country.__table__()
         sql_table = cls.__table__()
-        cursor = Transaction().cursor
+        cursor = Transaction().connection.cursor()
         super(PartyIdentifier, cls).__register__(module_name)
 
         identifiers = []
@@ -333,7 +333,7 @@ class PartyIdentifier:
             else:
                 code = code_country
                 type = 'ar_foreign'
-                cursor_pa = Transaction().cursor
+                cursor_pa = Transaction().connection.cursor()
                 cursor_pa.execute(*party_address.join(country_table,
                         condition=party_address.country == country_table.id).select(country_table.code,
                         where=(party_address.party == party_id)))
@@ -341,7 +341,7 @@ class PartyIdentifier:
                 if row:
                     vat_country = row['code']
                     country, = Country.search([('code', '=', vat_country)])
-                    cursor_pa = Transaction().cursor
+                    cursor_pa = Transaction().connection.cursor()
                     cursor_pa.execute(*party_afip_vat_country.select(
                         party_afip_vat_country.vat_country,
                         where=(party_afip_vat_country.vat_number == code)))
