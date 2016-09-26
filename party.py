@@ -59,8 +59,6 @@ TIPO_DOCUMENTO = [
 ('88', u'Usado por Anses para Padrón'),
 ]
 
-VAT_COUNTRIES = [('', '')]
-
 PROVINCIAS = {0: u'Ciudad Autónoma de Buenos Aires', 1: u'Buenos Aires',
 2: u'Catamarca', 3: 'Cordoba', 4: 'Corrientes', 5: 'Entre Rios', 6: 'Jujuy',
 7: 'Mendoza', 8: 'La Rioja', 9: 'Salta', 10: 'San Juan', 11: 'San Luis',
@@ -266,14 +264,9 @@ class Party:
 class PartyIdentifier:
     __name__ = 'party.identifier'
 
-    vat_country = fields.Selection(VAT_COUNTRIES, 'VAT Country', states={
-        'invisible': ~Equal(Eval('type'), 'ar_foreign'),
-        },
-        depends=['type'], translate=False)
-
-    @staticmethod
-    def default_vat_country():
-        return ''
+    country = fields.Many2One('country.country', 'VAT Country', states={
+            'invisible': ~Equal(Eval('type'), 'ar_foreign'),
+            }, depends=['type'], domain=[('code', '!=', 'AR')])
 
     @classmethod
     def __setup__(cls):
@@ -281,12 +274,6 @@ class PartyIdentifier:
         cls._error_messages.update({
             'vat_number_not_found': 'El CUIT no ha sido encontrado',
             })
-        VAT_COUNTRIES = [('', '')]
-        Country = Pool().get('country.country')
-        countries = Country.search([('code', '!=', 'AR')])
-        for country in countries:
-            VAT_COUNTRIES.append((country.code, country.name))
-        cls.vat_country.selection = VAT_COUNTRIES
 
     @classmethod
     def __register__(cls, module_name):
@@ -356,6 +343,17 @@ class PartyIdentifier:
                 cls(id=identifier_id, code=code, type=type, vat_country=vat_country))
             cls.save(identifiers)
 
+        # Migrate to 4.0
+        cursor.execute(*sql_table.select(
+                sql_table.id, sql_table.vat_country, sql_table.country,
+        where=(sql_table.type == 'ar_foreign')))
+
+        for identifier_id, vat_country, country in cursor.fetchall():
+            country_code, = Country.search([('code','=',vat_country)])
+            cursor.execute(*sql_table.update(
+                    [sql_table.country, sql_table.vat_country], [country_code.id, ''],
+            where=(sql_table.id == identifier_id)))
+
     @classmethod
     def get_types(cls):
         types = super(PartyIdentifier, cls).get_types()
@@ -394,11 +392,11 @@ class PartyIdentifier:
     def check_foreign_vat(self):
         AFIPVatCountry = Pool().get('party.afip.vat.country')
 
-        if not self.vat_country:
+        if not self.country:
             return
 
         vat_numbers = AFIPVatCountry.search([
-            ('vat_country', '=', self.vat_country),
+            ('vat_country', '=', self.country),
             ('vat_number', '=', self.code),
             ])
 
