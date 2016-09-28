@@ -349,10 +349,11 @@ class PartyIdentifier:
         where=(sql_table.type == 'ar_foreign')))
 
         for identifier_id, vat_country, country in cursor.fetchall():
-            country_code, = Country.search([('code','=',vat_country)])
-            cursor.execute(*sql_table.update(
-                    [sql_table.country, sql_table.vat_country], [country_code.id, ''],
-            where=(sql_table.id == identifier_id)))
+            if vat_country != '':
+                country_code, = Country.search([('code','=',vat_country)])
+                cursor.execute(*sql_table.update(
+                        [sql_table.country, sql_table.vat_country], [country_code.id, ''],
+                where=(sql_table.id == identifier_id)))
 
     @classmethod
     def get_types(cls):
