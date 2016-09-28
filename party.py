@@ -413,6 +413,7 @@ class GetAFIPDataStart(ModelView):
     afip_data = fields.Text('Datos extras')
     nombre = fields.Char('Nombre', readonly=True)
     direccion = fields.Char('Direccion', readonly=True)
+    localidad = fields.Char('Localidad', readonly=True)
     codigo_postal = fields.Char('Codigo Postal', readonly=True)
     fecha_inscripcion = fields.Char('Fecha de Inscripcion', readonly=True)
     subdivision_code = fields.Integer('Subdivision', readonly=True)
@@ -463,6 +464,7 @@ class GetAFIPData(Wizard):
             res = {
                 'nombre': afip_dict['nombre'],
                 'direccion': domicilioFiscal.get('direccion', ''),
+                'localidad': domicilioFiscal.get('localidad', ''),
                 'codigo_postal': domicilioFiscal.get('codPostal', ''),
                 'fecha_inscripcion': afip_dict['fechaInscripcion'],
                 'primary_activity_code': activ1,
@@ -530,10 +532,12 @@ class GetAFIPData(Wizard):
         "Actualizamos direccion de una party"
         direccion.name = start.nombre
         direccion.street = start.direccion
+        direccion.city = start.localidad
         direccion.zip = start.codigo_postal
         direccion.subdivision = self.get_subdivision(start.subdivision_code)
         direccion.country = self.get_country()
         direccion.party = party
+        direccion.invoice = True
         direccion.save()
 
     @classmethod
