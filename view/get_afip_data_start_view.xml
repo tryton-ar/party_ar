@@ -10,6 +10,8 @@
   <field name="nombre"/>
   <label name="direccion"/>
   <field name="direccion"/>
+  <label name="localidad"/>
+  <field name="localidad"/>
   <label name="codigo_postal"/>
   <field name="codigo_postal"/>
   <label name="fecha_inscripcion"/>
