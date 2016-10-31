@@ -12,6 +12,7 @@ from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.pyson import Bool, Eval, Equal, Not, And, In
 from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
+from trytond import backend
 
 __all__ = ['AFIPVatCountry', 'Party', 'PartyIdentifier', 'GetAFIPData',
            'GetAFIPDataStart']
@@ -288,6 +289,8 @@ class PartyIdentifier:
         country_table = Country.__table__()
         sql_table = cls.__table__()
         cursor = Transaction().connection.cursor()
+        TableHandler = backend.get('TableHandler')
+        table_a = TableHandler(cls, module_name)
         super(PartyIdentifier, cls).__register__(module_name)
 
         identifiers = []
@@ -344,7 +347,7 @@ class PartyIdentifier:
             cls.save(identifiers)
 
         # Migrate to 4.0
-        if sql_table.column_exist('vat_country'):
+        if table_a.column_exist('vat_country'):
             cursor.execute(*sql_table.select(
                     sql_table.id, sql_table.vat_country, sql_table.country,
             where=(sql_table.type == 'ar_foreign')))
@@ -355,7 +358,7 @@ class PartyIdentifier:
                     cursor.execute(*sql_table.update(
                             [sql_table.country, sql_table.vat_country], [country_code.id, ''],
                     where=(sql_table.id == identifier_id)))
-            sql_table.drop_column('vat_country')
+            table_a.drop_column('vat_country')
 
     @classmethod
     def get_types(cls):
