@@ -965,4 +965,5 @@ CODES = [
     ('960990', u'960990 - Servicios personales n.c.p.'),
     ('970000', u'970000 - Servicios de hogares privados que contratan servicio doméstico'),
     ('990000', u'990000 - Servicios de organizaciones y órganos extraterritoriales'),
+    ('919900', u' 919900 - SERVICIOS DE ASOCIACIONES N.C.P.'),
 ]
