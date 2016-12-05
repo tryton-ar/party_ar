@@ -1,16 +1,16 @@
 from trytond.pool import Pool
 
-from .party import *
-from .address import *
+from . import party
+from . import address
 
 def register():
     Pool.register(
-        AFIPVatCountry,
-        Party,
-        PartyIdentifier,
-        Address,
-        GetAFIPDataStart,
+        party.AFIPVatCountry,
+        party.Party,
+        party.PartyIdentifier,
+        party.GetAFIPDataStart,
+        address.Address,
         module='party_ar', type_='model')
     Pool.register(
-        GetAFIPData,
+        party.GetAFIPData,
         module='party_ar', type_='wizard')

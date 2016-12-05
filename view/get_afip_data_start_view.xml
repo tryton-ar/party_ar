@@ -5,7 +5,7 @@
   the COPYRIGHT file at the top level of this repository
   contains the full copyright notice and license terms.
   -->
-<form string="Confirmar información de AFIP" col="2">
+<form col="2">
   <label name="nombre"/>
   <field name="nombre"/>
   <label name="direccion"/>
