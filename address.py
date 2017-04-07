@@ -1,12 +1,11 @@
 #! -*- coding: utf8 -*-
-
-from trytond.model import ModelSQL, ModelView
+from trytond.pool import PoolMeta
 from trytond.pyson import Id
 
 __all__ = ['Address']
 
-class Address(ModelSQL, ModelView):
-    "Address"
+class Address:
+    __metaclass__ = PoolMeta
     __name__ = 'party.address'
 
     @staticmethod

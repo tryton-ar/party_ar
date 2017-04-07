@@ -15,8 +15,6 @@ from trytond.transaction import Transaction
 
 __all__ = ['AFIPVatCountry', 'Party', 'PartyIdentifier', 'GetAFIPData',
            'GetAFIPDataStart']
-__metaclass__ = PoolMeta
-
 
 TIPO_DOCUMENTO = [
 ('0',  u'CI Policía Federal'),
@@ -83,6 +81,7 @@ class AFIPVatCountry(ModelSQL, ModelView):
 
 
 class Party:
+    __metaclass__ = PoolMeta
     __name__ = 'party.party'
 
     iva_condition = fields.Selection(
@@ -264,6 +263,7 @@ class Party:
 
 
 class PartyIdentifier:
+    __metaclass__ = PoolMeta
     __name__ = 'party.identifier'
 
     vat_country = fields.Selection(VAT_COUNTRIES, 'VAT Country', states={
