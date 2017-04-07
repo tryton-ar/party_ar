@@ -16,8 +16,6 @@ from trytond import backend
 
 __all__ = ['AFIPVatCountry', 'Party', 'PartyIdentifier', 'GetAFIPData',
            'GetAFIPDataStart']
-__metaclass__ = PoolMeta
-
 
 TIPO_DOCUMENTO = [
 ('0',  u'CI Policía Federal'),
@@ -82,6 +80,7 @@ class AFIPVatCountry(ModelSQL, ModelView):
 
 
 class Party:
+    __metaclass__ = PoolMeta
     __name__ = 'party.party'
 
     iva_condition = fields.Selection(
@@ -263,6 +262,7 @@ class Party:
 
 
 class PartyIdentifier:
+    __metaclass__ = PoolMeta
     __name__ = 'party.identifier'
 
     country = fields.Many2One('country.country', 'VAT Country', states={
