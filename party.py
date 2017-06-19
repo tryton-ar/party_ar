@@ -12,6 +12,7 @@ from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.pyson import Bool, Eval, Equal, Not, And, In
 from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
+from trytond.tools import cursor_dict
 from trytond import backend
 
 __all__ = ['AFIPVatCountry', 'Party', 'PartyIdentifier', 'GetAFIPData',
@@ -307,7 +308,7 @@ class PartyIdentifier:
             vat_country = ''
             cursor.execute(*party.select(
                 party.tipo_documento, where=(party.id == party_id)))
-            party_row = cursor.dictfetchone()
+            party_row, = cursor_dict(cursor)
             if party_row['tipo_documento'] and party_row['tipo_documento'] == '96' and len(code_country) < 11:
                 code = code_country
                 type = 'ar_dni'
@@ -327,7 +328,7 @@ class PartyIdentifier:
                 cursor_pa.execute(*party_address.join(country_table,
                         condition=party_address.country == country_table.id).select(country_table.code,
                         where=(party_address.party == party_id)))
-                row = cursor_pa.dictfetchone()
+                row, = cursor_dict(cursor_pa)
                 if row:
                     vat_country = row['code']
                     country, = Country.search([('code', '=', vat_country)])
@@ -335,7 +336,7 @@ class PartyIdentifier:
                     cursor_pa.execute(*party_afip_vat_country.select(
                         party_afip_vat_country.vat_country,
                         where=(party_afip_vat_country.vat_number == code)))
-                    afip_vat_country = cursor_pa.dictfetchone()
+                    afip_vat_country, = cursor_dict(cursor_pa)
                     if afip_vat_country is None:
                         afip_vat_countrys = []
                         country, = Country.search([('code','=',vat_country)])
