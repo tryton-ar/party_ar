@@ -12,6 +12,8 @@ from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.pyson import Bool, Eval, Equal, Not, And, In
 from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
+import logging
+logger = logging.getLogger(__name__)
 
 __all__ = ['AFIPVatCountry', 'Party', 'PartyIdentifier', 'GetAFIPData',
            'GetAFIPDataStart']
@@ -256,10 +258,68 @@ class Party:
     def get_afip_data(cls, parties):
         pass
 
-    #@ModelView.button_change()
-    #def get_afip_data_new(self):
-    #    #self.name = 'AAA'
-    #    print "call button_change"
+    @classmethod
+    @ModelView.button
+    def import_census(cls, configs):
+        """
+        Update iva_condition, active fields from afip.
+        """
+        partys = Pool().get('party.party').search([
+                ('vat_number', '!=', None),
+                ])
+
+        for party in partys:
+            afip_dict =  {}
+            try:
+                data = cls.get_json_afip(party.vat_number)
+                afip_dict = loads(data)
+                success = afip_dict['success']
+                if success is True:
+                    afip_dict = afip_dict['data']
+                else:
+                    logger.error('Afip return error message %s.' % \
+                        afip_dict['error']['mensaje'])
+            except:
+                logging.error('Could not retrieve vat_number: %s.' % party.vat_number)
+            logging.info("got afip_json:\n" + dumps(afip_dict))
+            mt = afip_dict.get('categoriasMonotributo', {})
+            impuestos = afip_dict.get("impuestos", [])
+
+            if 32 in impuestos:
+                party.iva_condition = 'exento'
+            else:
+                if mt:
+                    party.iva_condition = 'monotributo'
+                elif 30 in impuestos:
+                    party.iva_condition = 'responsable_inscripto'
+                else:
+                    party.iva_condition = 'consumidor_final'
+            party.save()
+            Transaction().cursor.commit()
+
+    @classmethod
+    def get_json_afip(cls, vat_number):
+        try:
+            afip_url = 'https://soa.afip.gob.ar/sr-padron/v2/persona/%s' \
+                % vat_number
+            if sys.version_info >= (2, 7, 9):
+                context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+                afip_stream = urlopen(afip_url, context=context)
+            else:
+                afip_stream = urlopen(afip_url)
+            afip_json = afip_stream.read()
+            return afip_json
+        except Exception, e:
+            logger.error('Could not retrieve %s.' % repr(e))
+
+    @classmethod
+    def import_cron_afip(cls, args=None):
+        """
+        Cron update afip iva_condition.
+        """
+        logger.info('Start Scheduler start update afip census.')
+        cls.import_census(args)
+        logger.info('End Scheduler update afip census.')
 
 
 class PartyIdentifier:
