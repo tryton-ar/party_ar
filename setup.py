@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-#This file is part of the account_coop_ar module for Tryton.
-#The COPYRIGHT file at the top level of this repository contains
-#the full copyright notices and license terms.
+# This file is part of the party_ar module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
 
 from setuptools import setup
 import re
@@ -10,6 +10,7 @@ import ConfigParser
 
 MODULE = 'party_ar'
 PREFIX = 'trytonar'
+
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -51,7 +52,7 @@ setup(name='%s_%s' % (PREFIX, MODULE),
         ],
     package_data={
         'trytond.modules.%s' % MODULE: (info.get('xml', [])
-            + ['tryton.cfg', 'view/*.xml',  'tests/*.rst', '*.odt',
+            + ['tryton.cfg', 'view/*.xml', 'tests/*.rst', '*.odt',
                 'locale/*.po']),
         },
     classifiers=[
