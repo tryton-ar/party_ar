@@ -1,4 +1,8 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
+# This file is part of the party_ar module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
+
 import stdnum.ar.cuit as cuit
 import stdnum.exceptions
 from urllib2 import urlopen
@@ -16,57 +20,77 @@ import logging
 logger = logging.getLogger(__name__)
 
 __all__ = ['AFIPVatCountry', 'Party', 'PartyIdentifier', 'GetAFIPData',
-           'GetAFIPDataStart']
+    'GetAFIPDataStart']
 
 TIPO_DOCUMENTO = [
-('0',  u'CI Policía Federal'),
-('1',  u'CI Buenos Aires'),
-('2',  u'CI Catamarca'),
-('3',  u'CI Córdoba'),
-('4',  u'CI Corrientes'),
-('5',  u'CI Entre Ríos'),
-('6',  u'CI Jujuy'),
-('7',  u'CI Mendoza'),
-('8',  u'CI La Rioja'),
-('9',  u'CI Salta'),
-('10', u'CI San Juan'),
-('11', u'CI San Luis'),
-('12', u'CI Santa Fe'),
-('13', u'CI Santiago del Estero'),
-('14', u'CI Tucumán'),
-('16', u'CI Chaco'),
-('17', u'CI Chubut'),
-('18', u'CI Formosa'),
-('19', u'CI Misiones'),
-('20', u'CI Neuquén'),
-('21', u'CI La Pampa'),
-('22', u'CI Río Negro'),
-('23', u'CI Santa Cruz'),
-('24', u'CI Tierra del Fuego'),
-('80', u'CUIT'),
-('86', u'CUIL'),
-('87', u'CDI'),
-('89', u'LE'),
-('90', u'LC'),
-('91', u'CI extranjera'),
-('92', u'en trámite'),
-('93', u'Acta nacimiento'),
-('94', u'Pasaporte'),
-('95', u'CI Bs. As. RNP'),
-('96', u'DNI'),
-('99', u'Sin identificar/venta global diaria'),
-('30', u'Certificado de Migración'),
-('88', u'Usado por Anses para Padrón'),
-]
+    ('0', u'CI Policía Federal'),
+    ('1', u'CI Buenos Aires'),
+    ('2', u'CI Catamarca'),
+    ('3', u'CI Córdoba'),
+    ('4', u'CI Corrientes'),
+    ('5', u'CI Entre Ríos'),
+    ('6', u'CI Jujuy'),
+    ('7', u'CI Mendoza'),
+    ('8', u'CI La Rioja'),
+    ('9', u'CI Salta'),
+    ('10', u'CI San Juan'),
+    ('11', u'CI San Luis'),
+    ('12', u'CI Santa Fe'),
+    ('13', u'CI Santiago del Estero'),
+    ('14', u'CI Tucumán'),
+    ('16', u'CI Chaco'),
+    ('17', u'CI Chubut'),
+    ('18', u'CI Formosa'),
+    ('19', u'CI Misiones'),
+    ('20', u'CI Neuquén'),
+    ('21', u'CI La Pampa'),
+    ('22', u'CI Río Negro'),
+    ('23', u'CI Santa Cruz'),
+    ('24', u'CI Tierra del Fuego'),
+    ('80', u'CUIT'),
+    ('86', u'CUIL'),
+    ('87', u'CDI'),
+    ('89', u'LE'),
+    ('90', u'LC'),
+    ('91', u'CI extranjera'),
+    ('92', u'en trámite'),
+    ('93', u'Acta nacimiento'),
+    ('94', u'Pasaporte'),
+    ('95', u'CI Bs. As. RNP'),
+    ('96', u'DNI'),
+    ('99', u'Sin identificar/venta global diaria'),
+    ('30', u'Certificado de Migración'),
+    ('88', u'Usado por Anses para Padrón'),
+    ]
+
+PROVINCIAS = {
+    0: u'Ciudad Autónoma de Buenos Aires',
+    1: u'Buenos Aires',
+    2: u'Catamarca',
+    3: u'Cordoba',
+    4: u'Corrientes',
+    5: u'Entre Rios',
+    6: u'Jujuy',
+    7: u'Mendoza',
+    8: u'La Rioja',
+    9: u'Salta',
+    10: u'San Juan',
+    11: u'San Luis',
+    12: u'Santa Fe',
+    13: u'Santiago del Estero',
+    14: u'Tucuman',
+    16: u'Chaco',
+    17: u'Chubut',
+    18: u'Formosa',
+    19: u'Misiones',
+    20: u'Neuquen',
+    21: u'La Pampa',
+    22: u'Rio Negro',
+    23: u'Santa Cruz',
+    24: u'Tierra del Fuego',
+    }
 
 VAT_COUNTRIES = [('', '')]
-
-PROVINCIAS = {0: u'Ciudad Autónoma de Buenos Aires', 1: u'Buenos Aires',
-2: u'Catamarca', 3: 'Cordoba', 4: 'Corrientes', 5: 'Entre Rios', 6: 'Jujuy',
-7: 'Mendoza', 8: 'La Rioja', 9: 'Salta', 10: 'San Juan', 11: 'San Luis',
-12: 'Santa Fe', 13: 'Santiago del Estero', 14: 'Tucuman', 16: 'Chaco',
-17: 'Chubut', 18: 'Formosa', 19: 'Misiones', 20: 'Neuquen', 21: 'La Pampa',
-22: 'Rio Negro', 23: 'Santa Cruz', 24: 'Tierra del Fuego'}
 
 
 class AFIPVatCountry(ModelSQL, ModelView):
@@ -86,118 +110,90 @@ class Party:
     __metaclass__ = PoolMeta
     __name__ = 'party.party'
 
-    iva_condition = fields.Selection(
-            [
-                ('', ''),
-                ('responsable_inscripto', 'Responsable Inscripto'),
-                ('exento', 'Exento'),
-                ('consumidor_final', 'Consumidor Final'),
-                ('monotributo', 'Monotributo'),
-                ('no_alcanzado', 'No alcanzado'),
-            ],
-            'Condicion ante el IVA',
-            states={
-                'readonly': ~Eval('active', True),
-                'required': Bool(Eval('vat_number')),
-                },
-            depends=['active'],
-            )
+    iva_condition = fields.Selection([
+        ('', ''),
+        ('responsable_inscripto', 'Responsable Inscripto'),
+        ('exento', 'Exento'),
+        ('consumidor_final', 'Consumidor Final'),
+        ('monotributo', 'Monotributo'),
+        ('no_alcanzado', 'No alcanzado'),
+        ], 'Condicion ante el IVA', states={
+            'readonly': ~Eval('active', True),
+            'required': Bool(Eval('vat_number')),
+            }, depends=['active', 'vat_number'])
     company_name = fields.Char('Company Name',
-            states={
-                'readonly': ~Eval('active', True),
-                },
-            depends=['active'],
-            )
-    company_type = fields.Selection(
-            [
-                ('', ''),
-                ('cooperativa', 'Cooperativa'),
-                ('srl', 'SRL'),
-                ('sa', 'SA'),
-                ('s_de_h', 'S de H'),
-                ('estado', 'Estado'),
-                ('exterior', 'Exterior'),
-            ],
-            'Company Type',
-            states={
-                'readonly': ~Eval('active', True),
-                },
-            depends=['active'],
-            )
-    iibb_type = fields.Selection(
-            [
-                ('', ''),
-                ('cm', 'Convenio Multilateral'),
-                ('rs', 'Regimen Simplificado'),
-                ('exento', 'Exento'),
-            ],
-            'Inscripcion II BB',
-            states={
-                'readonly': ~Eval('active', True),
-                },
-            depends=['active'],
-            )
-    iibb_number = fields.Char('Nro .II BB',
-            states={
-                'readonly': ~Eval('active', True),
-                'required': And(Not(Equal(Eval('iibb_type'), 'exento')), Bool(Eval('iibb_type')))
-                },
-            depends=['active'],
-            )
+        states={'readonly': ~Eval('active', True)},
+        depends=['active'])
+    company_type = fields.Selection([
+        ('', ''),
+        ('cooperativa', 'Cooperativa'),
+        ('srl', 'SRL'),
+        ('sa', 'SA'),
+        ('s_de_h', 'S de H'),
+        ('estado', 'Estado'),
+        ('exterior', 'Exterior'),
+        ], 'Company Type', states={
+            'readonly': ~Eval('active', True),
+            }, depends=['active'])
+    iibb_type = fields.Selection([
+        ('', ''),
+        ('cm', 'Convenio Multilateral'),
+        ('rs', 'Regimen Simplificado'),
+        ('exento', 'Exento'),
+        ], 'Inscripcion II BB', states={
+            'readonly': ~Eval('active', True),
+            }, depends=['active'])
+    iibb_number = fields.Char('Nro .II BB', states={
+        'readonly': ~Eval('active', True),
+        'required': And(
+            Not(Equal(Eval('iibb_type'), 'exento')),
+            Bool(Eval('iibb_type'))),
+        }, depends=['active', 'iibb_type'])
     primary_activity_code = fields.Selection(CODES,
-            'Primary Activity Code',
-            states={
-                'readonly': ~Eval('active', True),
-                },
-            depends=['active'],
-            )
+        'Primary Activity Code', states={
+            'readonly': ~Eval('active', True),
+            }, depends=['active'])
     secondary_activity_code = fields.Selection(CODES,
-            'Secondary Activity Code',
-            states={
-                'readonly': ~Eval('active', True),
-                },
-            depends=['active'],
-            )
+        'Secondary Activity Code', states={
+            'readonly': ~Eval('active', True),
+            }, depends=['active'])
     start_activity_date = fields.Date('Start activity date',
-            states={
-                'readonly': ~Eval('active', True),
-                },
-            depends=['active'],
-            )
-    controlling_entity = fields.Char('Entidad controladora', help="Controlling entity",
         states={
             'readonly': ~Eval('active', True),
-            },
-        depends=['active'])
-    controlling_entity_number = fields.Char('Nro. entidad controladora', help="Controlling entity",
-        states={
+            }, depends=['active'])
+    controlling_entity = fields.Char('Entidad controladora',
+        help='Controlling entity', states={
             'readonly': ~Eval('active', True),
-            },
-        depends=['active'])
-
-    tipo_documento = fields.Selection(
-            TIPO_DOCUMENTO,
-            'Tipo documento',
-            states={
-                'readonly': ~Eval('active', True),
-                },
-            depends=['active'],
-            )
+            }, depends=['active'])
+    controlling_entity_number = fields.Char('Nro. entidad controladora',
+        help='Controlling entity', states={
+            'readonly': ~Eval('active', True),
+            }, depends=['active'])
+    tipo_documento = fields.Selection(TIPO_DOCUMENTO,
+        'Tipo documento', states={
+            'readonly': ~Eval('active', True),
+            }, depends=['active'])
     vat_number = fields.Function(fields.Char('CUIT', states={
         'readonly': ~Eval('active', True),
-        'required': ~In(Eval('iva_condition'), ['consumidor_final', 'no_alcanzado']),
+        'required': ~In(Eval('iva_condition'),
+            ['', 'consumidor_final', 'no_alcanzado']),
         }, depends=['active', 'iva_condition']),
-        'get_vat_number', setter='set_vat_number', searcher='search_vat_number')
+        'get_vat_number', setter='set_vat_number',
+        searcher='search_vat_number')
     vat_number_afip_foreign = fields.Function(fields.Char('CUIT AFIP Foreign'),
-            'get_vat_number_afip_foreign',
-            searcher='search_vat_number_afip_foreign')
+        'get_vat_number_afip_foreign',
+        searcher='search_vat_number_afip_foreign')
 
     @classmethod
     def __setup__(cls):
         super(Party, cls).__setup__()
         cls._buttons.update({
             'get_afip_data': {},
-        })
+            })
+
+    @staticmethod
+    def default_iva_condition():
+        return ''
 
     @staticmethod
     def default_tipo_documento():
@@ -261,15 +257,15 @@ class Party:
     @classmethod
     @ModelView.button
     def import_census(cls, configs):
-        """
+        '''
         Update iva_condition, active fields from afip.
-        """
+        '''
         partys = Pool().get('party.party').search([
                 ('vat_number', '!=', None),
                 ])
 
         for party in partys:
-            afip_dict =  {}
+            afip_dict = {}
             try:
                 data = cls.get_json_afip(party.vat_number)
                 afip_dict = loads(data)
@@ -277,13 +273,14 @@ class Party:
                 if success is True:
                     afip_dict = afip_dict['data']
                 else:
-                    logger.error('Afip return error message %s.' % \
+                    logger.error('Afip return error message %s.' %
                         afip_dict['error']['mensaje'])
             except:
-                logging.error('Could not retrieve vat_number: %s.' % party.vat_number)
-            logging.info("got afip_json:\n" + dumps(afip_dict))
+                logging.error('Could not retrieve vat_number: %s.' %
+                    party.vat_number)
+            logging.info('got afip_json:\n' + dumps(afip_dict))
             mt = afip_dict.get('categoriasMonotributo', {})
-            impuestos = afip_dict.get("impuestos", [])
+            impuestos = afip_dict.get('impuestos', [])
 
             if 32 in impuestos:
                 party.iva_condition = 'exento'
@@ -314,9 +311,9 @@ class Party:
 
     @classmethod
     def import_cron_afip(cls, args=None):
-        """
+        '''
         Cron update afip iva_condition.
-        """
+        '''
         logger.info('Start Scheduler start update afip census.')
         cls.import_census(args)
         logger.info('End Scheduler update afip census.')
@@ -365,9 +362,10 @@ class PartyIdentifier:
 
         identifiers = []
         cursor.execute(*sql_table.select(
-                sql_table.id, sql_table.party, sql_table.code, sql_table.type,
-        where=(sql_table.code != 'AR')))
-        for identifier_id, party_id, code_country, identifier_type in cursor.fetchall():
+            sql_table.id, sql_table.party, sql_table.code, sql_table.type,
+            where=(sql_table.code != 'AR')))
+        for identifier_id, party_id, code_country, identifier_type in \
+                cursor.fetchall():
             identifiers = []
             if not code_country or identifier_type is not None:
                 continue
@@ -378,7 +376,9 @@ class PartyIdentifier:
             cursor.execute(*party.select(
                 party.tipo_documento, where=(party.id == party_id)))
             party_row = cursor.dictfetchone()
-            if party_row['tipo_documento'] and party_row['tipo_documento'] == '96' and len(code_country) < 11:
+            if (party_row['tipo_documento'] and
+                    party_row['tipo_documento'] == '96' and
+                    len(code_country) < 11):
                 code = code_country
                 type = 'ar_dni'
             elif code_country.startswith('AR'):
@@ -395,7 +395,8 @@ class PartyIdentifier:
                 type = 'ar_foreign'
                 cursor_pa = Transaction().cursor
                 cursor_pa.execute(*party_address.join(country_table,
-                        condition=party_address.country == country_table.id).select(country_table.code,
+                        condition=(party_address.country == country_table.id)
+                        ).select(country_table.code,
                         where=(party_address.party == party_id)))
                 row = cursor_pa.dictfetchone()
                 if row:
@@ -408,12 +409,14 @@ class PartyIdentifier:
                     afip_vat_country = cursor_pa.dictfetchone()
                     if afip_vat_country is None:
                         afip_vat_countrys = []
-                        country, = Country.search([('code','=',vat_country)])
-                        afip_vat_countrys.append(
-                                PartyAFIPVatCountry(type_code='0', vat_country=country, vat_number=code))
+                        country, = Country.search([('code', '=', vat_country)])
+                        afip_vat_countrys.append(PartyAFIPVatCountry(
+                            type_code='0', vat_country=country,
+                            vat_number=code))
                         PartyAFIPVatCountry.save(afip_vat_countrys)
             identifiers.append(
-                cls(id=identifier_id, code=code, type=type, vat_country=vat_country))
+                cls(id=identifier_id, code=code, type=type,
+                    vat_country=vat_country))
             cls.save(identifiers)
 
     @classmethod
@@ -479,9 +482,12 @@ class GetAFIPDataStart(ModelView):
     codigo_postal = fields.Char('Codigo Postal', readonly=True)
     fecha_inscripcion = fields.Char('Fecha de Inscripcion', readonly=True)
     subdivision_code = fields.Integer('Subdivision', readonly=True)
-    primary_activity_code = fields.Selection(CODES, 'Actividad primaria', readonly=True)
-    secondary_activity_code = fields.Selection(CODES, 'Actividad secundaria', readonly=True)
+    primary_activity_code = fields.Selection(CODES, 'Actividad primaria',
+        readonly=True)
+    secondary_activity_code = fields.Selection(CODES, 'Actividad secundaria',
+        readonly=True)
     estado = fields.Char('Estado', readonly=True)
+
 
 class GetAFIPData(Wizard):
     'Get AFIP Data'
@@ -509,7 +515,7 @@ class GetAFIPData(Wizard):
         if party:
             afip_json = self.get_json(party.vat_number)
             afip_dict = loads(afip_json)
-            print "   >>> got json:\n" + dumps(afip_dict)
+            print '   >>> got json:\n' + dumps(afip_dict)
             if afip_dict['success'] is True:
                 afip_dict = afip_dict['data']
             else:
@@ -566,7 +572,8 @@ class GetAFIPData(Wizard):
         Address = Pool().get('party.address')
         direccion = Address().search(['party', '=', party])
 
-        if len(direccion) > 0 and (direccion[0].street is None or direccion[0].street == ''):
+        if len(direccion) > 0 and (direccion[0].street is None
+                or direccion[0].street == ''):
             self._update_direccion(direccion[0], party, self.start)
         else:
             direccion = Address()
@@ -574,7 +581,7 @@ class GetAFIPData(Wizard):
 
         afip_dict = loads(self.start.afip_data)['data']
         mt = afip_dict.get('categoriasMonotributo', {})
-        impuestos = afip_dict.get("impuestos", [])
+        impuestos = afip_dict.get('impuestos', [])
 
         if 32 in impuestos:
             party.iva_condition = 'exento'
@@ -591,7 +598,7 @@ class GetAFIPData(Wizard):
 
     @classmethod
     def _update_direccion(self, direccion, party, start):
-        "Actualizamos direccion de una party"
+        'Actualizamos direccion de una party'
         direccion.name = start.nombre
         direccion.street = start.direccion
         direccion.city = start.localidad
