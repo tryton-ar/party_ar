@@ -1,7 +1,7 @@
-# party_ar/actividades.py   -*- coding: utf-8 -*-
-# copyright (c) 2015, gcoop.
-#
-# code licensed under the GPL. see LICENSE.
+# -*- coding: utf-8 -*-
+# This file is part of the party_ar module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
 
 '''códigos de actividad AFIP argentina'''
 
