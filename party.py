@@ -98,7 +98,7 @@ class AFIPVatCountry(ModelSQL, ModelView):
     __name__ = 'party.afip.vat.country'
 
     vat_number = fields.Char('VAT Number')
-    vat_country = fields.Many2One('country.country', 'VAT Country')
+    afip_country = fields.Many2One('afip.country', 'Country')
     type_code = fields.Selection([
         ('0', 'Juridica'),
         ('1', 'Fisica'),
@@ -323,9 +323,9 @@ class PartyIdentifier:
     __metaclass__ = PoolMeta
     __name__ = 'party.identifier'
 
-    country = fields.Many2One('country.country', 'VAT Country', states={
-            'invisible': ~Equal(Eval('type'), 'ar_foreign'),
-            }, depends=['type'], domain=[('code', '!=', 'AR')])
+    afip_country = fields.Many2One('afip.country', 'Country', states={
+             'invisible': ~Equal(Eval('type'), 'ar_foreign'),
+             }, depends=['type'])
 
     @classmethod
     def __setup__(cls):
