@@ -90,15 +90,13 @@ PROVINCIAS = {
     24: u'Tierra del Fuego',
     }
 
-VAT_COUNTRIES = [('', '')]
-
 
 class AFIPVatCountry(ModelSQL, ModelView):
     'AFIP Vat Country'
     __name__ = 'party.afip.vat.country'
 
     vat_number = fields.Char('VAT Number')
-    vat_country = fields.Many2One('country.country', 'VAT Country')
+    afip_country = fields.Many2One('afip.country', 'Country')
     type_code = fields.Selection([
         ('0', 'Juridica'),
         ('1', 'Fisica'),
@@ -323,10 +321,9 @@ class PartyIdentifier:
     __metaclass__ = PoolMeta
     __name__ = 'party.identifier'
 
-    vat_country = fields.Selection(VAT_COUNTRIES, 'VAT Country', states={
-        'invisible': ~Equal(Eval('type'), 'ar_foreign'),
-        },
-        depends=['type'], translate=False)
+    afip_country = fields.Many2One('afip.country', 'Country', states={
+             'invisible': ~Equal(Eval('type'), 'ar_foreign'),
+             }, depends=['type'])
 
     @staticmethod
     def default_vat_country():
@@ -338,12 +335,6 @@ class PartyIdentifier:
         cls._error_messages.update({
             'vat_number_not_found': 'El CUIT no ha sido encontrado',
             })
-        VAT_COUNTRIES = [('', '')]
-        Country = Pool().get('country.country')
-        countries = Country.search([('code', '!=', 'AR')])
-        for country in countries:
-            VAT_COUNTRIES.append((country.code, country.name))
-        cls.vat_country.selection = VAT_COUNTRIES
 
     @classmethod
     def __register__(cls, module_name):
