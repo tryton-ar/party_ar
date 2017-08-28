@@ -401,10 +401,12 @@ class PartyIdentifier:
         Party = pool.get('party.party')
         PartyAddress = pool.get('party.address')
         PartyAFIPVatCountry = pool.get('party.afip.vat.country')
+        AFIPCountry = pool.get('afip.country')
         party_afip_vat_country = PartyAFIPVatCountry.__table__()
         party_address = PartyAddress.__table__()
         party = Party.__table__()
         country_table = Country.__table__()
+        afip_country = AFIPCountry.__table__()
         sql_table = cls.__table__()
         cursor = Transaction().connection.cursor()
         TableHandler = backend.get('TableHandler')
@@ -486,6 +488,54 @@ class PartyIdentifier:
                         [country_code.id, ''],
                         where=(sql_table.id == identifier_id)))
             table_a.drop_column('vat_country')
+
+        # Migration legacy: country -> afip_country
+        # map ISO country code to AFIP destination country code:
+        pais_dst_cmp = {
+            'gt': 213, 'gr': 413, 'gq': 119, 'gy': 214, 'ge': 351,
+            'gb': 426, 'gn': 118, 'gm': 116, 'gh': 117, 'tv': 517,
+            'tt': 224, 'lk': 307, 'li': 418, 'lv': 441, 'to': 519,
+            'lt': 442, 'lu': 419, 'lr': 122, 'tg': 140, 'td': 111,
+            'ly': 123, 'do': 209, 'dm': 233, 'dk': 409, 'uy': 225,
+            'qa': 322, 'zm': 144, 'ee': 440, 'eg': 113, 'ec': 210,
+            'es': 410, 'er': 160, 'rs': 454, 'bd': 345, 'bg': 407,
+            'bb': 201, 'bh': 303, 'bi': 104, 'jm': 217, 'jo': 321,
+            'br': 203, 'bs': 239, 'by': 439, 'bz': 236, 'ua': 445,
+            'ch': 430, 'co': 205, 'cn': 310, 'cl': 208, 'cg': 108,
+            'cy': 435, 'cr': 206, 'cv': 150, 'cu': 207, 'pr': 223,
+            'tn': 141, 'pw': 516, 'pt': 425, 'py': 221, 'pk': 332,
+            'ph': 312, 'pl': 424, 'hr': 447, 'it': 417, 'hk': 341,
+            'hn': 216, 'vn': 337, 'me': 453, 'mg': 124, 'ma': 127,
+            'ml': 126, 'mo': 344, 'mn': 329, 'us': 212, 'mt': 420,
+            'mw': 125, 'mr': 129, 'ug': 142, 'my': 326, 'mz': 151,
+            'vc': 235, 'ad': 404, 'ag': 237, 'iq': 317, 'is': 416,
+            'am': 349, 'al': 401, 'ao': 149, 'au': 501, 'at': 405,
+            'in': 315, 'ie': 415, 'id': 316, 'ni': 219, 'no': 422,
+            'il': 319, 'na': 158, 'ne': 130, 'ng': 131, 'np': 330,
+            'so': 136, 'nr': 503, 'fr': 412, 'fi': 411, 'sz': 137,
+            'sv': 211, 'sk': 448, 'si': 449, 'kw': 323, 'sn': 134,
+            'sm': 428, 'sl': 135, 'sc': 152, 'sg': 333, 'se': 429,
+            'uk': 426, 'bo': 202, 'ca': 204, 'mx': 218, 'pe': 222,
+            've': 226, 'tw': 313, 'jp': 320, 'be': 406, 'nl': 423,
+            'de': 438, 'ru': 444,
+            }
+        if table_a.column_exist('country'):
+            cursor.execute(*sql_table.select(
+                    sql_table.id, sql_table.vat_country))
+
+            for id, vat_country_id in cursor.fetchall():
+                if vat_country_id != '':
+                    cursor.execute(*country.select(country.code,
+                            where=(country.id == vat_country_id)))
+                    row, = cursor_dict(cursor)
+                    dst = pais_dst_cmp[row['code'].lower()]
+                    cursor.execute(*afip_country.select(afip_country.id,
+                            where=(afip_country.code == str(dst))))
+                    row, = cursor_dict(cursor)
+                    cursor.execute(*sql_table.update(
+                        [sql_table.afip_country], [row['id']],
+                        where=sql_table.id == id))
+            table_a.drop_column('country')
 
     @classmethod
     def get_types(cls):
