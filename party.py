@@ -444,11 +444,11 @@ class PartyIdentifier:
     def check_foreign_vat(self):
         AFIPVatCountry = Pool().get('party.afip.vat.country')
 
-        if not self.vat_country:
+        if not self.afip_country:
             return
 
         vat_numbers = AFIPVatCountry.search([
-            ('vat_country', '=', self.vat_country),
+            ('afip_country.code', '=', self.afip_country.code),
             ('vat_number', '=', self.code),
             ])
 
