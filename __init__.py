@@ -3,18 +3,20 @@
 # the full copyright notices and license terms.
 
 from trytond.pool import Pool
-from .party import *
-from .address import *
+from . import party
+from . import address
+from . import afip
 
 
 def register():
     Pool.register(
-        AFIPVatCountry,
-        Party,
-        PartyIdentifier,
-        Address,
-        GetAFIPDataStart,
+        afip.AFIPCountry,
+        party.AFIPVatCountry,
+        party.Party,
+        party.PartyIdentifier,
+        party.GetAFIPDataStart,
+        address.Address,
         module='party_ar', type_='model')
     Pool.register(
-        GetAFIPData,
+        party.GetAFIPData,
         module='party_ar', type_='wizard')
