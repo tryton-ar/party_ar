@@ -5,10 +5,12 @@
 from trytond.pool import Pool
 from . import party
 from . import address
+from . import afip
 
 
 def register():
     Pool.register(
+        afip.AFIPCountry,
         party.AFIPVatCountry,
         party.Party,
         party.PartyIdentifier,
