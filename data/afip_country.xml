@@ -1,0 +1,1025 @@
+<?xml version="1.0"?>
+<tryton>
+    <data noupdate="1" skiptest="1">
+        <record model="afip.country" id="101">
+            <field name="name">BURKINA FASO</field>
+            <field name="code">101</field>
+        </record>
+        <record model="afip.country" id="102">
+            <field name="name">ARGELIA</field>
+            <field name="code">102</field>
+        </record>
+        <record model="afip.country" id="103">
+            <field name="name">BOTSWANA</field>
+            <field name="code">103</field>
+        </record>
+        <record model="afip.country" id="104">
+            <field name="name">BURUNDI</field>
+            <field name="code">104</field>
+        </record>
+        <record model="afip.country" id="105">
+            <field name="name">CAMERUN</field>
+            <field name="code">105</field>
+        </record>
+        <record model="afip.country" id="107">
+            <field name="name">REP. CENTROAFRICANA.</field>
+            <field name="code">107</field>
+        </record>
+        <record model="afip.country" id="108">
+            <field name="name">CONGO</field>
+            <field name="code">108</field>
+        </record>
+        <record model="afip.country" id="109">
+            <field name="name">REP.DEMOCRAT.DEL CONGO EX ZAIRE</field>
+            <field name="code">109</field>
+        </record>
+        <record model="afip.country" id="110">
+            <field name="name">COSTA DE MARFIL</field>
+            <field name="code">110</field>
+        </record>
+        <record model="afip.country" id="111">
+            <field name="name">CHAD</field>
+            <field name="code">111</field>
+        </record>
+        <record model="afip.country" id="112">
+            <field name="name">BENIN</field>
+            <field name="code">112</field>
+        </record>
+        <record model="afip.country" id="113">
+            <field name="name">EGIPTO</field>
+            <field name="code">113</field>
+        </record>
+        <record model="afip.country" id="115">
+            <field name="name">GABON</field>
+            <field name="code">115</field>
+        </record>
+        <record model="afip.country" id="116">
+            <field name="name">GAMBIA</field>
+            <field name="code">116</field>
+        </record>
+        <record model="afip.country" id="117">
+            <field name="name">GHANA</field>
+            <field name="code">117</field>
+        </record>
+        <record model="afip.country" id="118">
+            <field name="name">GUINEA</field>
+            <field name="code">118</field>
+        </record>
+        <record model="afip.country" id="119">
+            <field name="name">GUINEA ECUATORIAL</field>
+            <field name="code">119</field>
+        </record>
+        <record model="afip.country" id="120">
+            <field name="name">KENYA</field>
+            <field name="code">120</field>
+        </record>
+        <record model="afip.country" id="121">
+            <field name="name">LESOTHO</field>
+            <field name="code">121</field>
+        </record>
+        <record model="afip.country" id="122">
+            <field name="name">LIBERIA</field>
+            <field name="code">122</field>
+        </record>
+        <record model="afip.country" id="123">
+            <field name="name">LIBIA</field>
+            <field name="code">123</field>
+        </record>
+        <record model="afip.country" id="124">
+            <field name="name">MADAGASCAR</field>
+            <field name="code">124</field>
+        </record>
+        <record model="afip.country" id="125">
+            <field name="name">MALAWI</field>
+            <field name="code">125</field>
+        </record>
+        <record model="afip.country" id="126">
+            <field name="name">MALI</field>
+            <field name="code">126</field>
+        </record>
+        <record model="afip.country" id="127">
+            <field name="name">MARRUECOS</field>
+            <field name="code">127</field>
+        </record>
+        <record model="afip.country" id="128">
+            <field name="name">MAURICIO,ISLAS</field>
+            <field name="code">128</field>
+        </record>
+        <record model="afip.country" id="129">
+            <field name="name">MAURITANIA</field>
+            <field name="code">129</field>
+        </record>
+        <record model="afip.country" id="130">
+            <field name="name">NIGER</field>
+            <field name="code">130</field>
+        </record>
+        <record model="afip.country" id="131">
+            <field name="name">NIGERIA</field>
+            <field name="code">131</field>
+        </record>
+        <record model="afip.country" id="132">
+            <field name="name">ZIMBABWE</field>
+            <field name="code">132</field>
+        </record>
+        <record model="afip.country" id="133">
+            <field name="name">RWANDA</field>
+            <field name="code">133</field>
+        </record>
+        <record model="afip.country" id="134">
+            <field name="name">SENEGAL</field>
+            <field name="code">134</field>
+        </record>
+        <record model="afip.country" id="135">
+            <field name="name">SIERRA LEONA</field>
+            <field name="code">135</field>
+        </record>
+        <record model="afip.country" id="136">
+            <field name="name">SOMALIA</field>
+            <field name="code">136</field>
+        </record>
+        <record model="afip.country" id="137">
+            <field name="name">SWAZILANDIA</field>
+            <field name="code">137</field>
+        </record>
+        <record model="afip.country" id="138">
+            <field name="name">SUDAN</field>
+            <field name="code">138</field>
+        </record>
+        <record model="afip.country" id="139">
+            <field name="name">TANZANIA</field>
+            <field name="code">139</field>
+        </record>
+        <record model="afip.country" id="140">
+            <field name="name">TOGO</field>
+            <field name="code">140</field>
+        </record>
+        <record model="afip.country" id="141">
+            <field name="name">TUNEZ</field>
+            <field name="code">141</field>
+        </record>
+        <record model="afip.country" id="142">
+            <field name="name">UGANDA</field>
+            <field name="code">142</field>
+        </record>
+        <record model="afip.country" id="144">
+            <field name="name">ZAMBIA</field>
+            <field name="code">144</field>
+        </record>
+        <record model="afip.country" id="145">
+            <field name="name">TERRIT.VINCULADOS AL R UNIDO</field>
+            <field name="code">145</field>
+        </record>
+        <record model="afip.country" id="146">
+            <field name="name">TERRIT.VINCULADOS A ESPAÑA</field>
+            <field name="code">146</field>
+        </record>
+        <record model="afip.country" id="147">
+            <field name="name">TERRIT.VINCULADOS A FRANCIA</field>
+            <field name="code">147</field>
+        </record>
+        <record model="afip.country" id="149">
+            <field name="name">ANGOLA</field>
+            <field name="code">149</field>
+        </record>
+        <record model="afip.country" id="150">
+            <field name="name">CABO VERDE</field>
+            <field name="code">150</field>
+        </record>
+        <record model="afip.country" id="151">
+            <field name="name">MOZAMBIQUE</field>
+            <field name="code">151</field>
+        </record>
+        <record model="afip.country" id="152">
+            <field name="name">SEYCHELLES</field>
+            <field name="code">152</field>
+        </record>
+        <record model="afip.country" id="153">
+            <field name="name">DJIBOUTI</field>
+            <field name="code">153</field>
+        </record>
+        <record model="afip.country" id="155">
+            <field name="name">COMORAS</field>
+            <field name="code">155</field>
+        </record>
+        <record model="afip.country" id="156">
+            <field name="name">GUINEA BISSAU</field>
+            <field name="code">156</field>
+        </record>
+        <record model="afip.country" id="157">
+            <field name="name">STO.TOME Y PRINCIPE</field>
+            <field name="code">157</field>
+        </record>
+        <record model="afip.country" id="158">
+            <field name="name">NAMIBIA</field>
+            <field name="code">158</field>
+        </record>
+        <record model="afip.country" id="159">
+            <field name="name">SUDAFRICA</field>
+            <field name="code">159</field>
+        </record>
+        <record model="afip.country" id="160">
+            <field name="name">ERITREA</field>
+            <field name="code">160</field>
+        </record>
+        <record model="afip.country" id="161">
+            <field name="name">ETIOPIA</field>
+            <field name="code">161</field>
+        </record>
+        <record model="afip.country" id="197">
+            <field name="name">RESTO (AFRICA)</field>
+            <field name="code">197</field>
+        </record>
+        <record model="afip.country" id="198">
+            <field name="name">INDETERMINADO (AFRICA)</field>
+            <field name="code">198</field>
+        </record>
+        <record model="afip.country" id="200">
+            <field name="name">ARGENTINA</field>
+            <field name="code">200</field>
+        </record>
+        <record model="afip.country" id="201">
+            <field name="name">BARBADOS</field>
+            <field name="code">201</field>
+        </record>
+        <record model="afip.country" id="202">
+            <field name="name">BOLIVIA</field>
+            <field name="code">202</field>
+        </record>
+        <record model="afip.country" id="203">
+            <field name="name">BRASIL</field>
+            <field name="code">203</field>
+        </record>
+        <record model="afip.country" id="204">
+            <field name="name">CANADA</field>
+            <field name="code">204</field>
+        </record>
+        <record model="afip.country" id="205">
+            <field name="name">COLOMBIA</field>
+            <field name="code">205</field>
+        </record>
+        <record model="afip.country" id="206">
+            <field name="name">COSTA RICA</field>
+            <field name="code">206</field>
+        </record>
+        <record model="afip.country" id="207">
+            <field name="name">CUBA</field>
+            <field name="code">207</field>
+        </record>
+        <record model="afip.country" id="208">
+            <field name="name">CHILE</field>
+            <field name="code">208</field>
+        </record>
+        <record model="afip.country" id="209">
+            <field name="name">REPÚBLICA DOMINICANA</field>
+            <field name="code">209</field>
+        </record>
+        <record model="afip.country" id="210">
+            <field name="name">ECUADOR</field>
+            <field name="code">210</field>
+        </record>
+        <record model="afip.country" id="211">
+            <field name="name">EL SALVADOR</field>
+            <field name="code">211</field>
+        </record>
+        <record model="afip.country" id="212">
+            <field name="name">ESTADOS UNIDOS</field>
+            <field name="code">212</field>
+        </record>
+        <record model="afip.country" id="213">
+            <field name="name">GUATEMALA</field>
+            <field name="code">213</field>
+        </record>
+        <record model="afip.country" id="214">
+            <field name="name">GUYANA</field>
+            <field name="code">214</field>
+        </record>
+        <record model="afip.country" id="215">
+            <field name="name">HAITI</field>
+            <field name="code">215</field>
+        </record>
+        <record model="afip.country" id="216">
+            <field name="name">HONDURAS</field>
+            <field name="code">216</field>
+        </record>
+        <record model="afip.country" id="217">
+            <field name="name">JAMAICA</field>
+            <field name="code">217</field>
+        </record>
+        <record model="afip.country" id="218">
+            <field name="name">MEXICO</field>
+            <field name="code">218</field>
+        </record>
+        <record model="afip.country" id="219">
+            <field name="name">NICARAGUA</field>
+            <field name="code">219</field>
+        </record>
+        <record model="afip.country" id="220">
+            <field name="name">PANAMA</field>
+            <field name="code">220</field>
+        </record>
+        <record model="afip.country" id="221">
+            <field name="name">PARAGUAY</field>
+            <field name="code">221</field>
+        </record>
+        <record model="afip.country" id="222">
+            <field name="name">PERU</field>
+            <field name="code">222</field>
+        </record>
+        <record model="afip.country" id="223">
+            <field name="name">PUERTO RICO</field>
+            <field name="code">223</field>
+        </record>
+        <record model="afip.country" id="224">
+            <field name="name">TRINIDAD Y TOBAGO</field>
+            <field name="code">224</field>
+        </record>
+        <record model="afip.country" id="225">
+            <field name="name">URUGUAY</field>
+            <field name="code">225</field>
+        </record>
+        <record model="afip.country" id="226">
+            <field name="name">VENEZUELA</field>
+            <field name="code">226</field>
+        </record>
+        <record model="afip.country" id="227">
+            <field name="name">TERRIT.VINCULADO AL R.UNIDO</field>
+            <field name="code">227</field>
+        </record>
+        <record model="afip.country" id="228">
+            <field name="name">TER.VINCULADOS A DINAMARCA</field>
+            <field name="code">228</field>
+        </record>
+        <record model="afip.country" id="229">
+            <field name="name">TERRIT.VINCULADOS A FRANCIA AMERIC.</field>
+            <field name="code">229</field>
+        </record>
+        <record model="afip.country" id="230">
+            <field name="name">TERRIT. HOLANDESES</field>
+            <field name="code">230</field>
+        </record>
+        <record model="afip.country" id="231">
+            <field name="name">TER.VINCULADOS A ESTADOS UNIDOS</field>
+            <field name="code">231</field>
+        </record>
+        <record model="afip.country" id="232">
+            <field name="name">SURINAME</field>
+            <field name="code">232</field>
+        </record>
+        <record model="afip.country" id="233">
+            <field name="name">DOMINICA</field>
+            <field name="code">233</field>
+        </record>
+        <record model="afip.country" id="234">
+            <field name="name">SANTA LUCIA</field>
+            <field name="code">234</field>
+        </record>
+        <record model="afip.country" id="235">
+            <field name="name">SAN VICENTE Y LAS GRANADINAS</field>
+            <field name="code">235</field>
+        </record>
+        <record model="afip.country" id="236">
+            <field name="name">BELICE</field>
+            <field name="code">236</field>
+        </record>
+        <record model="afip.country" id="237">
+            <field name="name">ANTIGUA Y BARBUDA</field>
+            <field name="code">237</field>
+        </record>
+        <record model="afip.country" id="238">
+            <field name="name">S.CRISTOBAL Y NEVIS</field>
+            <field name="code">238</field>
+        </record>
+        <record model="afip.country" id="239">
+            <field name="name">BAHAMAS</field>
+            <field name="code">239</field>
+        </record>
+        <record model="afip.country" id="240">
+            <field name="name">GRENADA</field>
+            <field name="code">240</field>
+        </record>
+        <record model="afip.country" id="241">
+            <field name="name">ANTILLAS HOLANDESAS</field>
+            <field name="code">241</field>
+        </record>
+        <record model="afip.country" id="250">
+            <field name="name">AAE Tierra del Fuego - ARGENTINA</field>
+            <field name="code">250</field>
+        </record>
+        <record model="afip.country" id="251">
+            <field name="name">ZF La Plata - ARGENTINA</field>
+            <field name="code">251</field>
+        </record>
+        <record model="afip.country" id="252">
+            <field name="name">ZF Justo Daract - ARGENTINA</field>
+            <field name="code">252</field>
+        </record>
+        <record model="afip.country" id="253">
+            <field name="name">ZF Río Gallegos - ARGENTINA</field>
+            <field name="code">253</field>
+        </record>
+        <record model="afip.country" id="254">
+            <field name="name">Islas Malvinas - ARGENTINA</field>
+            <field name="code">254</field>
+        </record>
+        <record model="afip.country" id="255">
+            <field name="name">ZF Tucumán - ARGENTINA</field>
+            <field name="code">255</field>
+        </record>
+        <record model="afip.country" id="256">
+            <field name="name">ZF Córdoba - ARGENTINA</field>
+            <field name="code">256</field>
+        </record>
+        <record model="afip.country" id="257">
+            <field name="name">ZF Mendoza - ARGENTINA</field>
+            <field name="code">257</field>
+        </record>
+        <record model="afip.country" id="258">
+            <field name="name">ZF General Pico - ARGENTINA</field>
+            <field name="code">258</field>
+        </record>
+        <record model="afip.country" id="259">
+            <field name="name">ZF Comodoro Rivadavia - ARGENTINA</field>
+            <field name="code">259</field>
+        </record>
+        <record model="afip.country" id="260">
+            <field name="name">ZF Iquique</field>
+            <field name="code">260</field>
+        </record>
+        <record model="afip.country" id="261">
+            <field name="name">ZF Punta Arenas</field>
+            <field name="code">261</field>
+        </record>
+        <record model="afip.country" id="262">
+            <field name="name">ZF Salta - ARGENTINA</field>
+            <field name="code">262</field>
+        </record>
+        <record model="afip.country" id="263">
+            <field name="name">ZF Paso de los Libres - ARGENTINA</field>
+            <field name="code">263</field>
+        </record>
+        <record model="afip.country" id="264">
+            <field name="name">ZF Puerto Iguazú - ARGENTINA</field>
+            <field name="code">264</field>
+        </record>
+        <record model="afip.country" id="265">
+            <field name="name">SECTOR ANTARTICO ARG.</field>
+            <field name="code">265</field>
+        </record>
+        <record model="afip.country" id="270">
+            <field name="name">ZF Colón - REPÚBLICA DE PANAMÁ</field>
+            <field name="code">270</field>
+        </record>
+        <record model="afip.country" id="271">
+            <field name="name">ZF Winner (Sta. C. de la Sierra) - BOLIVIA</field>
+            <field name="code">271</field>
+        </record>
+        <record model="afip.country" id="280">
+            <field name="name">ZF Colonia - URUGUAY</field>
+            <field name="code">280</field>
+        </record>
+        <record model="afip.country" id="281">
+            <field name="name">ZF Florida - URUGUAY</field>
+            <field name="code">281</field>
+        </record>
+        <record model="afip.country" id="282">
+            <field name="name">ZF Libertad - URUGUAY</field>
+            <field name="code">282</field>
+        </record>
+        <record model="afip.country" id="283">
+            <field name="name">ZF Zonamerica - URUGUAY</field>
+            <field name="code">283</field>
+        </record>
+        <record model="afip.country" id="284">
+            <field name="name">ZF Nueva Helvecia - URUGUAY</field>
+            <field name="code">284</field>
+        </record>
+        <record model="afip.country" id="285">
+            <field name="name">ZF Nueva Palmira - URUGUAY</field>
+            <field name="code">285</field>
+        </record>
+        <record model="afip.country" id="286">
+            <field name="name">ZF Río Negro - URUGUAY</field>
+            <field name="code">286</field>
+        </record>
+        <record model="afip.country" id="287">
+            <field name="name">ZF Rivera - URUGUAY</field>
+            <field name="code">287</field>
+        </record>
+        <record model="afip.country" id="288">
+            <field name="name">ZF San José - URUGUAY</field>
+            <field name="code">288</field>
+        </record>
+        <record model="afip.country" id="291">
+            <field name="name">ZF Manaos - BRASIL</field>
+            <field name="code">291</field>
+        </record>
+        <record model="afip.country" id="295">
+            <field name="name">MAR ARG ZONA ECO.EX</field>
+            <field name="code">295</field>
+        </record>
+        <record model="afip.country" id="296">
+            <field name="name">RIOS ARG NAVEG INTER</field>
+            <field name="code">296</field>
+        </record>
+        <record model="afip.country" id="297">
+            <field name="name">RESTO AMERICA</field>
+            <field name="code">297</field>
+        </record>
+        <record model="afip.country" id="298">
+            <field name="name">INDETERMINADO (AMERICA)</field>
+            <field name="code">298</field>
+        </record>
+        <record model="afip.country" id="301">
+            <field name="name">AFGANISTAN</field>
+            <field name="code">301</field>
+        </record>
+        <record model="afip.country" id="302">
+            <field name="name">ARABIA SAUDITA</field>
+            <field name="code">302</field>
+        </record>
+        <record model="afip.country" id="303">
+            <field name="name">BAHREIN</field>
+            <field name="code">303</field>
+        </record>
+        <record model="afip.country" id="304">
+            <field name="name">MYANMAR (EX-BIRMANIA)</field>
+            <field name="code">304</field>
+        </record>
+        <record model="afip.country" id="305">
+            <field name="name">BUTAN</field>
+            <field name="code">305</field>
+        </record>
+        <record model="afip.country" id="306">
+            <field name="name">CAMBODYA (EX-KAMPUCHE)</field>
+            <field name="code">306</field>
+        </record>
+        <record model="afip.country" id="307">
+            <field name="name">SRI LANKA</field>
+            <field name="code">307</field>
+        </record>
+        <record model="afip.country" id="308">
+            <field name="name">COREA DEMOCRATICA</field>
+            <field name="code">308</field>
+        </record>
+        <record model="afip.country" id="309">
+            <field name="name">COREA REPUBLICANA</field>
+            <field name="code">309</field>
+        </record>
+        <record model="afip.country" id="310">
+            <field name="name">CHINA</field>
+            <field name="code">310</field>
+        </record>
+        <record model="afip.country" id="312">
+            <field name="name">FILIPINAS</field>
+            <field name="code">312</field>
+        </record>
+        <record model="afip.country" id="313">
+            <field name="name">TAIWAN</field>
+            <field name="code">313</field>
+        </record>
+        <record model="afip.country" id="315">
+            <field name="name">INDIA</field>
+            <field name="code">315</field>
+        </record>
+        <record model="afip.country" id="316">
+            <field name="name">INDONESIA</field>
+            <field name="code">316</field>
+        </record>
+        <record model="afip.country" id="317">
+            <field name="name">IRAK</field>
+            <field name="code">317</field>
+        </record>
+        <record model="afip.country" id="318">
+            <field name="name">IRAN</field>
+            <field name="code">318</field>
+        </record>
+        <record model="afip.country" id="319">
+            <field name="name">ISRAEL</field>
+            <field name="code">319</field>
+        </record>
+        <record model="afip.country" id="320">
+            <field name="name">JAPON</field>
+            <field name="code">320</field>
+        </record>
+        <record model="afip.country" id="321">
+            <field name="name">JORDANIA</field>
+            <field name="code">321</field>
+        </record>
+        <record model="afip.country" id="322">
+            <field name="name">QATAR</field>
+            <field name="code">322</field>
+        </record>
+        <record model="afip.country" id="323">
+            <field name="name">KUWAIT</field>
+            <field name="code">323</field>
+        </record>
+        <record model="afip.country" id="324">
+            <field name="name">LAOS</field>
+            <field name="code">324</field>
+        </record>
+        <record model="afip.country" id="325">
+            <field name="name">LIBANO</field>
+            <field name="code">325</field>
+        </record>
+        <record model="afip.country" id="326">
+            <field name="name">MALASIA</field>
+            <field name="code">326</field>
+        </record>
+        <record model="afip.country" id="327">
+            <field name="name">MALDIVAS ISLAS</field>
+            <field name="code">327</field>
+        </record>
+        <record model="afip.country" id="328">
+            <field name="name">OMAN</field>
+            <field name="code">328</field>
+        </record>
+        <record model="afip.country" id="329">
+            <field name="name">MONGOLIA</field>
+            <field name="code">329</field>
+        </record>
+        <record model="afip.country" id="330">
+            <field name="name">NEPAL</field>
+            <field name="code">330</field>
+        </record>
+        <record model="afip.country" id="331">
+            <field name="name">EMIRATOS ARABES UNIDOS</field>
+            <field name="code">331</field>
+        </record>
+        <record model="afip.country" id="332">
+            <field name="name">PAKISTÁN</field>
+            <field name="code">332</field>
+        </record>
+        <record model="afip.country" id="333">
+            <field name="name">SINGAPUR</field>
+            <field name="code">333</field>
+        </record>
+        <record model="afip.country" id="334">
+            <field name="name">SIRIA</field>
+            <field name="code">334</field>
+        </record>
+        <record model="afip.country" id="335">
+            <field name="name">THAILANDIA</field>
+            <field name="code">335</field>
+        </record>
+        <record model="afip.country" id="337">
+            <field name="name">VIETNAM</field>
+            <field name="code">337</field>
+        </record>
+        <record model="afip.country" id="341">
+            <field name="name">HONG KONG</field>
+            <field name="code">341</field>
+        </record>
+        <record model="afip.country" id="344">
+            <field name="name">MACAO</field>
+            <field name="code">344</field>
+        </record>
+        <record model="afip.country" id="345">
+            <field name="name">BANGLADESH</field>
+            <field name="code">345</field>
+        </record>
+        <record model="afip.country" id="346">
+            <field name="name">BRUNEI</field>
+            <field name="code">346</field>
+        </record>
+        <record model="afip.country" id="348">
+            <field name="name">REPUBLICA DE YEMEN</field>
+            <field name="code">348</field>
+        </record>
+        <record model="afip.country" id="349">
+            <field name="name">ARMENIA</field>
+            <field name="code">349</field>
+        </record>
+        <record model="afip.country" id="350">
+            <field name="name">AZERBAIJAN</field>
+            <field name="code">350</field>
+        </record>
+        <record model="afip.country" id="351">
+            <field name="name">GEORGIA</field>
+            <field name="code">351</field>
+        </record>
+        <record model="afip.country" id="352">
+            <field name="name">KAZAJSTAN</field>
+            <field name="code">352</field>
+        </record>
+        <record model="afip.country" id="353">
+            <field name="name">KIRGUIZISTAN</field>
+            <field name="code">353</field>
+        </record>
+        <record model="afip.country" id="354">
+            <field name="name">TAYIKISTAN</field>
+            <field name="code">354</field>
+        </record>
+        <record model="afip.country" id="355">
+            <field name="name">TURKMENISTAN</field>
+            <field name="code">355</field>
+        </record>
+        <record model="afip.country" id="356">
+            <field name="name">UZBEKISTAN</field>
+            <field name="code">356</field>
+        </record>
+        <record model="afip.country" id="357">
+            <field name="name">TERR. AU. PALESTINOS</field>
+            <field name="code">357</field>
+        </record>
+        <record model="afip.country" id="397">
+            <field name="name">RESTO DE ASIA</field>
+            <field name="code">397</field>
+        </record>
+        <record model="afip.country" id="398">
+            <field name="name">INDET.(ASIA)</field>
+            <field name="code">398</field>
+        </record>
+        <record model="afip.country" id="401">
+            <field name="name">ALBANIA</field>
+            <field name="code">401</field>
+        </record>
+        <record model="afip.country" id="404">
+            <field name="name">ANDORRA</field>
+            <field name="code">404</field>
+        </record>
+        <record model="afip.country" id="405">
+            <field name="name">AUSTRIA</field>
+            <field name="code">405</field>
+        </record>
+        <record model="afip.country" id="406">
+            <field name="name">BELGICA</field>
+            <field name="code">406</field>
+        </record>
+        <record model="afip.country" id="407">
+            <field name="name">BULGARIA</field>
+            <field name="code">407</field>
+        </record>
+        <record model="afip.country" id="409">
+            <field name="name">DINAMARCA</field>
+            <field name="code">409</field>
+        </record>
+        <record model="afip.country" id="410">
+            <field name="name">ESPAÑA</field>
+            <field name="code">410</field>
+        </record>
+        <record model="afip.country" id="411">
+            <field name="name">FINLANDIA</field>
+            <field name="code">411</field>
+        </record>
+        <record model="afip.country" id="412">
+            <field name="name">FRANCIA</field>
+            <field name="code">412</field>
+        </record>
+        <record model="afip.country" id="413">
+            <field name="name">GRECIA</field>
+            <field name="code">413</field>
+        </record>
+        <record model="afip.country" id="414">
+            <field name="name">HUNGRIA</field>
+            <field name="code">414</field>
+        </record>
+        <record model="afip.country" id="415">
+            <field name="name">IRLANDA</field>
+            <field name="code">415</field>
+        </record>
+        <record model="afip.country" id="416">
+            <field name="name">ISLANDIA</field>
+            <field name="code">416</field>
+        </record>
+        <record model="afip.country" id="417">
+            <field name="name">ITALIA</field>
+            <field name="code">417</field>
+        </record>
+        <record model="afip.country" id="418">
+            <field name="name">LIECHTENSTEIN</field>
+            <field name="code">418</field>
+        </record>
+        <record model="afip.country" id="419">
+            <field name="name">LUXEMBURGO</field>
+            <field name="code">419</field>
+        </record>
+        <record model="afip.country" id="420">
+            <field name="name">MALTA</field>
+            <field name="code">420</field>
+        </record>
+        <record model="afip.country" id="421">
+            <field name="name">MONACO</field>
+            <field name="code">421</field>
+        </record>
+        <record model="afip.country" id="422">
+            <field name="name">NORUEGA</field>
+            <field name="code">422</field>
+        </record>
+        <record model="afip.country" id="423">
+            <field name="name">PAISES BAJOS</field>
+            <field name="code">423</field>
+        </record>
+        <record model="afip.country" id="424">
+            <field name="name">POLONIA</field>
+            <field name="code">424</field>
+        </record>
+        <record model="afip.country" id="425">
+            <field name="name">PORTUGAL</field>
+            <field name="code">425</field>
+        </record>
+        <record model="afip.country" id="426">
+            <field name="name">REINO UNIDO</field>
+            <field name="code">426</field>
+        </record>
+        <record model="afip.country" id="427">
+            <field name="name">RUMANIA</field>
+            <field name="code">427</field>
+        </record>
+        <record model="afip.country" id="428">
+            <field name="name">SAN MARINO</field>
+            <field name="code">428</field>
+        </record>
+        <record model="afip.country" id="429">
+            <field name="name">SUECIA</field>
+            <field name="code">429</field>
+        </record>
+        <record model="afip.country" id="430">
+            <field name="name">SUIZA</field>
+            <field name="code">430</field>
+        </record>
+        <record model="afip.country" id="431">
+            <field name="name">VATICANO(SANTA SEDE)</field>
+            <field name="code">431</field>
+        </record>
+        <record model="afip.country" id="433">
+            <field name="name">POS.BRIT.(EUROPA)</field>
+            <field name="code">433</field>
+        </record>
+        <record model="afip.country" id="435">
+            <field name="name">CHIPRE</field>
+            <field name="code">435</field>
+        </record>
+        <record model="afip.country" id="436">
+            <field name="name">TURQUIA</field>
+            <field name="code">436</field>
+        </record>
+        <record model="afip.country" id="438">
+            <field name="name">ALEMANIA,REP.FED.</field>
+            <field name="code">438</field>
+        </record>
+        <record model="afip.country" id="439">
+            <field name="name">BIELORRUSIA</field>
+            <field name="code">439</field>
+        </record>
+        <record model="afip.country" id="440">
+            <field name="name">ESTONIA</field>
+            <field name="code">440</field>
+        </record>
+        <record model="afip.country" id="441">
+            <field name="name">LETONIA</field>
+            <field name="code">441</field>
+        </record>
+        <record model="afip.country" id="442">
+            <field name="name">LITUANIA</field>
+            <field name="code">442</field>
+        </record>
+        <record model="afip.country" id="443">
+            <field name="name">MOLDAVIA</field>
+            <field name="code">443</field>
+        </record>
+        <record model="afip.country" id="444">
+            <field name="name">RUSIA</field>
+            <field name="code">444</field>
+        </record>
+        <record model="afip.country" id="445">
+            <field name="name">UCRANIA</field>
+            <field name="code">445</field>
+        </record>
+        <record model="afip.country" id="446">
+            <field name="name">BOSNIA HERZEGOVINA</field>
+            <field name="code">446</field>
+        </record>
+        <record model="afip.country" id="447">
+            <field name="name">CROACIA</field>
+            <field name="code">447</field>
+        </record>
+        <record model="afip.country" id="448">
+            <field name="name">ESLOVAQUIA</field>
+            <field name="code">448</field>
+        </record>
+        <record model="afip.country" id="449">
+            <field name="name">ESLOVENIA</field>
+            <field name="code">449</field>
+        </record>
+        <record model="afip.country" id="450">
+            <field name="name">MACEDONIA</field>
+            <field name="code">450</field>
+        </record>
+        <record model="afip.country" id="451">
+            <field name="name">REP. CHECA</field>
+            <field name="code">451</field>
+        </record>
+        <record model="afip.country" id="453">
+            <field name="name">MONTENEGRO</field>
+            <field name="code">453</field>
+        </record>
+        <record model="afip.country" id="454">
+            <field name="name">SERBIA</field>
+            <field name="code">454</field>
+        </record>
+        <record model="afip.country" id="497">
+            <field name="name">RESTO EUROPA</field>
+            <field name="code">497</field>
+        </record>
+        <record model="afip.country" id="498">
+            <field name="name">INDET.(EUROPA)</field>
+            <field name="code">498</field>
+        </record>
+        <record model="afip.country" id="501">
+            <field name="name">AUSTRALIA</field>
+            <field name="code">501</field>
+        </record>
+        <record model="afip.country" id="503">
+            <field name="name">NAURU</field>
+            <field name="code">503</field>
+        </record>
+        <record model="afip.country" id="504">
+            <field name="name">NUEVA ZELANDIA</field>
+            <field name="code">504</field>
+        </record>
+        <record model="afip.country" id="505">
+            <field name="name">VANATU</field>
+            <field name="code">505</field>
+        </record>
+        <record model="afip.country" id="506">
+            <field name="name">SAMOA OCCIDENTAL</field>
+            <field name="code">506</field>
+        </record>
+        <record model="afip.country" id="507">
+            <field name="name">TERRITORIO VINCULADOS A AUSTRALIA</field>
+            <field name="code">507</field>
+        </record>
+        <record model="afip.country" id="508">
+            <field name="name">TERRITORIOS VINCULADOS AL R. UNIDO</field>
+            <field name="code">508</field>
+        </record>
+        <record model="afip.country" id="509">
+            <field name="name">TERRITORIOS VINCULADOS A FRANCIA</field>
+            <field name="code">509</field>
+        </record>
+        <record model="afip.country" id="510">
+            <field name="name">TER VINCULADOS A NUEVA. ZELANDA</field>
+            <field name="code">510</field>
+        </record>
+        <record model="afip.country" id="511">
+            <field name="name">TER. VINCULADOS A ESTADOS UNIDOS</field>
+            <field name="code">511</field>
+        </record>
+        <record model="afip.country" id="512">
+            <field name="name">FIJI, ISLAS</field>
+            <field name="code">512</field>
+        </record>
+        <record model="afip.country" id="513">
+            <field name="name">PAPUA NUEVA GUINEA</field>
+            <field name="code">513</field>
+        </record>
+        <record model="afip.country" id="514">
+            <field name="name">KIRIBATI, ISLAS</field>
+            <field name="code">514</field>
+        </record>
+        <record model="afip.country" id="515">
+            <field name="name">MICRONESIA,EST.FEDER</field>
+            <field name="code">515</field>
+        </record>
+        <record model="afip.country" id="516">
+            <field name="name">PALAU</field>
+            <field name="code">516</field>
+        </record>
+        <record model="afip.country" id="517">
+            <field name="name">TUVALU</field>
+            <field name="code">517</field>
+        </record>
+        <record model="afip.country" id="518">
+            <field name="name">SALOMON,ISLAS</field>
+            <field name="code">518</field>
+        </record>
+        <record model="afip.country" id="519">
+            <field name="name">TONGA</field>
+            <field name="code">519</field>
+        </record>
+        <record model="afip.country" id="520">
+            <field name="name">MARSHALL,ISLAS</field>
+            <field name="code">520</field>
+        </record>
+        <record model="afip.country" id="521">
+            <field name="name">MARIANAS,ISLAS</field>
+            <field name="code">521</field>
+        </record>
+        <record model="afip.country" id="597">
+            <field name="name">RESTO OCEANIA</field>
+            <field name="code">597</field>
+        </record>
+        <record model="afip.country" id="598">
+            <field name="name">INDET.(OCEANIA)</field>
+            <field name="code">598</field>
+        </record>
+        <record model="afip.country" id="997">
+            <field name="name">RESTO CONTINENTE</field>
+            <field name="code">997</field>
+        </record>
+        <record model="afip.country" id="998">
+            <field name="name">INDET.(CONTINENTE)</field>
+            <field name="code">998</field>
+        </record>
+    </data>
+</tryton>
