@@ -325,10 +325,6 @@ class PartyIdentifier:
              'invisible': ~Equal(Eval('type'), 'ar_foreign'),
              }, depends=['type'])
 
-    @staticmethod
-    def default_vat_country():
-        return ''
-
     @classmethod
     def __setup__(cls):
         super(PartyIdentifier, cls).__setup__()
