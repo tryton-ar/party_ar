@@ -152,14 +152,17 @@ class AFIPVatCountry(ModelSQL, ModelView):
                     table.id, table.vat_country))
 
             for id, vat_country_id in cursor.fetchall():
-                if vat_country_id != '':
+                if vat_country_id:
                     cursor.execute(*country.select(country.code,
                             where=(country.id == vat_country_id)))
                     row, = cursor_dict(cursor)
                     dst = pais_dst_cmp[row['code'].lower()]
                     cursor.execute(*afip_country.select(afip_country.id,
                             where=(afip_country.code == str(dst))))
-                    row, = cursor_dict(cursor)
+                    try:
+                        row, = cursor_dict(cursor)
+                    except:
+                        continue
                     cursor.execute(*table.update(
                         [table.afip_country], [row['id']],
                         where=table.id == id))
@@ -521,17 +524,20 @@ class PartyIdentifier:
             }
         if table_a.column_exist('country'):
             cursor.execute(*sql_table.select(
-                    sql_table.id, sql_table.vat_country))
+                    sql_table.id, sql_table.country))
 
             for id, vat_country_id in cursor.fetchall():
-                if vat_country_id != '':
-                    cursor.execute(*country.select(country.code,
-                            where=(country.id == vat_country_id)))
+                if vat_country_id:
+                    cursor.execute(*country_table.select(country_table.code,
+                            where=(country_table.id == vat_country_id)))
                     row, = cursor_dict(cursor)
                     dst = pais_dst_cmp[row['code'].lower()]
                     cursor.execute(*afip_country.select(afip_country.id,
                             where=(afip_country.code == str(dst))))
-                    row, = cursor_dict(cursor)
+                    try:
+                        row, = cursor_dict(cursor)
+                    except:
+                        continue
                     cursor.execute(*sql_table.update(
                         [sql_table.afip_country], [row['id']],
                         where=sql_table.id == id))
