@@ -592,7 +592,7 @@ class PartyIdentifier:
         if not vat_numbers:
             self.raise_user_error('invalid_vat', {
                 'code': self.code,
-                'party': self.party.rec_name,
+                'party': self.party.name,
                 })
 
 
