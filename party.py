@@ -120,32 +120,46 @@ class AFIPVatCountry(ModelSQL, ModelView):
         # Migration legacy: vat_country -> afip_country
         # map ISO country code to AFIP destination country code:
         pais_dst_cmp = {
-            'gt': 213, 'gr': 413, 'gq': 119, 'gy': 214, 'ge': 351,
-            'gb': 426, 'gn': 118, 'gm': 116, 'gh': 117, 'tv': 517,
-            'tt': 224, 'lk': 307, 'li': 418, 'lv': 441, 'to': 519,
-            'lt': 442, 'lu': 419, 'lr': 122, 'tg': 140, 'td': 111,
-            'ly': 123, 'do': 209, 'dm': 233, 'dk': 409, 'uy': 225,
-            'qa': 322, 'zm': 144, 'ee': 440, 'eg': 113, 'ec': 210,
-            'es': 410, 'er': 160, 'rs': 454, 'bd': 345, 'bg': 407,
-            'bb': 201, 'bh': 303, 'bi': 104, 'jm': 217, 'jo': 321,
-            'br': 203, 'bs': 239, 'by': 439, 'bz': 236, 'ua': 445,
-            'ch': 430, 'co': 205, 'cn': 310, 'cl': 208, 'cg': 108,
-            'cy': 435, 'cr': 206, 'cv': 150, 'cu': 207, 'pr': 223,
-            'tn': 141, 'pw': 516, 'pt': 425, 'py': 221, 'pk': 332,
-            'ph': 312, 'pl': 424, 'hr': 447, 'it': 417, 'hk': 341,
-            'hn': 216, 'vn': 337, 'me': 453, 'mg': 124, 'ma': 127,
-            'ml': 126, 'mo': 344, 'mn': 329, 'us': 212, 'mt': 420,
-            'mw': 125, 'mr': 129, 'ug': 142, 'my': 326, 'mz': 151,
-            'vc': 235, 'ad': 404, 'ag': 237, 'iq': 317, 'is': 416,
-            'am': 349, 'al': 401, 'ao': 149, 'au': 501, 'at': 405,
-            'in': 315, 'ie': 415, 'id': 316, 'ni': 219, 'no': 422,
-            'il': 319, 'na': 158, 'ne': 130, 'ng': 131, 'np': 330,
-            'so': 136, 'nr': 503, 'fr': 412, 'fi': 411, 'sz': 137,
-            'sv': 211, 'sk': 448, 'si': 449, 'kw': 323, 'sn': 134,
-            'sm': 428, 'sl': 135, 'sc': 152, 'sg': 333, 'se': 429,
-            'uk': 426, 'bo': 202, 'ca': 204, 'mx': 218, 'pe': 222,
-            've': 226, 'tw': 313, 'jp': 320, 'be': 406, 'nl': 423,
-            'de': 438, 'ru': 444,
+            'bf': 101, 'dz': 102, 'bw': 103, 'bi': 104, 'cm': 105,
+            'cf': 107, 'cg': 108, 'cd': 109, 'ci': 110, 'td': 111,
+            'bj': 112, 'eg': 113, 'ga': 115, 'gm': 116, 'gh': 117,
+            'gn': 118, 'gq': 119, 'ke': 120, 'ls': 121, 'lr': 122,
+            'ly': 123, 'mg': 124, 'mw': 125, 'ml': 126, 'ma': 127,
+            'mu': 128, 'mr': 129, 'ne': 130, 'ng': 131, 'zw': 132,
+            'rw': 133, 'sn': 134, 'sl': 135, 'so': 136, 'sz': 137,
+            'sd': 138, 'tz': 139, 'tg': 140, 'tn': 141, 'ug': 142,
+            'zm': 144, 'ao': 149, 'cv': 150, 'mz': 151, 'sc': 152,
+            'dj': 153, 'km': 155, 'gw': 156, 'st': 157, 'na': 158,
+            'za': 159, 'er': 160, 'et': 161, 'ar': 200, 'bb': 201,
+            'bo': 202, 'br': 203, 'ca': 204, 'co': 205, 'cr': 206,
+            'cu': 207, 'cl': 208, 'do': 209, 'ec': 210, 'sv': 211,
+            'us': 212, 'gt': 213, 'gy': 214, 'ht': 215, 'hn': 216,
+            'jm': 217, 'mx': 218, 'ni': 219, 'pa': 220, 'py': 221,
+            'pe': 222, 'pr': 223, 'tt': 224, 'uy': 225, 've': 226,
+            'sr': 232, 'dm': 233, 'lc': 234, 'vc': 235, 'bz': 236,
+            'ag': 237, 'kn': 238, 'bs': 239, 'gd': 240, 'af': 301,
+            'sa': 302, 'bh': 303, 'mm': 304, 'bt': 305, 'kh': 306,
+            'lk': 307, 'kp': 308, 'kr': 309, 'cn': 310, 'ph': 312,
+            'tw': 313, 'in': 315, 'id': 316, 'iq': 317, 'ir': 318,
+            'il': 319, 'jp': 320, 'jo': 321, 'qa': 322, 'kw': 323,
+            'la': 324, 'lb': 325, 'my': 326, 'mv': 327, 'om': 328,
+            'mn': 329, 'np': 330, 'ae': 331, 'pk': 332, 'sg': 333,
+            'sy': 334, 'th': 335, 'vn': 337, 'hk': 341, 'mo': 344,
+            'bd': 345, 'bn': 346, 'ye': 348, 'am': 349, 'az': 350,
+            'ge': 351, 'kz': 352, 'kg': 353, 'tj': 354, 'tm': 355,
+            'uz': 356, 'ps': 357, 'al': 401, 'ad': 404, 'at': 405,
+            'be': 406, 'bg': 407, 'dk': 409, 'es': 410, 'fi': 411,
+            'fr': 412, 'gr': 413, 'hu': 414, 'ie': 415, 'is': 416,
+            'it': 417, 'li': 418, 'lu': 419, 'mt': 420, 'mc': 421,
+            'no': 422, 'nl': 423, 'pl': 424, 'pt': 425, 'gb': 426,
+            'ro': 427, 'sm': 428, 'se': 429, 'ch': 430, 'va': 431,
+            'cy': 435, 'tr': 436, 'de': 438, 'by': 439, 'ee': 440,
+            'lv': 441, 'lt': 442, 'md': 443, 'ru': 444, 'ua': 445,
+            'ba': 446, 'hr': 447, 'sk': 448, 'si': 449, 'mk': 450,
+            'cz': 451, 'me': 453, 'rs': 454, 'au': 501, 'nr': 503,
+            'nz': 504, 'vu': 505, 'ws': 506, 'fj': 512, 'pg': 513,
+            'ki': 514, 'fm': 515, 'pw': 516, 'tv': 517, 'sb': 518,
+            'to': 519, 'mh': 520, 'mp': 521,
             }
         if table_handler.column_exist('vat_country'):
             cursor.execute(*table.select(
@@ -156,7 +170,9 @@ class AFIPVatCountry(ModelSQL, ModelView):
                     cursor.execute(*country.select(country.code,
                             where=(country.id == vat_country_id)))
                     row, = cursor_dict(cursor)
-                    dst = pais_dst_cmp[row['code'].lower()]
+                    dst = pais_dst_cmp.get(row['code'].lower(), None)
+                    if not dst:
+                        continue
                     cursor.execute(*afip_country.select(afip_country.id,
                             where=(afip_country.code == str(dst))))
                     try:
@@ -387,8 +403,8 @@ class PartyIdentifier:
     __name__ = 'party.identifier'
 
     afip_country = fields.Many2One('afip.country', 'Country', states={
-             'invisible': ~Equal(Eval('type'), 'ar_foreign'),
-             }, depends=['type'])
+            'invisible': ~Equal(Eval('type'), 'ar_foreign'),
+            }, depends=['type'])
 
     @classmethod
     def __setup__(cls):
@@ -495,32 +511,46 @@ class PartyIdentifier:
         # Migration legacy: country -> afip_country
         # map ISO country code to AFIP destination country code:
         pais_dst_cmp = {
-            'gt': 213, 'gr': 413, 'gq': 119, 'gy': 214, 'ge': 351,
-            'gb': 426, 'gn': 118, 'gm': 116, 'gh': 117, 'tv': 517,
-            'tt': 224, 'lk': 307, 'li': 418, 'lv': 441, 'to': 519,
-            'lt': 442, 'lu': 419, 'lr': 122, 'tg': 140, 'td': 111,
-            'ly': 123, 'do': 209, 'dm': 233, 'dk': 409, 'uy': 225,
-            'qa': 322, 'zm': 144, 'ee': 440, 'eg': 113, 'ec': 210,
-            'es': 410, 'er': 160, 'rs': 454, 'bd': 345, 'bg': 407,
-            'bb': 201, 'bh': 303, 'bi': 104, 'jm': 217, 'jo': 321,
-            'br': 203, 'bs': 239, 'by': 439, 'bz': 236, 'ua': 445,
-            'ch': 430, 'co': 205, 'cn': 310, 'cl': 208, 'cg': 108,
-            'cy': 435, 'cr': 206, 'cv': 150, 'cu': 207, 'pr': 223,
-            'tn': 141, 'pw': 516, 'pt': 425, 'py': 221, 'pk': 332,
-            'ph': 312, 'pl': 424, 'hr': 447, 'it': 417, 'hk': 341,
-            'hn': 216, 'vn': 337, 'me': 453, 'mg': 124, 'ma': 127,
-            'ml': 126, 'mo': 344, 'mn': 329, 'us': 212, 'mt': 420,
-            'mw': 125, 'mr': 129, 'ug': 142, 'my': 326, 'mz': 151,
-            'vc': 235, 'ad': 404, 'ag': 237, 'iq': 317, 'is': 416,
-            'am': 349, 'al': 401, 'ao': 149, 'au': 501, 'at': 405,
-            'in': 315, 'ie': 415, 'id': 316, 'ni': 219, 'no': 422,
-            'il': 319, 'na': 158, 'ne': 130, 'ng': 131, 'np': 330,
-            'so': 136, 'nr': 503, 'fr': 412, 'fi': 411, 'sz': 137,
-            'sv': 211, 'sk': 448, 'si': 449, 'kw': 323, 'sn': 134,
-            'sm': 428, 'sl': 135, 'sc': 152, 'sg': 333, 'se': 429,
-            'uk': 426, 'bo': 202, 'ca': 204, 'mx': 218, 'pe': 222,
-            've': 226, 'tw': 313, 'jp': 320, 'be': 406, 'nl': 423,
-            'de': 438, 'ru': 444,
+            'bf': 101, 'dz': 102, 'bw': 103, 'bi': 104, 'cm': 105,
+            'cf': 107, 'cg': 108, 'cd': 109, 'ci': 110, 'td': 111,
+            'bj': 112, 'eg': 113, 'ga': 115, 'gm': 116, 'gh': 117,
+            'gn': 118, 'gq': 119, 'ke': 120, 'ls': 121, 'lr': 122,
+            'ly': 123, 'mg': 124, 'mw': 125, 'ml': 126, 'ma': 127,
+            'mu': 128, 'mr': 129, 'ne': 130, 'ng': 131, 'zw': 132,
+            'rw': 133, 'sn': 134, 'sl': 135, 'so': 136, 'sz': 137,
+            'sd': 138, 'tz': 139, 'tg': 140, 'tn': 141, 'ug': 142,
+            'zm': 144, 'ao': 149, 'cv': 150, 'mz': 151, 'sc': 152,
+            'dj': 153, 'km': 155, 'gw': 156, 'st': 157, 'na': 158,
+            'za': 159, 'er': 160, 'et': 161, 'ar': 200, 'bb': 201,
+            'bo': 202, 'br': 203, 'ca': 204, 'co': 205, 'cr': 206,
+            'cu': 207, 'cl': 208, 'do': 209, 'ec': 210, 'sv': 211,
+            'us': 212, 'gt': 213, 'gy': 214, 'ht': 215, 'hn': 216,
+            'jm': 217, 'mx': 218, 'ni': 219, 'pa': 220, 'py': 221,
+            'pe': 222, 'pr': 223, 'tt': 224, 'uy': 225, 've': 226,
+            'sr': 232, 'dm': 233, 'lc': 234, 'vc': 235, 'bz': 236,
+            'ag': 237, 'kn': 238, 'bs': 239, 'gd': 240, 'af': 301,
+            'sa': 302, 'bh': 303, 'mm': 304, 'bt': 305, 'kh': 306,
+            'lk': 307, 'kp': 308, 'kr': 309, 'cn': 310, 'ph': 312,
+            'tw': 313, 'in': 315, 'id': 316, 'iq': 317, 'ir': 318,
+            'il': 319, 'jp': 320, 'jo': 321, 'qa': 322, 'kw': 323,
+            'la': 324, 'lb': 325, 'my': 326, 'mv': 327, 'om': 328,
+            'mn': 329, 'np': 330, 'ae': 331, 'pk': 332, 'sg': 333,
+            'sy': 334, 'th': 335, 'vn': 337, 'hk': 341, 'mo': 344,
+            'bd': 345, 'bn': 346, 'ye': 348, 'am': 349, 'az': 350,
+            'ge': 351, 'kz': 352, 'kg': 353, 'tj': 354, 'tm': 355,
+            'uz': 356, 'ps': 357, 'al': 401, 'ad': 404, 'at': 405,
+            'be': 406, 'bg': 407, 'dk': 409, 'es': 410, 'fi': 411,
+            'fr': 412, 'gr': 413, 'hu': 414, 'ie': 415, 'is': 416,
+            'it': 417, 'li': 418, 'lu': 419, 'mt': 420, 'mc': 421,
+            'no': 422, 'nl': 423, 'pl': 424, 'pt': 425, 'gb': 426,
+            'ro': 427, 'sm': 428, 'se': 429, 'ch': 430, 'va': 431,
+            'cy': 435, 'tr': 436, 'de': 438, 'by': 439, 'ee': 440,
+            'lv': 441, 'lt': 442, 'md': 443, 'ru': 444, 'ua': 445,
+            'ba': 446, 'hr': 447, 'sk': 448, 'si': 449, 'mk': 450,
+            'cz': 451, 'me': 453, 'rs': 454, 'au': 501, 'nr': 503,
+            'nz': 504, 'vu': 505, 'ws': 506, 'fj': 512, 'pg': 513,
+            'ki': 514, 'fm': 515, 'pw': 516, 'tv': 517, 'sb': 518,
+            'to': 519, 'mh': 520, 'mp': 521,
             }
         if table_a.column_exist('country'):
             cursor.execute(*sql_table.select(
@@ -531,7 +561,9 @@ class PartyIdentifier:
                     cursor.execute(*country_table.select(country_table.code,
                             where=(country_table.id == vat_country_id)))
                     row, = cursor_dict(cursor)
-                    dst = pais_dst_cmp[row['code'].lower()]
+                    dst = pais_dst_cmp.get(row['code'].lower(), None)
+                    if not dst:
+                        continue
                     cursor.execute(*afip_country.select(afip_country.id,
                             where=(afip_country.code == str(dst))))
                     try:
