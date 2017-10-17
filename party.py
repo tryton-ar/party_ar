@@ -278,18 +278,18 @@ class Party:
     def default_tipo_documento():
         return '80'
 
+    @classmethod
+    def _tax_identifier_types(cls):
+        types = super(Party, cls)._tax_identifier_types()
+        types.append('ar_cuit')
+        types.append('ar_dni')
+        types.append('ar_foreign')
+        return types
+
     def get_vat_number(self, name):
         for identifier in self.identifiers:
             if identifier.type == 'ar_cuit':
                 return identifier.code
-
-    @classmethod
-    def _vat_types(cls):
-        vat_types = super(Party, cls)._vat_types()
-        vat_types.append('ar_cuit')
-        vat_types.append('ar_dni')
-        vat_types.append('ar_foreign')
-        return vat_types
 
     @classmethod
     def set_vat_number(cls, partys, name, value):
