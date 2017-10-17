@@ -3,8 +3,7 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 
-from trytond.pool import PoolMeta
-from trytond.pyson import Id
+from trytond.pool import PoolMeta, Pool
 
 __all__ = ['Address']
 
@@ -15,4 +14,8 @@ class Address:
 
     @staticmethod
     def default_country():
-        return Id('country', 'ar').pyson()
+        country = Pool().get('country.country').search([
+            ('code', '=', 'AR'),
+            ])
+        if country:
+            return country[0].id
