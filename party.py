@@ -412,6 +412,12 @@ class PartyIdentifier:
         cls._error_messages.update({
             'vat_number_not_found': 'El CUIT no ha sido encontrado',
             })
+        for new_type in [
+                ('ar_cuit', 'CUIT'),
+                ('ar_foreign', 'CUIT AFIP Foreign'),
+                ('ar_dni', 'DNI')]:
+            if new_type not in cls.type.selection:
+                cls.type.selection.append(new_type)
 
     @classmethod
     def __register__(cls, module_name):
@@ -574,14 +580,6 @@ class PartyIdentifier:
                         [sql_table.afip_country], [row['id']],
                         where=sql_table.id == id))
             table_a.drop_column('country')
-
-    @classmethod
-    def get_types(cls):
-        types = super(PartyIdentifier, cls).get_types()
-        types.append(('ar_cuit', 'CUIT'))
-        types.append(('ar_foreign', 'CUIT AFIP Foreign'))
-        types.append(('ar_dni', 'DNI'))
-        return types
 
     @fields.depends('type', 'code')
     def on_change_with_code(self):
