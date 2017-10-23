@@ -499,19 +499,20 @@ class PartyIdentifier:
 
         # Migrate to 4.0
         if table_a.column_exist('vat_country'):
-            cursor.execute(*sql_table.select(
-                sql_table.id, sql_table.vat_country, sql_table.country,
-                where=(sql_table.type == 'ar_foreign')))
+            if table_a.column_exist('country'):
+                cursor.execute(*sql_table.select(
+                    sql_table.id, sql_table.vat_country, sql_table.country,
+                    where=(sql_table.type == 'ar_foreign')))
 
-            for identifier_id, vat_country, country in cursor.fetchall():
-                if vat_country != '':
-                    country_code, = Country.search([
-                        ('code', '=', vat_country),
-                        ])
-                    cursor.execute(*sql_table.update(
-                        [sql_table.country, sql_table.vat_country],
-                        [country_code.id, ''],
-                        where=(sql_table.id == identifier_id)))
+                for identifier_id, vat_country, country in cursor.fetchall():
+                    if vat_country != '':
+                        country_code, = Country.search([
+                            ('code', '=', vat_country),
+                            ])
+                        cursor.execute(*sql_table.update(
+                            [sql_table.country, sql_table.vat_country],
+                            [country_code.id, ''],
+                            where=(sql_table.id == identifier_id)))
             table_a.drop_column('vat_country')
 
         # Migration legacy: country -> afip_country
