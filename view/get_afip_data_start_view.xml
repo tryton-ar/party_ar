@@ -6,8 +6,8 @@
   contains the full copyright notice and license terms.
   -->
 <form col="2">
-  <label name="nombre"/>
-  <field name="nombre"/>
+  <label name="name"/>
+  <field name="name"/>
   <label name="direccion"/>
   <field name="direccion"/>
   <label name="localidad"/>
@@ -19,9 +19,7 @@
   <label name="estado"/>
   <field name="estado"/>
   <label name="primary_activity_code"/>
-  <field name="primary_activity_code" />
+  <field name="primary_activity_code" xexpand="0"/>
   <label name="secondary_activity_code"/>
-  <field name="secondary_activity_code" />
-  <field name="afip_data" invisible="1"/>
-  <field name="subdivision_code" invisible="1"/>
+  <field name="secondary_activity_code" xexpand="0"/>
 </form>
