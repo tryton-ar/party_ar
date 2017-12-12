@@ -361,7 +361,7 @@ class Party:
         '''
         partys = Pool().get('party.party').search([
                 ('vat_number', '!=', None),
-                ], limit=5)
+                ])
 
         for party in partys:
             padron = cls.get_ws_afip(party.vat_number)
