@@ -3,6 +3,7 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 
+from pyafipws.ws_sr_padron import WSSrPadronA4
 import stdnum.ar.cuit as cuit
 import stdnum.exceptions
 from ast import literal_eval
@@ -249,11 +250,13 @@ class Party:
     def get_ws_afip(cls, vat_number):
         try:
             # authenticate against AFIP:
-            from pyafipws.ws_sr_padron import WSSrPadronA4
             ws = WSSrPadronA4()
             Company = Pool().get('company.company')
             if Transaction().context.get('company'):
                 company = Company(Transaction().context['company'])
+            else:
+                logger.error('The company is not defined')
+                cls.raise_user_error('company_not_defined')
             auth_data = company.pyafipws_authenticate(service='ws_sr_padron_a4')
             # connect to the webservice and call to the test method
             ws.LanzarExcepciones = True
