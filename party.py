@@ -167,18 +167,19 @@ class AFIPVatCountry(ModelSQL, ModelView):
                 if vat_country_id:
                     cursor.execute(*country.select(country.code,
                             where=(country.id == vat_country_id)))
-                    row, = cursor_dict(cursor)
-                    dst = pais_dst_cmp.get(row['code'].lower(), None)
+                    row = cursor.fetchone()
+                    if not row:
+                        continue
+                    dst = pais_dst_cmp.get(row[0].lower(), None)
                     if not dst:
                         continue
                     cursor.execute(*afip_country.select(afip_country.id,
                             where=(afip_country.code == str(dst))))
-                    try:
-                        row, = cursor_dict(cursor)
-                    except:
+                    row = cursor.fetchone()
+                    if not row:
                         continue
                     cursor.execute(*table.update(
-                        [table.afip_country], [row['id']],
+                        [table.afip_country], [row[0]],
                         where=table.id == id))
             table_handler.drop_column('vat_country')
 
@@ -563,25 +564,6 @@ class PartyIdentifier:
                     vat_country=vat_country))
             cls.save(identifiers)
 
-        # Migrate to 4.0
-        if table_a.column_exist('vat_country'):
-            if table_a.column_exist('country'):
-                cursor.execute(*sql_table.select(
-                    sql_table.id, sql_table.vat_country, sql_table.country,
-                    where=(sql_table.type == 'ar_foreign')))
-
-                for identifier_id, vat_country, country in cursor.fetchall():
-                    if vat_country != '':
-                        country_code, = Country.search([
-                            ('code', '=', vat_country),
-                            ])
-                        cursor.execute(*sql_table.update(
-                            [sql_table.country, sql_table.vat_country],
-                            [country_code.id, ''],
-                            where=(sql_table.id == identifier_id)))
-            table_a.drop_column('vat_country')
-
-        # Migration legacy: country -> afip_country
         # map ISO country code to AFIP destination country code:
         pais_dst_cmp = {
             'bf': 101, 'dz': 102, 'bw': 103, 'bi': 104, 'cm': 105,
@@ -625,28 +607,49 @@ class PartyIdentifier:
             'ki': 514, 'fm': 515, 'pw': 516, 'tv': 517, 'sb': 518,
             'to': 519, 'mh': 520, 'mp': 521,
             }
+        # Migration legacy: country -> afip_country
         if table_a.column_exist('country'):
             cursor.execute(*sql_table.select(
                     sql_table.id, sql_table.country))
-
             for id, vat_country_id in cursor.fetchall():
                 if vat_country_id:
                     cursor.execute(*country_table.select(country_table.code,
                             where=(country_table.id == vat_country_id)))
-                    row, = cursor_dict(cursor)
-                    dst = pais_dst_cmp.get(row['code'].lower(), None)
+                    row = cursor.fetchone()
+                    if not row:
+                        continue
+                    dst = pais_dst_cmp.get(row[0].lower(), None)
                     if not dst:
                         continue
                     cursor.execute(*afip_country.select(afip_country.id,
                             where=(afip_country.code == str(dst))))
-                    try:
-                        row, = cursor_dict(cursor)
-                    except:
+                    row = cursor.fetchone()
+                    if not row:
                         continue
                     cursor.execute(*sql_table.update(
-                        [sql_table.afip_country], [row['id']],
+                        [sql_table.afip_country], [row[0]],
                         where=sql_table.id == id))
             table_a.drop_column('country')
+
+        # Migration legacy: vat_country -> afip_country
+        if table_a.column_exist('vat_country'):
+            cursor.execute(*sql_table.select(
+                sql_table.id, sql_table.vat_country,
+                where=(sql_table.type == 'ar_foreign')))
+            for id, vat_country in cursor.fetchall():
+                if vat_country != '':
+                    dst = pais_dst_cmp.get(vat_country.lower(), None)
+                    if not dst:
+                        continue
+                    cursor.execute(*afip_country.select(afip_country.id,
+                            where=(afip_country.code == str(dst))))
+                    row = cursor.fetchone()
+                    if not row:
+                        continue
+                    cursor.execute(*sql_table.update(
+                        [sql_table.afip_country], [row[0]],
+                        where=sql_table.id == id))
+            table_a.drop_column('vat_country')
 
     @fields.depends('type', 'code')
     def on_change_with_code(self):
