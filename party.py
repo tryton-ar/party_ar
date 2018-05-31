@@ -505,63 +505,65 @@ class PartyIdentifier:
         table_a = TableHandler(cls, module_name)
         super(PartyIdentifier, cls).__register__(module_name)
 
-        identifiers = []
-        cursor.execute(*sql_table.select(
-            sql_table.id, sql_table.party, sql_table.code, sql_table.type,
-            where=(sql_table.code != 'AR')))
-        for identifier_id, party_id, code_country, identifier_type in \
-                cursor.fetchall():
+        # Migration to 3.8
+        if table_a.column_exist('vat_country'):
             identifiers = []
-            if not code_country or identifier_type is not None:
-                continue
+            cursor.execute(*sql_table.select(
+                sql_table.id, sql_table.party, sql_table.code, sql_table.type,
+                where=(sql_table.code != 'AR')))
+            for identifier_id, party_id, code_country, identifier_type in \
+                    cursor.fetchall():
+                identifiers = []
+                if not code_country or identifier_type is not None:
+                    continue
 
-            type = identifier_type
-            code = None
-            vat_country = ''
-            cursor.execute(*party.select(
-                party.tipo_documento, where=(party.id == party_id)))
-            party_row, = cursor_dict(cursor)
-            if (party_row['tipo_documento'] and
-                    party_row['tipo_documento'] == '96' and
-                    len(code_country) < 11):
-                code = code_country
-                type = 'ar_dni'
-            elif code_country.startswith('AR'):
-                code = code_country[2:]
-                if cuit.is_valid(code):
-                    type = 'ar_cuit'
+                type = identifier_type
+                code = None
+                vat_country = ''
+                cursor.execute(*party.select(
+                    party.tipo_documento, where=(party.id == party_id)))
+                party_row, = cursor_dict(cursor)
+                if (party_row['tipo_documento'] and
+                        party_row['tipo_documento'] == '96' and
+                        len(code_country) < 11):
+                    code = code_country
+                    type = 'ar_dni'
+                elif code_country.startswith('AR'):
+                    code = code_country[2:]
+                    if cuit.is_valid(code):
+                        type = 'ar_cuit'
+                    else:
+                        type = identifier_type
+                elif len(code_country) < 11:
+                    code = code_country
+                    type = 'ar_dni'
                 else:
-                    type = identifier_type
-            elif len(code_country) < 11:
-                code = code_country
-                type = 'ar_dni'
-            else:
-                code = code_country
-                type = 'ar_foreign'
-                cursor_pa = Transaction().connection.cursor()
-                cursor_pa.execute(*party_address.join(country_table,
-                        condition=(party_address.country == country_table.id)
-                        ).select(country_table.code,
-                        where=(party_address.party == party_id)))
-                row, = cursor_dict(cursor_pa)
-                if row:
-                    vat_country = row['code']
-                    country, = Country.search([('code', '=', vat_country)])
-                    cursor_pa = Transaction().connection.cursor()
-                    cursor_pa.execute(*party_afip_vat_country.select(
-                        party_afip_vat_country.vat_country,
-                        where=(party_afip_vat_country.vat_number == code)))
-                    afip_vat_country, = cursor_dict(cursor_pa)
-                    if afip_vat_country is None:
-                        afip_vat_countrys = []
-                        country, = Country.search([('code', '=', vat_country)])
-                        afip_vat_countrys.append(PartyAFIPVatCountry(
-                            type_code='0', vat_country=country,
-                            vat_number=code))
-                        PartyAFIPVatCountry.save(afip_vat_countrys)
-            identifiers.append(
-                cls(id=identifier_id, code=code, type=type,
-                    vat_country=vat_country))
+                        code = code_country
+                        type = 'ar_foreign'
+                        cursor_pa = Transaction().connection.cursor()
+                        cursor_pa.execute(*party_address.join(country_table,
+                                condition=(party_address.country == country_table.id)
+                                ).select(country_table.code,
+                                where=(party_address.party == party_id)))
+                        row, = cursor_dict(cursor_pa)
+                        if row:
+                            vat_country = row['code']
+                            country, = Country.search([('code', '=', vat_country)])
+                            cursor_pa = Transaction().connection.cursor()
+                            cursor_pa.execute(*party_afip_vat_country.select(
+                                party_afip_vat_country.vat_country,
+                                where=(party_afip_vat_country.vat_number == code)))
+                            afip_vat_country, = cursor_dict(cursor_pa)
+                            if afip_vat_country is None:
+                                afip_vat_countrys = []
+                                country, = Country.search([('code', '=', vat_country)])
+                                afip_vat_countrys.append(PartyAFIPVatCountry(
+                                    type_code='0', vat_country=country,
+                                    vat_number=code))
+                                PartyAFIPVatCountry.save(afip_vat_countrys)
+                identifiers.append(
+                    cls(id=identifier_id, code=code, type=type,
+                        vat_country=vat_country, party=party_id))
             cls.save(identifiers)
 
         # map ISO country code to AFIP destination country code:
