@@ -3,7 +3,7 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 
-from pyafipws.ws_sr_padron import WSSrPadronA4
+from pyafipws.ws_sr_padron import WSSrPadronA5
 import stdnum.ar.cuit as cuit
 import stdnum.exceptions
 from actividades import CODES
@@ -331,21 +331,21 @@ class Party:
     def get_ws_afip(cls, vat_number):
         try:
             # authenticate against AFIP:
-            ws = WSSrPadronA4()
+            ws = WSSrPadronA5()
             Company = Pool().get('company.company')
             if Transaction().context.get('company'):
                 company = Company(Transaction().context['company'])
             else:
                 logger.error('The company is not defined')
                 cls.raise_user_error('company_not_defined')
-            auth_data = company.pyafipws_authenticate(service='ws_sr_padron_a4')
+            auth_data = company.pyafipws_authenticate(service='ws_sr_padron_a5')
             # connect to the webservice and call to the test method
             ws.LanzarExcepciones = True
             cache_dir = get_cache_dir()
             if company.pyafipws_mode_cert == 'homologacion':
-                WSDL = 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA4?wsdl'
+                WSDL = 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
             elif company.pyafipws_mode_cert == 'produccion':
-                WSDL = 'https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA4?wsdl'
+                WSDL = 'https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
             ws.Conectar(wsdl=WSDL, cache=cache_dir)
             # set AFIP webservice credentials:
             ws.Cuit = company.party.vat_number
@@ -450,7 +450,7 @@ class Party:
         for party in partys:
             padron = cls.get_ws_afip(party.vat_number)
             if padron:
-                logging.info('got "%s" afip_ws_sr_padron_a4: "%s"' %
+                logging.info('got "%s" afip_ws_sr_padron_a5: "%s"' %
                     (party.vat_number, padron.data))
                 party.set_padron(padron, button_afip=False)
             Transaction().cursor.commit()
@@ -777,7 +777,7 @@ class GetAFIPData(Wizard):
         party = Party(Transaction().context.get('active_id'))
         padron = Party.get_ws_afip(party.vat_number)
         if padron:
-            logging.info('got "%s" afip_ws_sr_padron_a4: "%s"' %
+            logging.info('got "%s" afip_ws_sr_padron_a5: "%s"' %
                 (party.vat_number, padron.data))
             party.set_padron(padron)
         return 'end'
