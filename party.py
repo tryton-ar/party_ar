@@ -2,11 +2,10 @@
 # This file is part of the party_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
-
 from pyafipws.ws_sr_padron import WSSrPadronA5
 import stdnum.ar.cuit as cuit
 import stdnum.exceptions
-from actividades import CODES
+import logging
 
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.wizard import Wizard, StateView, StateTransition, Button
@@ -16,7 +15,8 @@ from trytond.transaction import Transaction
 from trytond.tools import cursor_dict
 from trytond import backend
 from trytond.modules.account_invoice_ar.afip_auth import get_cache_dir
-import logging
+from .actividades import CODES
+
 logger = logging.getLogger(__name__)
 
 __all__ = ['AFIPVatCountry', 'Party', 'PartyIdentifier', 'GetAFIPData',
@@ -185,8 +185,8 @@ class AFIPVatCountry(ModelSQL, ModelView):
 
 
 class Party:
-    __metaclass__ = PoolMeta
     __name__ = 'party.party'
+    __metaclass__ = PoolMeta
 
     iva_condition = fields.Selection([
         ('', ''),
@@ -221,7 +221,7 @@ class Party:
         ], 'Inscripcion II BB', states={
             'readonly': ~Eval('active', True),
             }, depends=['active'])
-    iibb_number = fields.Char('Nro .II BB', states={
+    iibb_number = fields.Char('Nro. II BB', states={
         'readonly': ~Eval('active', True),
         'required': And(
             Not(Equal(Eval('iibb_type'), 'exento')),
@@ -244,7 +244,7 @@ class Party:
             'readonly': ~Eval('active', True),
             }, depends=['active'])
     controlling_entity_number = fields.Char('Nro. entidad controladora',
-        help='Controlling entity', states={
+        help='Controlling entity number', states={
             'readonly': ~Eval('active', True),
             }, depends=['active'])
     tipo_documento = fields.Selection(TIPO_DOCUMENTO,
@@ -338,7 +338,8 @@ class Party:
             else:
                 logger.error('The company is not defined')
                 cls.raise_user_error('company_not_defined')
-            auth_data = company.pyafipws_authenticate(service='ws_sr_padron_a5')
+            auth_data = company.pyafipws_authenticate(
+                service='ws_sr_padron_a5')
             # connect to the webservice and call to the test method
             ws.LanzarExcepciones = True
             cache_dir = get_cache_dir()
@@ -406,10 +407,10 @@ class Party:
                     address.city = domicilio.get('localidad', '')
                     address.zip = domicilio.get('codPostal')
                     address.country = self.get_afip_country()
-                    address.subdivision = \
-                        self.get_afip_subdivision(domicilio.get('idProvincia', 0))
+                    address.subdivision = self.get_afip_subdivision(
+                        domicilio.get('idProvincia', 0))
                     address.party = self
-                    if domicilio.get('tipoDomicilio') ==  'FISCAL':
+                    if domicilio.get('tipoDomicilio') == 'FISCAL':
                         address.invoice = True
                     address.save()
         self.save()
@@ -466,8 +467,8 @@ class Party:
 
 
 class PartyIdentifier:
-    __metaclass__ = PoolMeta
     __name__ = 'party.identifier'
+    __metaclass__ = PoolMeta
 
     afip_country = fields.Many2One('afip.country', 'Country', states={
             'invisible': ~Equal(Eval('type'), 'ar_foreign'),
@@ -538,29 +539,31 @@ class PartyIdentifier:
                     code = code_country
                     type = 'ar_dni'
                 else:
-                        code = code_country
-                        type = 'ar_foreign'
+                    code = code_country
+                    type = 'ar_foreign'
+                    cursor_pa = Transaction().connection.cursor()
+                    cursor_pa.execute(*party_address.join(country_table,
+                        condition=(party_address.country == country_table.id)
+                        ).select(country_table.code,
+                        where=(party_address.party == party_id)))
+                    row, = cursor_dict(cursor_pa)
+                    if row:
+                        vat_country = row['code']
+                        country, = Country.search([('code', '=', vat_country)])
                         cursor_pa = Transaction().connection.cursor()
-                        cursor_pa.execute(*party_address.join(country_table,
-                                condition=(party_address.country == country_table.id)
-                                ).select(country_table.code,
-                                where=(party_address.party == party_id)))
-                        row, = cursor_dict(cursor_pa)
-                        if row:
-                            vat_country = row['code']
-                            country, = Country.search([('code', '=', vat_country)])
-                            cursor_pa = Transaction().connection.cursor()
-                            cursor_pa.execute(*party_afip_vat_country.select(
-                                party_afip_vat_country.vat_country,
-                                where=(party_afip_vat_country.vat_number == code)))
-                            afip_vat_country, = cursor_dict(cursor_pa)
-                            if afip_vat_country is None:
-                                afip_vat_countrys = []
-                                country, = Country.search([('code', '=', vat_country)])
-                                afip_vat_countrys.append(PartyAFIPVatCountry(
-                                    type_code='0', vat_country=country,
-                                    vat_number=code))
-                                PartyAFIPVatCountry.save(afip_vat_countrys)
+                        cursor_pa.execute(*party_afip_vat_country.select(
+                            party_afip_vat_country.vat_country,
+                            where=(party_afip_vat_country.vat_number == code)))
+                        afip_vat_country, = cursor_dict(cursor_pa)
+                        if afip_vat_country is None:
+                            afip_vat_countrys = []
+                            country, = Country.search([
+                                ('code', '=', vat_country),
+                                ])
+                            afip_vat_countrys.append(PartyAFIPVatCountry(
+                                type_code='0', vat_country=country,
+                                vat_number=code))
+                            PartyAFIPVatCountry.save(afip_vat_countrys)
                 identifiers.append(
                     cls(id=identifier_id, code=code, type=type,
                         vat_country=vat_country, party=party_id))
@@ -718,13 +721,6 @@ class GetAFIPData(Wizard):
     'Get AFIP Data'
     __name__ = 'party.get_afip_data'
 
-    @classmethod
-    def __setup__(cls):
-        super(GetAFIPData, cls).__setup__()
-        cls._error_messages.update({
-            'vat_number_not_found': 'El CUIT no ha sido encontrado',
-        })
-
     start = StateView(
         'party.get_afip_data.start',
         'party_ar.get_afip_data_start_view', [
@@ -733,42 +729,52 @@ class GetAFIPData(Wizard):
         ])
     update_party = StateTransition()
 
+    @classmethod
+    def __setup__(cls):
+        super(GetAFIPData, cls).__setup__()
+        cls._error_messages.update({
+            'vat_number_not_found': 'El CUIT no ha sido encontrado',
+            })
+
     def default_start(self, fields):
         Party = Pool().get('party.party')
-        res = {}
+
         party = Party(Transaction().context['active_id'])
-        if party:
-            padron = Party.get_ws_afip(party.vat_number)
-            if padron:
-                activ = padron.actividades
-                for domicilio in padron.domicilios:
-                    if domicilio.get('tipoDomicilio') == 'FISCAL':
-                        res['direccion'] = domicilio.get("direccion", "")
-                        res['localidad'] = domicilio.get("localidad", "")  # no usado en CABA
-                        res['subdivision_code'] = domicilio.get("idProvincia", 0)
-                        res['codigo_postal'] = domicilio.get("codPostal")
+        if not party:
+            return {}
 
-                activ1 = str(activ[0]) if len(activ) >= 1 else ''
-                activ2 = str(activ[1]) if len(activ) >= 2 else ''
-                if activ1:
-                    activ1 = activ1.rjust(6, '0')
-                if activ2:
-                    activ2 = activ2.rjust(6, '0')
+        padron = Party.get_ws_afip(party.vat_number)
+        if not padron:
+            self.raise_user_error('vat_number_not_found')
 
-                if padron.tipo_persona == 'FISICA':
-                    res['name'] = "%s, %s" % \
-                        (padron.data.get('apellido'), padron.data.get('nombre'))
-                else:
-                    res['name'] = padron.data.get('razonSocial', '')
+        res = {}
+        activ = padron.actividades
+        for domicilio in padron.domicilios:
+            if domicilio.get('tipoDomicilio') == 'FISCAL':
+                res['direccion'] = domicilio.get("direccion", "")
+                res['localidad'] = domicilio.get("localidad", "")  # no usado en CABA
+                res['subdivision_code'] = domicilio.get("idProvincia", 0)
+                res['codigo_postal'] = domicilio.get("codPostal")
 
-                res.update({
-                    'fecha_inscripcion': padron.data.get('fechaInscripcion', None),
-                    'primary_activity_code': activ1,
-                    'secondary_activity_code': activ2,
-                    'estado': padron.data.get('estadoClave', ''),
-                })
-            else:
-                self.raise_user_error('vat_number_not_found')
+        activ1 = str(activ[0]) if len(activ) >= 1 else ''
+        activ2 = str(activ[1]) if len(activ) >= 2 else ''
+        if activ1:
+            activ1 = activ1.rjust(6, '0')
+        if activ2:
+            activ2 = activ2.rjust(6, '0')
+
+        if padron.tipo_persona == 'FISICA':
+            res['name'] = "%s, %s" % (
+                padron.data.get('apellido'), padron.data.get('nombre'))
+        else:
+            res['name'] = padron.data.get('razonSocial', '')
+
+        res.update({
+            'fecha_inscripcion': padron.data.get('fechaInscripcion', None),
+            'primary_activity_code': activ1,
+            'secondary_activity_code': activ2,
+            'estado': padron.data.get('estadoClave', ''),
+            })
         return res
 
     def transition_update_party(self):

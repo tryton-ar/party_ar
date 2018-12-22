@@ -9,8 +9,8 @@ __all__ = ['Address']
 
 
 class Address:
-    __metaclass__ = PoolMeta
     __name__ = 'party.address'
+    __metaclass__ = PoolMeta
 
     @staticmethod
     def default_country():
