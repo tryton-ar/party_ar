@@ -3,7 +3,7 @@
 
     <!-- data de AFIP -->
     <xpath expr="/form/group[@id='checkboxes']/field[@name='active']" position="after">
-        <button name="get_afip_data" string="AFIP" icon="tryton-connect"/>
+        <button name="get_afip_data" string="AFIP" icon="tryton-import"/>
     </xpath>
 
     <!-- agregar cuit y tipo al encabezado -->
