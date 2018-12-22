@@ -23,71 +23,71 @@ __all__ = ['AFIPVatCountry', 'Party', 'PartyIdentifier', 'GetAFIPData',
     'GetAFIPDataStart']
 
 TIPO_DOCUMENTO = [
-    ('0', u'CI Policía Federal'),
-    ('1', u'CI Buenos Aires'),
-    ('2', u'CI Catamarca'),
-    ('3', u'CI Córdoba'),
-    ('4', u'CI Corrientes'),
-    ('5', u'CI Entre Ríos'),
-    ('6', u'CI Jujuy'),
-    ('7', u'CI Mendoza'),
-    ('8', u'CI La Rioja'),
-    ('9', u'CI Salta'),
-    ('10', u'CI San Juan'),
-    ('11', u'CI San Luis'),
-    ('12', u'CI Santa Fe'),
-    ('13', u'CI Santiago del Estero'),
-    ('14', u'CI Tucumán'),
-    ('16', u'CI Chaco'),
-    ('17', u'CI Chubut'),
-    ('18', u'CI Formosa'),
-    ('19', u'CI Misiones'),
-    ('20', u'CI Neuquén'),
-    ('21', u'CI La Pampa'),
-    ('22', u'CI Río Negro'),
-    ('23', u'CI Santa Cruz'),
-    ('24', u'CI Tierra del Fuego'),
-    ('80', u'CUIT'),
-    ('86', u'CUIL'),
-    ('87', u'CDI'),
-    ('89', u'LE'),
-    ('90', u'LC'),
-    ('91', u'CI extranjera'),
-    ('92', u'en trámite'),
-    ('93', u'Acta nacimiento'),
-    ('94', u'Pasaporte'),
-    ('95', u'CI Bs. As. RNP'),
-    ('96', u'DNI'),
-    ('99', u'Sin identificar/venta global diaria'),
-    ('30', u'Certificado de Migración'),
-    ('88', u'Usado por Anses para Padrón'),
+    ('0', 'CI Policía Federal'),
+    ('1', 'CI Buenos Aires'),
+    ('2', 'CI Catamarca'),
+    ('3', 'CI Córdoba'),
+    ('4', 'CI Corrientes'),
+    ('5', 'CI Entre Ríos'),
+    ('6', 'CI Jujuy'),
+    ('7', 'CI Mendoza'),
+    ('8', 'CI La Rioja'),
+    ('9', 'CI Salta'),
+    ('10', 'CI San Juan'),
+    ('11', 'CI San Luis'),
+    ('12', 'CI Santa Fe'),
+    ('13', 'CI Santiago del Estero'),
+    ('14', 'CI Tucumán'),
+    ('16', 'CI Chaco'),
+    ('17', 'CI Chubut'),
+    ('18', 'CI Formosa'),
+    ('19', 'CI Misiones'),
+    ('20', 'CI Neuquén'),
+    ('21', 'CI La Pampa'),
+    ('22', 'CI Río Negro'),
+    ('23', 'CI Santa Cruz'),
+    ('24', 'CI Tierra del Fuego'),
+    ('80', 'CUIT'),
+    ('86', 'CUIL'),
+    ('87', 'CDI'),
+    ('89', 'LE'),
+    ('90', 'LC'),
+    ('91', 'CI extranjera'),
+    ('92', 'en trámite'),
+    ('93', 'Acta nacimiento'),
+    ('94', 'Pasaporte'),
+    ('95', 'CI Bs. As. RNP'),
+    ('96', 'DNI'),
+    ('99', 'Sin identificar/venta global diaria'),
+    ('30', 'Certificado de Migración'),
+    ('88', 'Usado por Anses para Padrón'),
     ]
 
 PROVINCIAS = {
-    0: u'Ciudad Autónoma de Buenos Aires',
-    1: u'Buenos Aires',
-    2: u'Catamarca',
-    3: u'Cordoba',
-    4: u'Corrientes',
-    5: u'Entre Rios',
-    6: u'Jujuy',
-    7: u'Mendoza',
-    8: u'La Rioja',
-    9: u'Salta',
-    10: u'San Juan',
-    11: u'San Luis',
-    12: u'Santa Fe',
-    13: u'Santiago del Estero',
-    14: u'Tucuman',
-    16: u'Chaco',
-    17: u'Chubut',
-    18: u'Formosa',
-    19: u'Misiones',
-    20: u'Neuquen',
-    21: u'La Pampa',
-    22: u'Rio Negro',
-    23: u'Santa Cruz',
-    24: u'Tierra del Fuego',
+    0: 'Ciudad Autónoma de Buenos Aires',
+    1: 'Buenos Aires',
+    2: 'Catamarca',
+    3: 'Cordoba',
+    4: 'Corrientes',
+    5: 'Entre Rios',
+    6: 'Jujuy',
+    7: 'Mendoza',
+    8: 'La Rioja',
+    9: 'Salta',
+    10: 'San Juan',
+    11: 'San Luis',
+    12: 'Santa Fe',
+    13: 'Santiago del Estero',
+    14: 'Tucuman',
+    16: 'Chaco',
+    17: 'Chubut',
+    18: 'Formosa',
+    19: 'Misiones',
+    20: 'Neuquen',
+    21: 'La Pampa',
+    22: 'Rio Negro',
+    23: 'Santa Cruz',
+    24: 'Tierra del Fuego',
     }
 
 
@@ -184,9 +184,8 @@ class AFIPVatCountry(ModelSQL, ModelView):
             table_handler.drop_column('vat_country')
 
 
-class Party:
+class Party(metaclass=PoolMeta):
     __name__ = 'party.party'
-    __metaclass__ = PoolMeta
 
     iva_condition = fields.Selection([
         ('', ''),
@@ -354,7 +353,7 @@ class Party:
             ws.Sign = auth_data['sign']
             ws.Consultar(vat_number)
             return ws
-        except Exception, e:
+        except Exception as e:
             logger.error('Could not retrieve "%s" msg AFIP: "%s".' %
                 (vat_number, repr(e)))
             return None
@@ -466,9 +465,8 @@ class Party:
         logger.info('End Scheduler update afip census.')
 
 
-class PartyIdentifier:
+class PartyIdentifier(metaclass=PoolMeta):
     __name__ = 'party.identifier'
-    __metaclass__ = PoolMeta
 
     afip_country = fields.Many2One('afip.country', 'Country', states={
             'invisible': ~Equal(Eval('type'), 'ar_foreign'),
