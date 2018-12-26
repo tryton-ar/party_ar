@@ -14,8 +14,8 @@ from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
 from trytond.tools import cursor_dict
 from trytond import backend
-from trytond.modules.account_invoice_ar.afip_auth import get_cache_dir
 from .actividades import CODES
+from . import afip
 
 logger = logging.getLogger(__name__)
 
@@ -342,7 +342,7 @@ class Party:
                 service='ws_sr_padron_a5')
             # connect to the webservice and call to the test method
             ws.LanzarExcepciones = True
-            cache_dir = get_cache_dir()
+            cache_dir = afip.get_cache_dir()
             if company.pyafipws_mode_cert == 'homologacion':
                 WSDL = 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
             elif company.pyafipws_mode_cert == 'produccion':
