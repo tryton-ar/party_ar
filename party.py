@@ -15,7 +15,6 @@ from trytond.transaction import Transaction
 from trytond.tools import cursor_dict
 from trytond import backend
 from .actividades import CODES
-from . import afip
 
 logger = logging.getLogger(__name__)
 
@@ -330,27 +329,33 @@ class Party(metaclass=PoolMeta):
     def get_ws_afip(cls, vat_number):
         try:
             # authenticate against AFIP:
-            ws = WSSrPadronA5()
-            Company = Pool().get('company.company')
+            pool = Pool()
+            Company = pool.get('company.company')
             if Transaction().context.get('company'):
                 company = Company(Transaction().context['company'])
             else:
                 logger.error('The company is not defined')
                 cls.raise_user_error('company_not_defined')
-            auth_data = company.pyafipws_authenticate(
-                service='ws_sr_padron_a5')
-            # connect to the webservice and call to the test method
+
+            from trytond.modules.account_invoice_ar.afip_auth import \
+                get_cache_dir as get_account_invoice_ar_cache_dir
+
+            ws = WSSrPadronA5()
             ws.LanzarExcepciones = True
-            cache_dir = afip.get_cache_dir()
+            cache = get_account_invoice_ar_cache_dir()
+
+            # set AFIP webservice credentials
+            auth_data = company.pyafipws_authenticate(
+                service='ws_sr_padron_a5', cache=cache)
+            ws.Cuit = company.party.vat_number
+            ws.Token = auth_data['token']
+            ws.Sign = auth_data['sign']
             if company.pyafipws_mode_cert == 'homologacion':
                 WSDL = 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
             elif company.pyafipws_mode_cert == 'produccion':
                 WSDL = 'https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
-            ws.Conectar(wsdl=WSDL, cache=cache_dir)
-            # set AFIP webservice credentials:
-            ws.Cuit = company.party.vat_number
-            ws.Token = auth_data['token']
-            ws.Sign = auth_data['sign']
+            # connect to the webservice and call to the test method
+            ws.Conectar(wsdl=WSDL, cache=cache)
             ws.Consultar(vat_number)
             return ws
         except Exception as e:
