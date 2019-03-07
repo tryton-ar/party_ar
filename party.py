@@ -362,13 +362,13 @@ class Party:
         '''
         Update iva_condition, active fields from afip.
         '''
-        partys = Pool().get('party.party').search([
+        partys = cls.search([
                 ('vat_number', '!=', None),
                 ])
 
         for party in partys:
             padron = cls.get_ws_afip(party.vat_number)
-            if padron:
+            if hasattr(padron, 'data') and padron.data:
                 logging.info('got "%s" afip_ws_sr_padron_a5: "%s"' %
                     (party.vat_number, padron.data))
                 party.set_padron(padron, button_afip=False)
@@ -392,12 +392,6 @@ class PartyIdentifier:
              'invisible': ~Equal(Eval('type'), 'ar_foreign'),
              }, depends=['type'])
 
-    @classmethod
-    def __setup__(cls):
-        super(PartyIdentifier, cls).__setup__()
-        cls._error_messages.update({
-            'vat_number_not_found': 'El CUIT no ha sido encontrado',
-            })
 
     @classmethod
     def __register__(cls, module_name):
@@ -550,7 +544,9 @@ class GetAFIPData(Wizard):
     def __setup__(cls):
         super(GetAFIPData, cls).__setup__()
         cls._error_messages.update({
-            'vat_number_not_found': 'El CUIT no ha sido encontrado',
+            'vat_number_not_found':
+                u'No fue posible obtener el CUIT del Tercero "%(party)s" '
+                u'Mensaje AFIP: "%(error)s"',
         })
 
     start = StateView(
@@ -567,7 +563,7 @@ class GetAFIPData(Wizard):
         party = Party(Transaction().context['active_id'])
         if party:
             padron = Party.get_ws_afip(party.vat_number)
-            if padron:
+            if hasattr(padron, 'data') and padron.data:
                 activ = padron.actividades
                 for domicilio in padron.domicilios:
                     if domicilio.get('tipoDomicilio') == 'FISCAL':
@@ -596,7 +592,10 @@ class GetAFIPData(Wizard):
                     'estado': padron.data.get('estadoClave', ''),
                 })
             else:
-                self.raise_user_error('vat_number_not_found')
+                self.raise_user_error('vat_number_not_found', {
+                        'party': party.rec_name,
+                        'error': ''.join([e['error'] for e in padron.errores]),
+                        })
         return res
 
     def transition_update_party(self):
@@ -604,7 +603,7 @@ class GetAFIPData(Wizard):
         Party = Pool().get('party.party')
         party = Party(Transaction().context.get('active_id'))
         padron = Party.get_ws_afip(party.vat_number)
-        if padron:
+        if hasattr(padron, 'data') and padron.data:
             logging.info('got "%s" afip_ws_sr_padron_a5: "%s"' %
                 (party.vat_number, padron.data))
             party.set_padron(padron)
