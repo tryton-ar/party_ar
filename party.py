@@ -301,7 +301,7 @@ class Party(metaclass=PoolMeta):
         if not value:
             return
         PartyIdentifier.create([{
-            'code': value,
+            'code': cuit.compact(value),
             'type': 'ar_cuit',
             'party': party_id,
             }])
