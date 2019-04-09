@@ -193,10 +193,11 @@ class Party(metaclass=PoolMeta):
         ('consumidor_final', 'Consumidor Final'),
         ('monotributo', 'Monotributo'),
         ('no_alcanzado', 'No alcanzado'),
-        ], 'Condicion ante el IVA', states={
+        ], 'Condicion ante IVA', states={
             'readonly': ~Eval('active', True),
             'required': Bool(Eval('vat_number')),
             }, depends=['active', 'vat_number'])
+    iva_condition_string = iva_condition.translated('iva_condition')
     company_name = fields.Char('Company Name',
         states={'readonly': ~Eval('active', True)},
         depends=['active'])
