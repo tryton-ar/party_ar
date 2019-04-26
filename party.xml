@@ -60,6 +60,12 @@ this repository contains the full copyright notices and license terms. -->
             action="act_party_afip_vat_country" 
             id="menu_party_afip_vat_country"/>
 
+        <record model="ir.model.button" id="party_ar_get_afip_data_button">
+            <field name="name">get_afip_data</field>
+            <field name="string">GetAFIPData</field>
+            <field name="model" search="[('model', '=', 'party.party')]"/>
+        </record>
+
         <!-- user cron afip -->
         <record model="res.user" id="user_afip">
             <field name="login">user_afip</field>

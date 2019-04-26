@@ -267,7 +267,6 @@ class Party:
         super(Party, cls).__setup__()
         cls._buttons.update({
             'get_afip_data': {},
-            'import_census': {},
             })
 
     @staticmethod
@@ -445,7 +444,6 @@ class Party:
         pass
 
     @classmethod
-    @ModelView.button
     def import_census(cls, configs):
         '''
         Update iva_condition, active fields from afip.
