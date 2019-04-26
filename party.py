@@ -266,7 +266,6 @@ class Party(metaclass=PoolMeta):
         super(Party, cls).__setup__()
         cls._buttons.update({
             'get_afip_data': {},
-            'import_census': {},
             })
 
     @staticmethod
@@ -444,7 +443,6 @@ class Party(metaclass=PoolMeta):
         pass
 
     @classmethod
-    @ModelView.button
     def import_census(cls, configs):
         '''
         Update iva_condition, active fields from afip.
