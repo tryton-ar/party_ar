@@ -6,7 +6,7 @@ from trytond.tests.test_tryton import ModuleTestCase
 from trytond.tests.test_tryton import suite as test_suite
 
 
-class TestCase(ModuleTestCase):
+class PartyArTestCase(ModuleTestCase):
     'Test module'
     module = 'party_ar'
 
@@ -14,5 +14,5 @@ class TestCase(ModuleTestCase):
 def suite():
     suite = test_suite()
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
-            TestCase))
+            PartyArTestCase))
     return suite
