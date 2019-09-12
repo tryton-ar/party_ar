@@ -327,41 +327,36 @@ class Party(metaclass=PoolMeta):
 
     @classmethod
     def get_ws_afip(cls, vat_number):
-        try:
-            # authenticate against AFIP:
-            pool = Pool()
-            Company = pool.get('company.company')
-            if Transaction().context.get('company'):
-                company = Company(Transaction().context['company'])
-            else:
-                logger.error('The company is not defined')
-                cls.raise_user_error('company_not_defined')
+        # authenticate against AFIP:
+        pool = Pool()
+        Company = pool.get('company.company')
+        if Transaction().context.get('company'):
+            company = Company(Transaction().context['company'])
+        else:
+            logger.error('The company is not defined')
+            cls.raise_user_error('company_not_defined')
 
-            from trytond.modules.account_invoice_ar.afip_auth import \
-                get_cache_dir as get_account_invoice_ar_cache_dir
+        from trytond.modules.account_invoice_ar.afip_auth import \
+            get_cache_dir as get_account_invoice_ar_cache_dir
 
-            ws = WSSrPadronA5()
-            ws.LanzarExcepciones = True
-            cache = get_account_invoice_ar_cache_dir()
+        ws = WSSrPadronA5()
+        ws.LanzarExcepciones = True
+        cache = get_account_invoice_ar_cache_dir()
 
-            # set AFIP webservice credentials
-            auth_data = company.pyafipws_authenticate(
-                service='ws_sr_padron_a5', cache=cache)
-            ws.Cuit = company.party.vat_number
-            ws.Token = auth_data['token']
-            ws.Sign = auth_data['sign']
-            if company.pyafipws_mode_cert == 'homologacion':
-                WSDL = 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
-            elif company.pyafipws_mode_cert == 'produccion':
-                WSDL = 'https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
-            # connect to the webservice and call to the test method
-            ws.Conectar(wsdl=WSDL, cache=cache)
-            ws.Consultar(vat_number)
-            return ws
-        except Exception as e:
-            logger.error('Could not retrieve "%s" msg AFIP: "%s".' %
-                (vat_number, repr(e)))
-            return None
+        # set AFIP webservice credentials
+        auth_data = company.pyafipws_authenticate(
+            service='ws_sr_padron_a5', cache=cache)
+        ws.Cuit = company.party.vat_number
+        ws.Token = auth_data['token']
+        ws.Sign = auth_data['sign']
+        if company.pyafipws_mode_cert == 'homologacion':
+            WSDL = 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
+        elif company.pyafipws_mode_cert == 'produccion':
+            WSDL = 'https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
+        # connect to the webservice and call to the test method
+        ws.Conectar(wsdl=WSDL, cache=cache)
+        ws.Consultar(vat_number)
+        return ws
 
     def set_padron(self, padron, button_afip=True):
         if padron.tipo_persona == 'FISICA':
@@ -452,12 +447,19 @@ class Party(metaclass=PoolMeta):
                 ])
 
         for party in partys:
-            padron = cls.get_ws_afip(party.vat_number)
-            if hasattr(padron, 'data') and padron.data:
+            try:
+                padron = cls.get_ws_afip(party.vat_number)
                 logging.info('got "%s" afip_ws_sr_padron_a5: "%s"' %
                     (party.vat_number, padron.data))
+                if not padron.data:
+                    msg = ''.join([e['error'] for e in padron.errores])
+                    raise ValueError(msg)
                 party.set_padron(padron, button_afip=False)
-            Transaction().cursor.commit()
+                Transaction().cursor.commit()
+            except Exception as e:
+                msg = str(e)
+                logger.error('Could not retrieve "%s" msg AFIP: "%s".',
+                    (party.vat_number, msg))
 
     @classmethod
     def import_cron_afip(cls, args=None):
@@ -744,13 +746,19 @@ class GetAFIPData(Wizard):
         if not party:
             return {}
 
-        padron = Party.get_ws_afip(party.vat_number)
-        if hasattr(padron, 'data') and not padron.data:
+        try:
+            padron = Party.get_ws_afip(party.vat_number)
+            if not padron.data:
+                msg = ''.join([e['error'] for e in padron.errores])
+                raise ValueError(msg)
+        except Exception as e:
+            msg = str(e)
+            logger.error('Could not retrieve "%s" msg AFIP: "%s".',
+                (party.vat_number, msg))
             self.raise_user_error('vat_number_not_found', {
                     'party': party.rec_name,
-                    'error': ''.join([e['error'] for e in padron.errores]),
+                    'error': msg,
                     })
-
         res = {}
         activ = padron.actividades
         for domicilio in padron.domicilios:
@@ -785,9 +793,16 @@ class GetAFIPData(Wizard):
         # Actualizamos la party con la data que vino de AFIP
         Party = Pool().get('party.party')
         party = Party(Transaction().context.get('active_id'))
-        padron = Party.get_ws_afip(party.vat_number)
-        if hasattr(padron, 'data') and padron.data:
+        try:
+            padron = Party.get_ws_afip(party.vat_number)
             logging.info('got "%s" afip_ws_sr_padron_a5: "%s"' %
                 (party.vat_number, padron.data))
+            if not padron.data:
+                msg = ''.join([e['error'] for e in padron.errores])
+                raise ValueError(msg)
             party.set_padron(padron)
+        except Exception as e:
+            msg = str(e)
+            logger.error('Could not retrieve "%s" msg AFIP: "%s".',
+                (party.vat_number, msg))
         return 'end'
