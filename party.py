@@ -15,7 +15,6 @@ from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
 from trytond.tools import cursor_dict
 from trytond import backend
-from trytond.modules.account_invoice_ar.afip_auth import get_cache_dir
 import logging
 logger = logging.getLogger(__name__)
 
@@ -332,6 +331,7 @@ class Party:
     def get_ws_afip(cls, vat_number):
         try:
             # authenticate against AFIP:
+            from trytond.modules.account_invoice_ar.afip_auth import get_cache_dir
             ws = WSSrPadronA5()
             Company = Pool().get('company.company')
             if Transaction().context.get('company'):
