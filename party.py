@@ -455,7 +455,7 @@ class Party(metaclass=PoolMeta):
                     msg = ''.join([e['error'] for e in padron.errores])
                     raise ValueError(msg)
                 party.set_padron(padron, button_afip=False)
-                Transaction().cursor.commit()
+                Transaction().commit()
             except Exception as e:
                 msg = str(e)
                 logger.error('Could not retrieve "%s" msg AFIP: "%s".',
