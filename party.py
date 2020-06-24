@@ -354,7 +354,7 @@ class Party(metaclass=PoolMeta):
         elif company.pyafipws_mode_cert == 'produccion':
             WSDL = 'https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
         # connect to the webservice and call to the test method
-        ws.Conectar(wsdl=WSDL, cache=cache)
+        ws.Conectar(wsdl=WSDL, cache=cache, cacert=True)
         ws.Consultar(vat_number)
         return ws
 
