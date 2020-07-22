@@ -62,7 +62,6 @@ this repository contains the full copyright notices and license terms. -->
 
         <record model="ir.model.button" id="party_ar_get_afip_data_button">
             <field name="name">get_afip_data</field>
-            <field name="string">GetAFIPData</field>
             <field name="model" search="[('model', '=', 'party.party')]"/>
         </record>
 
@@ -73,16 +72,10 @@ this repository contains the full copyright notices and license terms. -->
             <field name="active" eval="False"/>
         </record>
         <record model="ir.cron" id="cron_afip_census_scheduler">
-            <field name="name">Import AFIP Census</field>
-            <field name="request_user" ref="res.user_admin"/>
-            <field name="user" ref="user_afip"/>
             <field name="active" eval="True"/>
             <field name="interval_number" eval="1"/>
             <field name="interval_type">months</field>
-            <field name="number_calls" eval="-1"/>
-            <field name="repeat_missed" eval="False"/>
-            <field name="model">party.party</field>
-            <field name="function">import_cron_afip</field>
+            <field name="method">party.party|import_cron_afip</field>
         </record>
 
     </data>

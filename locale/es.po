@@ -186,10 +186,6 @@ msgctxt "model:ir.action,name:wizard_get_afip_data"
 msgid "Get AFIP Data"
 msgstr "Obtener datos AFIP"
 
-msgctxt "model:ir.cron,name:cron_afip_census_scheduler"
-msgid "Import AFIP Census"
-msgstr "Importar Censo AFIP"
-
 msgctxt "model:ir.message,text:msg_company_not_defined"
 msgid "The company is not defined"
 msgstr "Empresa no definida"
@@ -211,6 +207,10 @@ msgstr "CUIT País AFIP"
 msgctxt "model:party.get_afip_data.start,name:"
 msgid "Get AFIP Data Start"
 msgstr "Obtener datos AFIP"
+
+msgctxt "selection:ir.cron,method:"
+msgid "Import AFIP Census"
+msgstr "Importar Censo AFIP"
 
 msgctxt "selection:party.afip.vat.country,type_code:"
 msgid "Fisica"

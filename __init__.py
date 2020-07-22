@@ -15,6 +15,7 @@ def register():
         party.Party,
         party.PartyIdentifier,
         party.GetAFIPDataStart,
+        party.Cron,
         address.Address,
         module='party_ar', type_='model')
     Pool.register(

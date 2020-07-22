@@ -22,7 +22,7 @@ from .actividades import CODES
 logger = logging.getLogger(__name__)
 
 __all__ = ['AFIPVatCountry', 'Party', 'PartyIdentifier', 'GetAFIPData',
-    'GetAFIPDataStart']
+    'GetAFIPDataStart', 'Cron']
 
 TIPO_DOCUMENTO = [
     ('0', 'CI Policía Federal'),
@@ -799,3 +799,14 @@ class GetAFIPData(Wizard):
             logger.error('Could not retrieve "%s" msg AFIP: "%s".',
                 (party.vat_number, msg))
         return 'end'
+
+
+class Cron(metaclass=PoolMeta):
+    __name__ = 'ir.cron'
+
+    @classmethod
+    def __setup__(cls):
+        super().__setup__()
+        cls.method.selection.extend([
+                ('party.party|import_cron_afip', "Import AFIP Census"),
+                ])
