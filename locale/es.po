@@ -2,14 +2,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "error:party.get_afip_data:"
-msgid "El CUIT no ha sido encontrado"
-msgstr ""
-
-msgctxt "error:party.identifier:"
-msgid "El CUIT no ha sido encontrado"
-msgstr ""
-
 msgctxt "field:afip.country,code:"
 msgid "Code"
 msgstr "Código"
@@ -197,6 +189,16 @@ msgstr "Obtener datos AFIP"
 msgctxt "model:ir.cron,name:cron_afip_census_scheduler"
 msgid "Import AFIP Census"
 msgstr "Importar Censo AFIP"
+
+msgctxt "model:ir.message,text:msg_company_not_defined"
+msgid "The company is not defined"
+msgstr "Empresa no definida"
+
+msgctxt "model:ir.message,text:msg_vat_number_not_found"
+msgid ""
+"No fue posible obtener el CUIT del Tercero \"%(party)s\" Mensaje AFIP: "
+"\"%(error)s\""
+msgstr ""
 
 msgctxt "model:ir.ui.menu,name:menu_party_afip_vat_country"
 msgid "AFIP Vat Countries"

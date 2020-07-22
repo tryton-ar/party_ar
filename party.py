@@ -14,6 +14,9 @@ from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
 from trytond.tools import cursor_dict
 from trytond import backend
+from trytond.i18n import gettext
+from trytond.modules.party.exceptions import InvalidIdentifierCode
+from .exceptions import CompanyNotDefined, VatNumberNotFound
 from .actividades import CODES
 
 logger = logging.getLogger(__name__)
@@ -334,7 +337,8 @@ class Party(metaclass=PoolMeta):
             company = Company(Transaction().context['company'])
         else:
             logger.error('The company is not defined')
-            cls.raise_user_error('company_not_defined')
+            raise CompanyNotDefined(gettext(
+                'party_ar.msg_company_not_defined'))
 
         from trytond.modules.account_invoice_ar.afip_auth import \
             get_cache_dir as get_account_invoice_ar_cache_dir
@@ -677,10 +681,9 @@ class PartyIdentifier(metaclass=PoolMeta):
         super(PartyIdentifier, self).check_code()
         if self.type == 'ar_cuit':
             if not cuit.is_valid(self.code):
-                self.raise_user_error('invalid_vat', {
-                        'code': self.code,
-                        'party': self.party.rec_name,
-                        })
+                raise InvalidIdentifierCode(
+                    gettext('party.msg_invalid_vat_number',
+                    code=self.code, party=self.party.rec_name))
         elif self.type == 'ar_foreign':
             self.check_foreign_vat()
 
@@ -696,10 +699,9 @@ class PartyIdentifier(metaclass=PoolMeta):
             ])
 
         if not vat_numbers:
-            self.raise_user_error('invalid_vat', {
-                'code': self.code,
-                'party': self.party.name,
-                })
+            raise InvalidIdentifierCode(
+                gettext('party.msg_invalid_vat_number',
+                code=self.code, party=self.party.name))
 
 
 class GetAFIPDataStart(ModelView):
@@ -730,15 +732,6 @@ class GetAFIPData(Wizard):
         ])
     update_party = StateTransition()
 
-    @classmethod
-    def __setup__(cls):
-        super(GetAFIPData, cls).__setup__()
-        cls._error_messages.update({
-            'vat_number_not_found':
-                u'No fue posible obtener el CUIT del Tercero "%(party)s" '
-                u'Mensaje AFIP: "%(error)s"',
-        })
-
     def default_start(self, fields):
         Party = Pool().get('party.party')
 
@@ -755,10 +748,10 @@ class GetAFIPData(Wizard):
             msg = str(e)
             logger.error('Could not retrieve "%s" msg AFIP: "%s".',
                 (party.vat_number, msg))
-            self.raise_user_error('vat_number_not_found', {
-                    'party': party.rec_name,
-                    'error': msg,
-                    })
+            raise VatNumberNotFound(
+                gettext('party_ar.msg_vat_number_not_found',
+                party=party.rec_name,
+                error=msg))
         res = {}
         activ = padron.actividades
         for domicilio in padron.domicilios:
