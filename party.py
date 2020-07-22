@@ -354,9 +354,11 @@ class Party(metaclass=PoolMeta):
         ws.Token = auth_data['token']
         ws.Sign = auth_data['sign']
         if company.pyafipws_mode_cert == 'homologacion':
-            WSDL = 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
+            WSDL = ('https://awshomo.afip.gov.ar/sr-padron/webservices/'
+                'personaServiceA5?wsdl')
         elif company.pyafipws_mode_cert == 'produccion':
-            WSDL = 'https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl'
+            WSDL = ('https://aws.afip.gov.ar/sr-padron/webservices/'
+                'personaServiceA5?wsdl')
         # connect to the webservice and call to the test method
         ws.Conectar(wsdl=WSDL, cache=cache, cacert=True)
         ws.Consultar(vat_number)
@@ -757,7 +759,8 @@ class GetAFIPData(Wizard):
         for domicilio in padron.domicilios:
             if domicilio.get('tipoDomicilio') == 'FISCAL':
                 res['direccion'] = domicilio.get("direccion", "")
-                res['localidad'] = domicilio.get("localidad", "")  # no usado en CABA
+                # no usado en CABA
+                res['localidad'] = domicilio.get("localidad", "")
                 res['subdivision_code'] = domicilio.get("idProvincia", 0)
                 res['codigo_postal'] = domicilio.get("codPostal")
 
