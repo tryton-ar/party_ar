@@ -1192,6 +1192,152 @@ msgid "152040 - Fabricación de partes de calzado"
 msgstr ""
 
 msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "152090 - ELABORACION DE PRODUCTOS LACTEOS N.C.P."
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "153110 - MOLIENDA DE TRIGO"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "153120 - PREPARACION DE ARROZ"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "153131 - ELABORACION DE ALIMENTOS A BASE DE CEREALES"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "153139 - PREPARACION Y MOLIENDA DE LEGUMBRES Y CEREALES N.C.P."
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "153200 - ELABORACION DE ALMIDONES Y PRODUCTOS DERIVADOS DEL ALMIDON"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "153300 - ELABORACION DE ALIMENTOS PREPARADOS PARA ANIMALES"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154110 - ELABORACION DE GALLETITAS Y BIZCOCHOS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid ""
+"154120 - ELABORACION INDUSTRIAL DE PRODUCTOS DE PANADERIA,EXCLUIDO "
+"GALLETITAS Y BIZCOCHOS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154191 - ELABORACION DE MASAS Y PRODUCTOS DE PASTELERIA"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154199 - ELABORACION DE PRODUCTOS DE PANADERIA N.C.P."
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154200 - ELABORACION DE AZUCAR"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154301 - ELABORACION DE CACAO,CHOCOLATE Y PRODUCTOS A BASE DE CACAO"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154309 - ELABORACION DE PRODUCTOS DE CONFITERIA N.C.P."
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154410 - ELABORACION DE PASTAS ALIMENTARIAS FRESCAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154420 - ELABORACION DE PASTAS ALIMENTARIAS SECAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154911 - TOSTADO,TORRADO Y MOLIENDA DE CAFE"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154912 - ELABORACION Y MOLIENDA DE HIERBAS AROMATICAS Y ESPECIAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154920 - PREPARACION DE HOJAS DE TE"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154930 - ELABORACION DE YERBA MATE"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154991 - ELABORACION DE EXTRACTOS,JARABES Y CONCENTRADOS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154992 - ELABORACION DE VINAGRES"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "154999 - ELABORACION DE PRODUCTOS ALIMENTICIOS N.C.P."
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "155110 - DESTILACION DE ALCOHOL ETILICO"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "155120 - DESTILACION,RECTIFICACION Y MEZCLA DE BEBIDAS ESPIRITOSAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "155210 - ELABORACION DE VINOS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid ""
+"155290 - ELABORACION DE SIDRA Y OTRAS BEBIDAS ALCOHOLICAS FERMENTADAS A "
+"PARTIR DE FRUTAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "155300 - ELABORACION DE CERVEZA,BEBIDAS MALTEADAS Y DE MALTA"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "155411 - EMBOTELLADO DE AGUAS NATURALES Y MINERALES"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "155412 - FABRICACION DE SODAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "155420 - ELABORACION DE BEBIDAS GASEOSAS,EXCEPTO SODA"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid ""
+"155490 - ELABORACION DE HIELO,JUGOS ENVASADOS PARA DILUIR Y OTRAS BEBIDAS NO"
+" ALCOHOLICAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "160010 - PREPARACION DE HOJAS DE TABACO"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "160091 - ELABORACION DE CIGARRILLOS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
+msgid "160099 - ELABORACION DE PRODUCTOS DE TABACO N.C.P."
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
 msgid "161001 - Aserrado y cepillado de madera nativa"
 msgstr ""
 
@@ -5621,6 +5767,152 @@ msgstr ""
 
 msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
 msgid "152040 - Fabricación de partes de calzado"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "152090 - ELABORACION DE PRODUCTOS LACTEOS N.C.P."
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "153110 - MOLIENDA DE TRIGO"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "153120 - PREPARACION DE ARROZ"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "153131 - ELABORACION DE ALIMENTOS A BASE DE CEREALES"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "153139 - PREPARACION Y MOLIENDA DE LEGUMBRES Y CEREALES N.C.P."
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "153200 - ELABORACION DE ALMIDONES Y PRODUCTOS DERIVADOS DEL ALMIDON"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "153300 - ELABORACION DE ALIMENTOS PREPARADOS PARA ANIMALES"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154110 - ELABORACION DE GALLETITAS Y BIZCOCHOS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid ""
+"154120 - ELABORACION INDUSTRIAL DE PRODUCTOS DE PANADERIA,EXCLUIDO "
+"GALLETITAS Y BIZCOCHOS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154191 - ELABORACION DE MASAS Y PRODUCTOS DE PASTELERIA"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154199 - ELABORACION DE PRODUCTOS DE PANADERIA N.C.P."
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154200 - ELABORACION DE AZUCAR"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154301 - ELABORACION DE CACAO,CHOCOLATE Y PRODUCTOS A BASE DE CACAO"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154309 - ELABORACION DE PRODUCTOS DE CONFITERIA N.C.P."
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154410 - ELABORACION DE PASTAS ALIMENTARIAS FRESCAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154420 - ELABORACION DE PASTAS ALIMENTARIAS SECAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154911 - TOSTADO,TORRADO Y MOLIENDA DE CAFE"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154912 - ELABORACION Y MOLIENDA DE HIERBAS AROMATICAS Y ESPECIAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154920 - PREPARACION DE HOJAS DE TE"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154930 - ELABORACION DE YERBA MATE"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154991 - ELABORACION DE EXTRACTOS,JARABES Y CONCENTRADOS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154992 - ELABORACION DE VINAGRES"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "154999 - ELABORACION DE PRODUCTOS ALIMENTICIOS N.C.P."
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "155110 - DESTILACION DE ALCOHOL ETILICO"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "155120 - DESTILACION,RECTIFICACION Y MEZCLA DE BEBIDAS ESPIRITOSAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "155210 - ELABORACION DE VINOS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid ""
+"155290 - ELABORACION DE SIDRA Y OTRAS BEBIDAS ALCOHOLICAS FERMENTADAS A "
+"PARTIR DE FRUTAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "155300 - ELABORACION DE CERVEZA,BEBIDAS MALTEADAS Y DE MALTA"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "155411 - EMBOTELLADO DE AGUAS NATURALES Y MINERALES"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "155412 - FABRICACION DE SODAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "155420 - ELABORACION DE BEBIDAS GASEOSAS,EXCEPTO SODA"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid ""
+"155490 - ELABORACION DE HIELO,JUGOS ENVASADOS PARA DILUIR Y OTRAS BEBIDAS NO"
+" ALCOHOLICAS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "160010 - PREPARACION DE HOJAS DE TABACO"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "160091 - ELABORACION DE CIGARRILLOS"
+msgstr ""
+
+msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
+msgid "160099 - ELABORACION DE PRODUCTOS DE TABACO N.C.P."
 msgstr ""
 
 msgctxt "selection:party.get_afip_data.start,secondary_activity_code:"
@@ -10136,6 +10428,152 @@ msgid "152040 - Fabricación de partes de calzado"
 msgstr ""
 
 msgctxt "selection:party.party,primary_activity_code:"
+msgid "152090 - ELABORACION DE PRODUCTOS LACTEOS N.C.P."
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "153110 - MOLIENDA DE TRIGO"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "153120 - PREPARACION DE ARROZ"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "153131 - ELABORACION DE ALIMENTOS A BASE DE CEREALES"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "153139 - PREPARACION Y MOLIENDA DE LEGUMBRES Y CEREALES N.C.P."
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "153200 - ELABORACION DE ALMIDONES Y PRODUCTOS DERIVADOS DEL ALMIDON"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "153300 - ELABORACION DE ALIMENTOS PREPARADOS PARA ANIMALES"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154110 - ELABORACION DE GALLETITAS Y BIZCOCHOS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid ""
+"154120 - ELABORACION INDUSTRIAL DE PRODUCTOS DE PANADERIA,EXCLUIDO "
+"GALLETITAS Y BIZCOCHOS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154191 - ELABORACION DE MASAS Y PRODUCTOS DE PASTELERIA"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154199 - ELABORACION DE PRODUCTOS DE PANADERIA N.C.P."
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154200 - ELABORACION DE AZUCAR"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154301 - ELABORACION DE CACAO,CHOCOLATE Y PRODUCTOS A BASE DE CACAO"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154309 - ELABORACION DE PRODUCTOS DE CONFITERIA N.C.P."
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154410 - ELABORACION DE PASTAS ALIMENTARIAS FRESCAS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154420 - ELABORACION DE PASTAS ALIMENTARIAS SECAS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154911 - TOSTADO,TORRADO Y MOLIENDA DE CAFE"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154912 - ELABORACION Y MOLIENDA DE HIERBAS AROMATICAS Y ESPECIAS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154920 - PREPARACION DE HOJAS DE TE"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154930 - ELABORACION DE YERBA MATE"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154991 - ELABORACION DE EXTRACTOS,JARABES Y CONCENTRADOS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154992 - ELABORACION DE VINAGRES"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "154999 - ELABORACION DE PRODUCTOS ALIMENTICIOS N.C.P."
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "155110 - DESTILACION DE ALCOHOL ETILICO"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "155120 - DESTILACION,RECTIFICACION Y MEZCLA DE BEBIDAS ESPIRITOSAS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "155210 - ELABORACION DE VINOS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid ""
+"155290 - ELABORACION DE SIDRA Y OTRAS BEBIDAS ALCOHOLICAS FERMENTADAS A "
+"PARTIR DE FRUTAS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "155300 - ELABORACION DE CERVEZA,BEBIDAS MALTEADAS Y DE MALTA"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "155411 - EMBOTELLADO DE AGUAS NATURALES Y MINERALES"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "155412 - FABRICACION DE SODAS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "155420 - ELABORACION DE BEBIDAS GASEOSAS,EXCEPTO SODA"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid ""
+"155490 - ELABORACION DE HIELO,JUGOS ENVASADOS PARA DILUIR Y OTRAS BEBIDAS NO"
+" ALCOHOLICAS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "160010 - PREPARACION DE HOJAS DE TABACO"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "160091 - ELABORACION DE CIGARRILLOS"
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
+msgid "160099 - ELABORACION DE PRODUCTOS DE TABACO N.C.P."
+msgstr ""
+
+msgctxt "selection:party.party,primary_activity_code:"
 msgid "161001 - Aserrado y cepillado de madera nativa"
 msgstr ""
 
@@ -14565,6 +15003,152 @@ msgstr ""
 
 msgctxt "selection:party.party,secondary_activity_code:"
 msgid "152040 - Fabricación de partes de calzado"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "152090 - ELABORACION DE PRODUCTOS LACTEOS N.C.P."
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "153110 - MOLIENDA DE TRIGO"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "153120 - PREPARACION DE ARROZ"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "153131 - ELABORACION DE ALIMENTOS A BASE DE CEREALES"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "153139 - PREPARACION Y MOLIENDA DE LEGUMBRES Y CEREALES N.C.P."
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "153200 - ELABORACION DE ALMIDONES Y PRODUCTOS DERIVADOS DEL ALMIDON"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "153300 - ELABORACION DE ALIMENTOS PREPARADOS PARA ANIMALES"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154110 - ELABORACION DE GALLETITAS Y BIZCOCHOS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid ""
+"154120 - ELABORACION INDUSTRIAL DE PRODUCTOS DE PANADERIA,EXCLUIDO "
+"GALLETITAS Y BIZCOCHOS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154191 - ELABORACION DE MASAS Y PRODUCTOS DE PASTELERIA"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154199 - ELABORACION DE PRODUCTOS DE PANADERIA N.C.P."
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154200 - ELABORACION DE AZUCAR"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154301 - ELABORACION DE CACAO,CHOCOLATE Y PRODUCTOS A BASE DE CACAO"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154309 - ELABORACION DE PRODUCTOS DE CONFITERIA N.C.P."
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154410 - ELABORACION DE PASTAS ALIMENTARIAS FRESCAS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154420 - ELABORACION DE PASTAS ALIMENTARIAS SECAS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154911 - TOSTADO,TORRADO Y MOLIENDA DE CAFE"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154912 - ELABORACION Y MOLIENDA DE HIERBAS AROMATICAS Y ESPECIAS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154920 - PREPARACION DE HOJAS DE TE"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154930 - ELABORACION DE YERBA MATE"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154991 - ELABORACION DE EXTRACTOS,JARABES Y CONCENTRADOS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154992 - ELABORACION DE VINAGRES"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "154999 - ELABORACION DE PRODUCTOS ALIMENTICIOS N.C.P."
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "155110 - DESTILACION DE ALCOHOL ETILICO"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "155120 - DESTILACION,RECTIFICACION Y MEZCLA DE BEBIDAS ESPIRITOSAS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "155210 - ELABORACION DE VINOS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid ""
+"155290 - ELABORACION DE SIDRA Y OTRAS BEBIDAS ALCOHOLICAS FERMENTADAS A "
+"PARTIR DE FRUTAS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "155300 - ELABORACION DE CERVEZA,BEBIDAS MALTEADAS Y DE MALTA"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "155411 - EMBOTELLADO DE AGUAS NATURALES Y MINERALES"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "155412 - FABRICACION DE SODAS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "155420 - ELABORACION DE BEBIDAS GASEOSAS,EXCEPTO SODA"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid ""
+"155490 - ELABORACION DE HIELO,JUGOS ENVASADOS PARA DILUIR Y OTRAS BEBIDAS NO"
+" ALCOHOLICAS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "160010 - PREPARACION DE HOJAS DE TABACO"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "160091 - ELABORACION DE CIGARRILLOS"
+msgstr ""
+
+msgctxt "selection:party.party,secondary_activity_code:"
+msgid "160099 - ELABORACION DE PRODUCTOS DE TABACO N.C.P."
 msgstr ""
 
 msgctxt "selection:party.party,secondary_activity_code:"
