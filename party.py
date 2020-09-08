@@ -193,14 +193,11 @@ class Party(metaclass=PoolMeta):
         ('consumidor_final', 'Consumidor Final'),
         ('monotributo', 'Monotributo'),
         ('no_alcanzado', 'No alcanzado'),
-        ], 'Condicion ante IVA', states={
-            'readonly': ~Eval('active', True),
-            'required': Bool(Eval('vat_number')),
-            }, depends=['active', 'vat_number'])
+        ], 'Condicion ante IVA',
+        states={'required': Bool(Eval('vat_number'))},
+        depends=['vat_number'])
     iva_condition_string = iva_condition.translated('iva_condition')
-    company_name = fields.Char('Company Name',
-        states={'readonly': ~Eval('active', True)},
-        depends=['active'])
+    company_name = fields.Char('Company Name')
     company_type = fields.Selection([
         ('', ''),
         ('cooperativa', 'Cooperativa'),
@@ -209,52 +206,37 @@ class Party(metaclass=PoolMeta):
         ('s_de_h', 'S de H'),
         ('estado', 'Estado'),
         ('exterior', 'Exterior'),
-        ], 'Company Type', states={
-            'readonly': ~Eval('active', True),
-            }, depends=['active'])
+        ], 'Company Type')
     iibb_type = fields.Selection([
         ('', ''),
         ('cm', 'Convenio Multilateral'),
         ('rs', 'Regimen Simplificado'),
         ('exento', 'Exento'),
-        ], 'Inscripcion II BB', states={
-            'readonly': ~Eval('active', True),
-            }, depends=['active'])
-    iibb_number = fields.Char('Nro. II BB', states={
-        'readonly': ~Eval('active', True),
-        'required': And(
-            Not(Equal(Eval('iibb_type'), 'exento')),
-            Bool(Eval('iibb_type'))),
-        }, depends=['active', 'iibb_type'])
-    primary_activity_code = fields.Selection(CODES,
-        'Primary Activity Code', states={
-            'readonly': ~Eval('active', True),
-            }, depends=['active'])
-    secondary_activity_code = fields.Selection(CODES,
-        'Secondary Activity Code', states={
-            'readonly': ~Eval('active', True),
-            }, depends=['active'])
-    start_activity_date = fields.Date('Start activity date',
+        ], 'Inscripcion II BB')
+    iibb_number = fields.Char('Nro. II BB',
         states={
-            'readonly': ~Eval('active', True),
-            }, depends=['active'])
+            'required': And(
+                Not(Equal(Eval('iibb_type'), 'exento')),
+                Bool(Eval('iibb_type'))),
+            },
+        depends=['iibb_type'])
+    primary_activity_code = fields.Selection(CODES,
+        'Primary Activity Code')
+    secondary_activity_code = fields.Selection(CODES,
+        'Secondary Activity Code')
+    start_activity_date = fields.Date('Start activity date')
     controlling_entity = fields.Char('Entidad controladora',
-        help='Controlling entity', states={
-            'readonly': ~Eval('active', True),
-            }, depends=['active'])
+        help='Controlling entity')
     controlling_entity_number = fields.Char('Nro. entidad controladora',
-        help='Controlling entity number', states={
-            'readonly': ~Eval('active', True),
-            }, depends=['active'])
+        help='Controlling entity number')
     tipo_documento = fields.Selection(TIPO_DOCUMENTO,
-        'Tipo documento', states={
-            'readonly': ~Eval('active', True),
-            }, depends=['active'])
-    vat_number = fields.Function(fields.Char('CUIT', states={
-        'readonly': ~Eval('active', True),
-        'required': ~In(Eval('iva_condition'),
-            ['', 'consumidor_final', 'no_alcanzado']),
-        }, depends=['active', 'iva_condition']),
+        'Tipo documento')
+    vat_number = fields.Function(fields.Char('CUIT',
+        states={
+            'required': ~Eval('iva_condition').in_(
+                ['', 'consumidor_final', 'no_alcanzado']),
+            },
+        depends=['iva_condition']),
         'get_vat_number', setter='set_vat_number',
         searcher='search_vat_number')
     vat_number_afip_foreign = fields.Function(fields.Char('CUIT AFIP Foreign'),
