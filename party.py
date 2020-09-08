@@ -9,13 +9,14 @@ import logging
 
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.wizard import Wizard, StateView, StateTransition, Button
-from trytond.pyson import Bool, Eval, Equal, Not, And, In
 from trytond.pool import Pool, PoolMeta
+from trytond.pyson import Bool, Eval, Equal, Not, And
 from trytond.transaction import Transaction
-from trytond.tools import cursor_dict
-from trytond import backend
 from trytond.i18n import gettext
+from trytond.tools import cursor_dict
 from trytond.modules.party.exceptions import InvalidIdentifierCode
+from trytond.modules.account_invoice_ar.afip_auth import \
+    get_cache_dir as get_account_invoice_ar_cache_dir
 from .exceptions import CompanyNotDefined, VatNumberNotFound
 from .actividades import CODES
 
@@ -105,13 +106,13 @@ class AFIPVatCountry(ModelSQL, ModelView):
     @classmethod
     def __register__(cls, module_name):
         super().__register__(module_name)
+        cursor = Transaction().connection.cursor()
         pool = Pool()
         Country = pool.get('country.country')
         AFIPCountry = pool.get('afip.country')
         table = cls.__table__()
         country = Country.__table__()
         afip_country = AFIPCountry.__table__()
-        cursor = Transaction().connection.cursor()
         TableHandler = backend.get('TableHandler')
         table_handler = TableHandler(cls, module_name)
         # Migration legacy: vat_country -> afip_country
@@ -319,9 +320,6 @@ class Party(metaclass=PoolMeta):
             raise CompanyNotDefined(gettext(
                 'party_ar.msg_company_not_defined'))
 
-        from trytond.modules.account_invoice_ar.afip_auth import \
-            get_cache_dir as get_account_invoice_ar_cache_dir
-
         ws = WSSrPadronA5()
         ws.LanzarExcepciones = True
         cache = get_account_invoice_ar_cache_dir()
@@ -427,10 +425,7 @@ class Party(metaclass=PoolMeta):
         '''
         Update iva_condition, active fields from afip.
         '''
-        partys = cls.search([
-                ('vat_number', '!=', None),
-                ])
-
+        partys = cls.search([('vat_number', '!=', None)])
         for party in partys:
             try:
                 padron = cls.get_ws_afip(party.vat_number)
@@ -459,9 +454,9 @@ class Party(metaclass=PoolMeta):
 class PartyIdentifier(metaclass=PoolMeta):
     __name__ = 'party.identifier'
 
-    afip_country = fields.Many2One('afip.country', 'Country', states={
-            'invisible': ~Equal(Eval('type'), 'ar_foreign'),
-            }, depends=['type'])
+    afip_country = fields.Many2One('afip.country', 'Country',
+        states={'invisible': ~Equal(Eval('type'), 'ar_foreign')},
+        depends=['type'])
 
     @classmethod
     def __setup__(cls):
@@ -475,19 +470,20 @@ class PartyIdentifier(metaclass=PoolMeta):
 
     @classmethod
     def __register__(cls, module_name):
+        cursor = Transaction().connection.cursor()
         pool = Pool()
         Country = pool.get('country.country')
         Party = pool.get('party.party')
         PartyAddress = pool.get('party.address')
         PartyAFIPVatCountry = pool.get('party.afip.vat.country')
         AFIPCountry = pool.get('afip.country')
+
         party_afip_vat_country = PartyAFIPVatCountry.__table__()
         party_address = PartyAddress.__table__()
         party = Party.__table__()
         country_table = Country.__table__()
         afip_country = AFIPCountry.__table__()
         sql_table = cls.__table__()
-        cursor = Transaction().connection.cursor()
         TableHandler = backend.get('TableHandler')
         table_a = TableHandler(cls, module_name)
         super().__register__(module_name)
@@ -688,6 +684,7 @@ class PartyIdentifier(metaclass=PoolMeta):
 class GetAFIPDataStart(ModelView):
     'Get AFIP Data Start'
     __name__ = 'party.get_afip_data.start'
+
     name = fields.Char('Name', readonly=True)
     direccion = fields.Char('Direccion', readonly=True)
     localidad = fields.Char('Localidad', readonly=True)
