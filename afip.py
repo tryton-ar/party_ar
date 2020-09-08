@@ -5,8 +5,6 @@
 
 from trytond.model import ModelView, ModelSQL, fields
 
-__all__ = ['AFIPCountry']
-
 
 class AFIPCountry(ModelSQL, ModelView):
     'AFIP Country'

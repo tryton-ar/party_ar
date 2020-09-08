@@ -5,8 +5,6 @@
 
 from trytond.pool import PoolMeta, Pool
 
-__all__ = ['Address']
-
 
 class Address(metaclass=PoolMeta):
     __name__ = 'party.address'
