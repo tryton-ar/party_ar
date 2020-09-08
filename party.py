@@ -380,8 +380,9 @@ class Party(metaclass=PoolMeta):
 
             Address = Pool().get('party.address')
             address_ = self.address_get('invoice')
-            address_.active = False
-            address_.save()
+            if address_:
+                address_.active = False
+                address_.save()
             for domicilio in padron.domicilios:
                 if domicilio.get('tipoDomicilio') == 'FISCAL':
                     address = Address()
