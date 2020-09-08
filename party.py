@@ -107,7 +107,7 @@ class AFIPVatCountry(ModelSQL, ModelView):
 
     @classmethod
     def __register__(cls, module_name):
-        super(AFIPVatCountry, cls).__register__(module_name)
+        super().__register__(module_name)
         pool = Pool()
         Country = pool.get('country.country')
         AFIPCountry = pool.get('afip.country')
@@ -266,7 +266,7 @@ class Party(metaclass=PoolMeta):
 
     @classmethod
     def __setup__(cls):
-        super(Party, cls).__setup__()
+        super().__setup__()
         cls._buttons.update({
             'get_afip_data': {},
             })
@@ -281,7 +281,7 @@ class Party(metaclass=PoolMeta):
 
     @classmethod
     def _tax_identifier_types(cls):
-        types = super(Party, cls)._tax_identifier_types()
+        types = super()._tax_identifier_types()
         types.append('ar_cuit')
         types.append('ar_dni')
         types.append('ar_foreign')
@@ -486,7 +486,7 @@ class PartyIdentifier(metaclass=PoolMeta):
 
     @classmethod
     def __setup__(cls):
-        super(PartyIdentifier, cls).__setup__()
+        super().__setup__()
         for new_type in [
                 ('ar_cuit', 'CUIT'),
                 ('ar_foreign', 'CUIT AFIP Foreign'),
@@ -511,7 +511,7 @@ class PartyIdentifier(metaclass=PoolMeta):
         cursor = Transaction().connection.cursor()
         TableHandler = backend.get('TableHandler')
         table_a = TableHandler(cls, module_name)
-        super(PartyIdentifier, cls).__register__(module_name)
+        super().__register__(module_name)
 
         # Migration to 3.8
         if table_a.column_exist('vat_country'):
@@ -665,7 +665,7 @@ class PartyIdentifier(metaclass=PoolMeta):
 
     @fields.depends('type', 'code')
     def on_change_with_code(self):
-        code = super(PartyIdentifier, self).on_change_with_code()
+        code = super().on_change_with_code()
         if self.type == 'ar_cuit':
             try:
                 return cuit.compact(code)
@@ -675,12 +675,12 @@ class PartyIdentifier(metaclass=PoolMeta):
 
     @classmethod
     def validate(cls, identifiers):
-        super(PartyIdentifier, cls).validate(identifiers)
+        super().validate(identifiers)
         for identifier in identifiers:
             identifier.check_code()
 
     def check_code(self):
-        super(PartyIdentifier, self).check_code()
+        super().check_code()
         if self.type == 'ar_cuit':
             if not cuit.is_valid(self.code):
                 raise InvalidIdentifierCode(
