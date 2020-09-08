@@ -6,53 +6,13 @@ msgctxt "field:afip.country,code:"
 msgid "Code"
 msgstr "Código"
 
-msgctxt "field:afip.country,create_date:"
-msgid "Create Date"
-msgstr "Fecha creación"
-
-msgctxt "field:afip.country,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
-
-msgctxt "field:afip.country,id:"
-msgid "ID"
-msgstr "ID"
-
 msgctxt "field:afip.country,name:"
 msgid "Name"
 msgstr "Nombre"
 
-msgctxt "field:afip.country,rec_name:"
-msgid "Record Name"
-msgstr "Nombre"
-
-msgctxt "field:afip.country,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
-
-msgctxt "field:afip.country,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
-
 msgctxt "field:party.afip.vat.country,afip_country:"
 msgid "Country"
 msgstr "País"
-
-msgctxt "field:party.afip.vat.country,create_date:"
-msgid "Create Date"
-msgstr "Fecha creación"
-
-msgctxt "field:party.afip.vat.country,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
-
-msgctxt "field:party.afip.vat.country,id:"
-msgid "ID"
-msgstr "ID"
-
-msgctxt "field:party.afip.vat.country,rec_name:"
-msgid "Record Name"
-msgstr "Nombre"
 
 msgctxt "field:party.afip.vat.country,type_code:"
 msgid "Type Code"
@@ -61,14 +21,6 @@ msgstr "Tipo"
 msgctxt "field:party.afip.vat.country,vat_number:"
 msgid "VAT Number"
 msgstr "CUIT"
-
-msgctxt "field:party.afip.vat.country,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
-
-msgctxt "field:party.afip.vat.country,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
 
 msgctxt "field:party.get_afip_data.start,codigo_postal:"
 msgid "Codigo Postal"
@@ -85,10 +37,6 @@ msgstr "Estado"
 msgctxt "field:party.get_afip_data.start,fecha_inscripcion:"
 msgid "Fecha de Inscripcion"
 msgstr "Fecha de Inscripción"
-
-msgctxt "field:party.get_afip_data.start,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "field:party.get_afip_data.start,localidad:"
 msgid "Localidad"
