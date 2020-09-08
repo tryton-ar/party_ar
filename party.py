@@ -108,14 +108,12 @@ class AFIPVatCountry(ModelSQL, ModelView):
         super().__register__(module_name)
         cursor = Transaction().connection.cursor()
         pool = Pool()
-        Country = pool.get('country.country')
-        AFIPCountry = pool.get('afip.country')
         table = cls.__table__()
-        country = Country.__table__()
-        afip_country = AFIPCountry.__table__()
-        TableHandler = backend.get('TableHandler')
-        table_handler = TableHandler(cls, module_name)
-        # Migration legacy: vat_country -> afip_country
+        country = pool.get('country.country').__table__()
+        afip_country = pool.get('afip.country').__table__()
+
+        table_h = cls.__table_handler__(module_name)
+
         # map ISO country code to AFIP destination country code:
         pais_dst_cmp = {
             'bf': 101, 'dz': 102, 'bw': 103, 'bi': 104, 'cm': 105,
@@ -159,7 +157,9 @@ class AFIPVatCountry(ModelSQL, ModelView):
             'ki': 514, 'fm': 515, 'pw': 516, 'tv': 517, 'sb': 518,
             'to': 519, 'mh': 520, 'mp': 521,
             }
-        if table_handler.column_exist('vat_country'):
+
+        # Migration legacy: vat_country -> afip_country
+        if table_h.column_exist('vat_country'):
             cursor.execute(*table.select(
                     table.id, table.vat_country))
 
@@ -181,7 +181,7 @@ class AFIPVatCountry(ModelSQL, ModelView):
                     cursor.execute(*table.update(
                         [table.afip_country], [row[0]],
                         where=table.id == id))
-            table_handler.drop_column('vat_country')
+            table_h.drop_column('vat_country')
 
 
 class Party(metaclass=PoolMeta):
@@ -485,12 +485,12 @@ class PartyIdentifier(metaclass=PoolMeta):
         country_table = Country.__table__()
         afip_country = AFIPCountry.__table__()
         sql_table = cls.__table__()
-        TableHandler = backend.get('TableHandler')
-        table_a = TableHandler(cls, module_name)
+
+        table_h = cls.__table_handler__(module_name)
         super().__register__(module_name)
 
         # Migration to 3.8
-        if table_a.column_exist('vat_country'):
+        if table_h.column_exist('vat_country'):
             identifiers = []
             cursor.execute(*sql_table.select(
                 sql_table.id, sql_table.party, sql_table.code, sql_table.type,
@@ -595,8 +595,9 @@ class PartyIdentifier(metaclass=PoolMeta):
             'ki': 514, 'fm': 515, 'pw': 516, 'tv': 517, 'sb': 518,
             'to': 519, 'mh': 520, 'mp': 521,
             }
+
         # Migration legacy: country -> afip_country
-        if table_a.column_exist('country'):
+        if table_h.column_exist('country'):
             cursor.execute(*sql_table.select(
                     sql_table.id, sql_table.country))
             for id, vat_country_id in cursor.fetchall():
@@ -617,10 +618,10 @@ class PartyIdentifier(metaclass=PoolMeta):
                     cursor.execute(*sql_table.update(
                         [sql_table.afip_country], [row[0]],
                         where=sql_table.id == id))
-            table_a.drop_column('country')
+            table_h.drop_column('country')
 
         # Migration legacy: vat_country -> afip_country
-        if table_a.column_exist('vat_country'):
+        if table_h.column_exist('vat_country'):
             cursor.execute(*sql_table.select(
                 sql_table.id, sql_table.vat_country,
                 where=(sql_table.type == 'ar_foreign')))
@@ -637,7 +638,7 @@ class PartyIdentifier(metaclass=PoolMeta):
                     cursor.execute(*sql_table.update(
                         [sql_table.afip_country], [row[0]],
                         where=sql_table.id == id))
-            table_a.drop_column('vat_country')
+            table_h.drop_column('vat_country')
 
     @fields.depends('type', 'code')
     def on_change_with_code(self):
