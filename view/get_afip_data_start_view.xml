@@ -1,25 +1,19 @@
-<?xml version="1.0"?><!-- -*- encoding: utf-8 -*-
-  cultura-tryton cultura_party/view/get_afip_data_start_view.xml
-
-  this file is part of the cultura-tryton package for tryton.
-  the COPYRIGHT file at the top level of this repository
-  contains the full copyright notice and license terms.
-  -->
+<?xml version="1.0"?>
 <form col="2">
-  <label name="name"/>
-  <field name="name"/>
-  <label name="direccion"/>
-  <field name="direccion"/>
-  <label name="localidad"/>
-  <field name="localidad"/>
-  <label name="codigo_postal"/>
-  <field name="codigo_postal"/>
-  <label name="fecha_inscripcion"/>
-  <field name="fecha_inscripcion"/>
-  <label name="estado"/>
-  <field name="estado"/>
-  <label name="primary_activity_code"/>
-  <field name="primary_activity_code" xexpand="0"/>
-  <label name="secondary_activity_code"/>
-  <field name="secondary_activity_code" xexpand="0"/>
+    <label name="name"/>
+    <field name="name"/>
+    <label name="direccion"/>
+    <field name="direccion"/>
+    <label name="localidad"/>
+    <field name="localidad"/>
+    <label name="codigo_postal"/>
+    <field name="codigo_postal"/>
+    <label name="fecha_inscripcion"/>
+    <field name="fecha_inscripcion"/>
+    <label name="estado"/>
+    <field name="estado"/>
+    <label name="primary_activity_code"/>
+    <field name="primary_activity_code" xexpand="0"/>
+    <label name="secondary_activity_code"/>
+    <field name="secondary_activity_code" xexpand="0"/>
 </form>

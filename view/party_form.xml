@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <data>
-
     <!-- data de AFIP -->
-    <xpath expr="/form/group[@id='checkboxes']/field[@name='active']" position="after">
+    <xpath
+        expr="/form/group[@id='checkboxes']/field[@name='active']"
+        position="after">
         <button name="get_afip_data" string="AFIP" icon="tryton-import"/>
     </xpath>
-
     <!-- agregar cuit y tipo al encabezado -->
     <xpath expr="/form/group[@id='checkboxes']" position="after">
         <newline/>
@@ -19,11 +19,8 @@
         <label name="vat_number_afip_foreign"/>
         <field name="vat_number_afip_foreign"/>
     </xpath>
-
     <!-- otros campos adicionales en General -->
-    <xpath
-        expr="/form/notebook/page[@id='general']"
-        position="after">
+    <xpath expr="/form/notebook/page[@id='general']" position="after">
         <page string="Datos" id="empresa">
             <label name="company_type"/>
             <field name="company_type"/>
