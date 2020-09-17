@@ -66,6 +66,8 @@ requires.append(get_require_version('pysimplesoap'))
 
 tests_require = [get_require_version('proteus')]
 dependency_links = list(LINKS.values())
+if minor_version % 2:
+    dependency_links.append('https://trydevpi.tryton.org/')
 
 setup(name='%s_%s' % (PREFIX, MODULE),
     version=version,
