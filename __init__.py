@@ -3,6 +3,7 @@
 # the full copyright notices and license terms.
 
 from trytond.pool import Pool
+from . import company
 from . import party
 from . import address
 from . import afip
@@ -11,6 +12,7 @@ from . import afip
 def register():
     Pool.register(
         afip.AFIPCountry,
+        company.Company,
         party.AFIPVatCountry,
         party.Party,
         party.PartyIdentifier,

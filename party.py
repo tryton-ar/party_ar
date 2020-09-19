@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This file is part of the party_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
@@ -15,8 +14,6 @@ from trytond.transaction import Transaction
 from trytond.i18n import gettext
 from trytond.tools import cursor_dict
 from trytond.modules.party.exceptions import InvalidIdentifierCode
-from trytond.modules.account_invoice_ar.afip_auth import \
-    get_cache_dir as get_account_invoice_ar_cache_dir
 from .exceptions import CompanyNotDefined, VatNumberNotFound
 from .actividades import CODES
 
@@ -322,14 +319,13 @@ class Party(metaclass=PoolMeta):
 
         ws = WSSrPadronA5()
         ws.LanzarExcepciones = True
-        cache = get_account_invoice_ar_cache_dir()
+        cache = Company.get_cache_dir()
 
         # set AFIP webservice credentials
-        auth_data = company.pyafipws_authenticate(
-            service='ws_sr_padron_a5', cache=cache)
+        ta = company.pyafipws_authenticate(service='ws_sr_padron_a5')
+        ws.SetTicketAcceso(ta)
         ws.Cuit = company.party.vat_number
-        ws.Token = auth_data['token']
-        ws.Sign = auth_data['sign']
+
         if company.pyafipws_mode_cert == 'homologacion':
             WSDL = ('https://awshomo.afip.gov.ar/sr-padron/webservices/'
                 'personaServiceA5?wsdl')
