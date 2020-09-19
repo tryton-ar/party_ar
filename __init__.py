@@ -11,6 +11,7 @@ from . import afip
 
 def register():
     Pool.register(
+        afip.PyAfipWsWrapper,
         afip.AFIPCountry,
         company.Company,
         party.AFIPVatCountry,

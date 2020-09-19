@@ -7,5 +7,11 @@
         <record model="ir.message" id="msg_vat_number_not_found">
             <field name="text">No fue posible obtener el CUIT del Tercero "%(party)s" Mensaje AFIP: "%(error)s"</field>
         </record>
+        <record model="ir.message" id="msg_wrong_pyafipws_mode">
+            <field name="text">Problemas de Certificado: "%(message)s".</field>
+        </record>
+        <record model="ir.message" id="msg_pyafipws_error">
+            <field name="text">Problemas AFIP: "%(message)s".</field>
+        </record>
     </data>
 </tryton>

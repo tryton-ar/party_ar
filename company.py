@@ -7,7 +7,7 @@ import logging
 import os
 
 from trytond.model import fields
-from trytond.pool import PoolMeta
+from trytond.pool import PoolMeta, Pool
 from trytond.exceptions import UserError
 from trytond.i18n import gettext
 
@@ -57,7 +57,7 @@ class Company(metaclass=PoolMeta):
 
     def pyafipws_authenticate(self, service='wsfe', cache=''):
         'Authenticate against AFIP, returns token, sign, err_msg (dict)'
-
+        pool = Pool()
         crt = str(self.pyafipws_certificate)
         key = str(self.pyafipws_private_key)
         if self.pyafipws_mode_cert == 'homologacion':
@@ -66,20 +66,14 @@ class Company(metaclass=PoolMeta):
             WSAA_URL = 'https://wsaa.afip.gov.ar/ws/services/LoginCms?wsdl'
         else:
             raise UserError(gettext(
-                'account_invoice_ar.msg_wrong_pyafipws_mode',
+                'party_ar.msg_wrong_pyafipws_mode',
                 message=('El modo de certificación no es ni producción, ni '
                     'homologación. Configure su Empresa')))
 
         if not cache:
             cache = self.get_cache_dir()
 
-        try:
-            ta = WSAA().Autenticar(service, crt, key, wsdl=WSAA_URL,
-                    cache=cache, debug=True)
-        except Exception as e:
-            msg = getattr(e, 'message', repr(e))
-            logger.error('Error webservice WSAA: %s', msg)
-            raise UserError(gettext(
-                'account_invoice_ar.msg_wrong_pyafipws_mode',
-                message=msg))
+        PyAfipWsWrapper = pool.get('afip.wrapper')
+        ta = PyAfipWsWrapper.authenticate(service, crt, key, wsdl=WSAA_URL,
+                cache=cache)
         return ta

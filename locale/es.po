@@ -144,6 +144,14 @@ msgid ""
 "\"%(error)s\""
 msgstr ""
 
+msgctxt "model:ir.message,text:msg_pyafipws_error"
+msgid "Problemas AFIP: \"%(message)s\""
+msgstr ""
+
+msgctxt "model:ir.message,text:msg_wrong_pyafipws_mode"
+msgid "Problemas de Certificado: \"%(message)s\""
+msgstr ""
+
 msgctxt "model:ir.ui.menu,name:menu_party_afip_vat_country"
 msgid "AFIP Vat Countries"
 msgstr "CUIT Países AFIP"
