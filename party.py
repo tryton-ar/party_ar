@@ -395,7 +395,7 @@ class Party(metaclass=PoolMeta):
                     address = Address()
                     address.street = domicilio.get('direccion', '')
                     address.city = domicilio.get('localidad', '')
-                    address.zip = domicilio.get('codPostal')
+                    address.postal_code = domicilio.get('codPostal')
                     address.country = self.get_afip_country()
                     address.subdivision = self.get_afip_subdivision(
                         domicilio.get('idProvincia', 0))
