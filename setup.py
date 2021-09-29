@@ -54,7 +54,7 @@ LINKS = {
     }
 
 requires = ['M2Crypto>=0.22.3', 'Pillow>=2.8.1', 'httplib2',
-    'certifi>=2020.4.5.1']
+    'certifi>=2020.4.5.1', 'qrcode']
 for dep in info.get('depends', []):
     if not re.match(r'(ir|res)(\W|$)', dep):
         module_name = '%s_%s' % (MODULE2PREFIX.get(dep, 'trytond'), dep)
@@ -99,17 +99,17 @@ setup(name='%s_%s' % (PREFIX, MODULE),
         'Natural Language :: Spanish',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Office/Business',
         'Topic :: Office/Business :: Financial :: Accounting',
         ],
     license='GPL-3',
-    python_requires='>=3.5',
+    python_requires='>=3.6',
     install_requires=requires,
     dependency_links=dependency_links,
     zip_safe=False,
