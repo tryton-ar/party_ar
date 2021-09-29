@@ -88,6 +88,19 @@ PROVINCIAS = {
     }
 
 
+class Configuration(metaclass=PoolMeta):
+    __name__ = 'party.configuration'
+
+    @classmethod
+    def __setup__(cls):
+        super().__setup__()
+        cls.identifier_types.selection = [
+                ('ar_cuit', 'CUIT'),
+                ('ar_dni', 'DNI'),
+                ('ar_foreign', 'CUIT AFIP Foreign'),
+                ]
+
+
 class AFIPVatCountry(ModelSQL, ModelView):
     'AFIP Vat Country'
     __name__ = 'party.afip.vat.country'
@@ -257,11 +270,9 @@ class Party(metaclass=PoolMeta):
         return '80'
 
     @classmethod
-    def _tax_identifier_types(cls):
-        types = super()._tax_identifier_types()
-        types.append('ar_cuit')
-        types.append('ar_dni')
-        types.append('ar_foreign')
+    def tax_identifier_types(cls):
+        types = super().tax_identifier_types()
+        types.extend(['ar_cuit', 'ar_dni', 'ar_foreign'])
         return types
 
     def get_vat_number(self, name):
@@ -454,16 +465,6 @@ class PartyIdentifier(metaclass=PoolMeta):
     afip_country = fields.Many2One('afip.country', 'Country',
         states={'invisible': ~Equal(Eval('type'), 'ar_foreign')},
         depends=['type'])
-
-    @classmethod
-    def __setup__(cls):
-        super().__setup__()
-        for new_type in [
-                ('ar_cuit', 'CUIT'),
-                ('ar_foreign', 'CUIT AFIP Foreign'),
-                ('ar_dni', 'DNI')]:
-            if new_type not in cls.type.selection:
-                cls.type.selection.append(new_type)
 
     @classmethod
     def __register__(cls, module_name):

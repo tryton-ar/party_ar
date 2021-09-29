@@ -14,6 +14,7 @@ def register():
         afip.PyAfipWsWrapper,
         afip.AFIPCountry,
         company.Company,
+        party.Configuration,
         party.AFIPVatCountry,
         party.Party,
         party.PartyIdentifier,
