@@ -2,12 +2,14 @@
 <data>
     <!-- data de AFIP -->
     <xpath
-        expr="/form/group[@id='checkboxes']/field[@name='active']"
+        expr="/form/group[@id='header']/group[@id='checkboxes']/field[@name='active']"
         position="after">
         <button name="get_afip_data" string="AFIP" icon="tryton-import"/>
     </xpath>
     <!-- agregar cuit y tipo al encabezado -->
-    <xpath expr="/form/group[@id='checkboxes']" position="after">
+    <xpath
+        expr="/form/group[@id='header']/field[@name='replaced_by']"
+        position="after">
         <newline/>
         <label name="tipo_documento"/>
         <field name="tipo_documento"/>
