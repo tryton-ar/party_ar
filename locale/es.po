@@ -10,6 +10,18 @@ msgctxt "field:afip.country,name:"
 msgid "Name"
 msgstr "Nombre"
 
+msgctxt "field:company.company,pyafipws_certificate:"
+msgid "Certificado AFIP WS"
+msgstr ""
+
+msgctxt "field:company.company,pyafipws_mode_cert:"
+msgid "Modo de certificacion"
+msgstr "Modo de certificación"
+
+msgctxt "field:company.company,pyafipws_private_key:"
+msgid "Clave Privada AFIP WS"
+msgstr ""
+
 msgctxt "field:party.afip.vat.country,afip_country:"
 msgid "Country"
 msgstr "País"
@@ -114,6 +126,20 @@ msgctxt "field:party.party,vat_number_afip_foreign:"
 msgid "CUIT AFIP Foreign"
 msgstr "CUIT País"
 
+msgctxt "help:company.company,pyafipws_certificate:"
+msgid "Certificado (.crt) de la empresa para webservices AFIP"
+msgstr ""
+
+msgctxt "help:company.company,pyafipws_mode_cert:"
+msgid ""
+"El objetivo de Homologación (testing), es facilitar las pruebas. Los "
+"certificados de Homologación y Producción son distintos."
+msgstr ""
+
+msgctxt "help:company.company,pyafipws_private_key:"
+msgid "Clave Privada (.key) de la empresa para webservices AFIP"
+msgstr ""
+
 msgctxt "help:party.party,controlling_entity:"
 msgid "Controlling entity"
 msgstr "Entidad controladora"
@@ -125,6 +151,10 @@ msgstr "Nro. entidad controladora"
 msgctxt "model:afip.country,name:"
 msgid "AFIP Country"
 msgstr "País AFIP"
+
+msgctxt "model:afip.wrapper,name:"
+msgid "PyAfipWsWrapper"
+msgstr ""
 
 msgctxt "model:ir.action,name:act_party_afip_vat_country"
 msgid "AFIP Vat Countries"
@@ -138,18 +168,18 @@ msgctxt "model:ir.message,text:msg_company_not_defined"
 msgid "The company is not defined"
 msgstr "Empresa no definida"
 
+msgctxt "model:ir.message,text:msg_pyafipws_error"
+msgid "Problemas AFIP: \"%(message)s\"."
+msgstr ""
+
 msgctxt "model:ir.message,text:msg_vat_number_not_found"
 msgid ""
 "No fue posible obtener el CUIT del Tercero \"%(party)s\" Mensaje AFIP: "
 "\"%(error)s\""
 msgstr ""
 
-msgctxt "model:ir.message,text:msg_pyafipws_error"
-msgid "Problemas AFIP: \"%(message)s\""
-msgstr ""
-
 msgctxt "model:ir.message,text:msg_wrong_pyafipws_mode"
-msgid "Problemas de Certificado: \"%(message)s\""
+msgid "Problemas de Certificado: \"%(message)s\"."
 msgstr ""
 
 msgctxt "model:ir.ui.menu,name:menu_party_afip_vat_country"
@@ -163,6 +193,18 @@ msgstr "CUIT País AFIP"
 msgctxt "model:party.get_afip_data.start,name:"
 msgid "Get AFIP Data Start"
 msgstr "Obtener datos AFIP"
+
+msgctxt "selection:company.company,pyafipws_mode_cert:"
+msgid "Homologación"
+msgstr ""
+
+msgctxt "selection:company.company,pyafipws_mode_cert:"
+msgid "Producción"
+msgstr ""
+
+msgctxt "selection:company.company,pyafipws_mode_cert:"
+msgid "n/a"
+msgstr ""
 
 msgctxt "selection:ir.cron,method:"
 msgid "Import AFIP Census"
@@ -179,6 +221,18 @@ msgstr "Jurídica"
 msgctxt "selection:party.afip.vat.country,type_code:"
 msgid "Otro Tipo de Entidad"
 msgstr "Otro Tipo de Entidad"
+
+msgctxt "selection:party.configuration,identifier_types:"
+msgid "CUIT"
+msgstr "CUIT"
+
+msgctxt "selection:party.configuration,identifier_types:"
+msgid "CUIT AFIP Foreign"
+msgstr "CUIT País"
+
+msgctxt "selection:party.configuration,identifier_types:"
+msgid "DNI"
+msgstr "DNI"
 
 msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
 msgid " 919900 - SERVICIOS DE ASOCIACIONES N.C.P."
@@ -18695,6 +18749,22 @@ msgstr "Usado por Anses para Padrón"
 msgctxt "selection:party.party,tipo_documento:"
 msgid "en trámite"
 msgstr "En trámite"
+
+msgctxt "view:company.company:"
+msgid "Afip WS"
+msgstr ""
+
+msgctxt "view:company.company:"
+msgid "Certificado AFIP WS"
+msgstr ""
+
+msgctxt "view:company.company:"
+msgid "Clave Privada AFIP WS"
+msgstr ""
+
+msgctxt "view:company.company:"
+msgid "Modo de Certificacion"
+msgstr "Modo de Certificación"
 
 msgctxt "view:party.party:"
 msgid "AFIP"

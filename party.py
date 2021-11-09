@@ -673,7 +673,6 @@ class PartyIdentifier(metaclass=PoolMeta):
             ('afip_country.code', '=', self.afip_country.code),
             ('vat_number', '=', self.code),
             ])
-
         if not vat_numbers:
             raise InvalidIdentifierCode(
                 gettext('party.msg_invalid_vat_number',
