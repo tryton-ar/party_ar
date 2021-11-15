@@ -53,14 +53,14 @@ else:
 download_url = 'https://github.com/tryton-ar/party_ar/tree/%s' % branch
 
 LINKS = {
-    'pyafipws': ('git+https://github.com/reingart/'
-        'pyafipws.git@py3k#egg=pyafipws-py3k'),
+    'pyafipws': ('git+https://github.com/PyAr/'
+        'pyafipws.git@main#egg=pyafipws-main'),
     'pysimplesoap': ('git+https://github.com/pysimplesoap/'
         'pysimplesoap.git@stable_py3k#egg=pysimplesoap-stable_py3k'),
     }
 
-requires = ['M2Crypto>=0.22.3', 'Pillow>=2.8.1', 'httplib2',
-    'certifi>=2020.4.5.1', 'qrcode']
+requires = ['httplib2==0.19.0', 'cryptography==3.4.7', 'Pillow>=2.0.0',
+    'certifi>=2020.4.5.1', 'qrcode==6.1', 'future==0.18.2']
 for dep in info.get('depends', []):
     if not re.match(r'(ir|res)(\W|$)', dep):
         module_name = '%s_%s' % (MODULE2PREFIX.get(dep, 'trytond'), dep)
