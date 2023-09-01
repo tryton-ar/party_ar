@@ -277,23 +277,28 @@ class Party(metaclass=PoolMeta):
 
     def get_vat_number(self, name):
         for identifier in self.identifiers:
-            if identifier.type == 'ar_cuit':
+            if identifier.type in ['ar_cuit', 'ar_dni']:
                 return identifier.code
 
     @classmethod
     def set_vat_number(cls, partys, name, value):
+        party = partys[0]
+        identifier_type = 'ar_cuit'
         party_id = partys[0].id
         PartyIdentifier = Pool().get('party.identifier')
+        if party.tipo_documento == '96':
+            identifier_type = 'ar_dni'
+        
         identifiers = PartyIdentifier.search([
             ('party', 'in', partys),
-            ('type', '=', 'ar_cuit'),
+            ('type', '=', identifier_type),
             ])
         PartyIdentifier.delete(identifiers)
         if not value:
             return
         PartyIdentifier.create([{
             'code': cuit.compact(value),
-            'type': 'ar_cuit',
+            'type': identifier_type,
             'party': party_id,
             }])
 
