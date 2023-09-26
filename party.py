@@ -207,6 +207,21 @@ class Party(metaclass=PoolMeta):
         ], 'Condicion ante IVA',
         states={'required': Bool(Eval('vat_number'))})
     iva_condition_string = iva_condition.translated('iva_condition')
+    iibb_condition = fields.Selection([
+        (None, ''),
+        ('in', 'Inscripto Jurisdicción Local'),
+        ('cm', 'Inscripto Convenio Multilateral'),
+        ('rs', 'Régimen Simplificado'),
+        ('ex', 'Exento'),
+        ('ni', 'No Inscripto'),
+        ('na', 'No Alcanzado'),
+        ('cs', 'Consumidor Final'),
+        ], 'Condición ante IIBB', sort=False)
+    iibb_condition_string = iibb_condition.translated('iibb_condition')
+    iibb_number = fields.Char('Nro. IIBB',
+        states={
+            'required': Eval('iibb_condition').in_(['in', 'cm', 'rs'])
+            })
     company_name = fields.Char('Company Name')
     company_type = fields.Selection([
         ('', ''),
@@ -217,19 +232,6 @@ class Party(metaclass=PoolMeta):
         ('estado', 'Estado'),
         ('exterior', 'Exterior'),
         ], 'Company Type')
-    iibb_type = fields.Selection([
-        ('', ''),
-        ('cm', 'Convenio Multilateral'),
-        ('rs', 'Regimen Simplificado'),
-        ('exento', 'Exento'),
-        ], 'Inscripcion II BB')
-    iibb_number = fields.Char('Nro. II BB',
-        states={
-            'required': And(
-                Not(Equal(Eval('iibb_type'), 'exento')),
-                Bool(Eval('iibb_type'))),
-            },
-        depends=['iibb_type'])
     primary_activity_code = fields.Selection(CODES,
         'Primary Activity Code')
     secondary_activity_code = fields.Selection(CODES,
@@ -252,6 +254,23 @@ class Party(metaclass=PoolMeta):
     vat_number_afip_foreign = fields.Function(fields.Char('CUIT AFIP Foreign'),
         'get_vat_number_afip_foreign',
         searcher='search_vat_number_afip_foreign')
+
+    @classmethod
+    def __register__(cls, module_name):
+        cursor = Transaction().connection.cursor()
+        sql_table = cls.__table__()
+        table_h = cls.__table_handler__(module_name)
+
+        iibb_type_exist = table_h.column_exist('iibb_type')
+        super().__register__(module_name)
+        if iibb_type_exist:
+            cursor.execute(*sql_table.update([sql_table.iibb_condition], [
+                Case((sql_table.iibb_type == 'cm', 'cm'),
+                else_=Case((sql_table.iibb_type == 'rs', 'rs'),
+                else_=Case((sql_table.iibb_type == 'exento', 'ex'),
+                else_=Null)))],
+                where=Literal(True)))
+            table_h.drop_column('iibb_type')
 
     @classmethod
     def __setup__(cls):
