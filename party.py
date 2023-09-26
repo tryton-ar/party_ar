@@ -1,6 +1,9 @@
 # This file is part of the party_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
+from sql.conditionals import Case
+from sql import Literal, Null
+
 from pyafipws.ws_sr_padron import WSSrPadronA5
 import stdnum.ar.cuit as cuit
 import stdnum.exceptions
@@ -9,7 +12,7 @@ import logging
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Bool, Eval, Equal, Not, And
+from trytond.pyson import Bool, Eval, Equal
 from trytond.transaction import Transaction
 from trytond.i18n import gettext
 from trytond.tools import cursor_dict
@@ -198,13 +201,15 @@ class Party(metaclass=PoolMeta):
     __name__ = 'party.party'
 
     iva_condition = fields.Selection([
-        ('', ''),
+        (None, ''),
         ('responsable_inscripto', 'Responsable Inscripto'),
-        ('exento', 'Exento'),
+        ('exento', 'Sujeto Exento'),
         ('consumidor_final', 'Consumidor Final'),
-        ('monotributo', 'Monotributo'),
-        ('no_alcanzado', 'No alcanzado'),
-        ], 'Condicion ante IVA',
+        ('monotributo', 'Responsable Monotributo'),
+        ('proveedor_exterior', 'Proveedor del Exterior'),
+        ('cliente_exterior', 'Cliente del Exterior'),
+        ('no_alcanzado', 'No Alcanzado'),
+        ], 'Condición ante IVA', sort=False,
         states={'required': Bool(Eval('vat_number'))})
     iva_condition_string = iva_condition.translated('iva_condition')
     iibb_condition = fields.Selection([
@@ -245,11 +250,9 @@ class Party(metaclass=PoolMeta):
         'Tipo documento')
     vat_number = fields.Function(fields.Char('CUIT',
         states={
-            'required': ~Eval('iva_condition').in_(
-                ['', 'consumidor_final', 'no_alcanzado']),
-            },
-        depends=['iva_condition']),
-        'get_vat_number', setter='set_vat_number',
+            'required': Bool(Eval('iva_condition').in_(
+                ['responsable_inscripto', 'exento', 'monotributo'])),
+            }), 'get_vat_number', setter='set_vat_number',
         searcher='search_vat_number')
     vat_number_afip_foreign = fields.Function(fields.Char('CUIT AFIP Foreign'),
         'get_vat_number_afip_foreign',
@@ -272,16 +275,16 @@ class Party(metaclass=PoolMeta):
                 where=Literal(True)))
             table_h.drop_column('iibb_type')
 
+            cursor.execute(*sql_table.update(
+                [sql_table.iva_condition], [Null],
+                where=sql_table.iva_condition == ''))
+
     @classmethod
     def __setup__(cls):
         super().__setup__()
         cls._buttons.update({
             'get_afip_data': {},
             })
-
-    @staticmethod
-    def default_iva_condition():
-        return ''
 
     @staticmethod
     def default_tipo_documento():
@@ -690,6 +693,7 @@ class PartyIdentifier(metaclass=PoolMeta):
             ('afip_country.code', '=', self.afip_country.code),
             ('vat_number', '=', self.code),
             ])
+
         if not vat_numbers:
             raise InvalidIdentifierCode(
                 gettext('party.msg_invalid_vat_number',
