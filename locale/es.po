@@ -90,17 +90,21 @@ msgctxt "field:party.party,controlling_entity_number:"
 msgid "Nro. entidad controladora"
 msgstr "Nro. entidad controladora"
 
-msgctxt "field:party.party,iibb_number:"
-msgid "Nro. II BB"
-msgstr "Nro. II BB"
+msgctxt "field:party.party,ganancias_condition:"
+msgid "Condición ante Ganancias"
+msgstr ""
 
-msgctxt "field:party.party,iibb_type:"
-msgid "Inscripcion II BB"
-msgstr "Inscripción II BB"
+msgctxt "field:party.party,iibb_condition:"
+msgid "Condición ante IIBB"
+msgstr ""
+
+msgctxt "field:party.party,iibb_number:"
+msgid "Nro. IIBB"
+msgstr ""
 
 msgctxt "field:party.party,iva_condition:"
-msgid "Condicion ante IVA"
-msgstr "Condición ante IVA"
+msgid "Condición ante IVA"
+msgstr ""
 
 msgctxt "field:party.party,primary_activity_code:"
 msgid "Primary Activity Code"
@@ -9418,37 +9422,73 @@ msgctxt "selection:party.party,company_type:"
 msgid "SRL"
 msgstr "SRL"
 
-msgctxt "selection:party.party,iibb_type:"
-msgid "Convenio Multilateral"
-msgstr "Convenio Multilateral"
-
-msgctxt "selection:party.party,iibb_type:"
+msgctxt "selection:party.party,ganancias_condition:"
 msgid "Exento"
-msgstr "Exento"
+msgstr ""
 
-msgctxt "selection:party.party,iibb_type:"
-msgid "Regimen Simplificado"
-msgstr "Régimen Simplificado"
+msgctxt "selection:party.party,ganancias_condition:"
+msgid "Inscripto"
+msgstr ""
+
+msgctxt "selection:party.party,ganancias_condition:"
+msgid "No Inscripto"
+msgstr ""
+
+msgctxt "selection:party.party,iibb_condition:"
+msgid "Consumidor Final"
+msgstr ""
+
+msgctxt "selection:party.party,iibb_condition:"
+msgid "Exento"
+msgstr ""
+
+msgctxt "selection:party.party,iibb_condition:"
+msgid "Inscripto Convenio Multilateral"
+msgstr ""
+
+msgctxt "selection:party.party,iibb_condition:"
+msgid "Inscripto Jurisdicción Local"
+msgstr ""
+
+msgctxt "selection:party.party,iibb_condition:"
+msgid "No Alcanzado"
+msgstr ""
+
+msgctxt "selection:party.party,iibb_condition:"
+msgid "No Inscripto"
+msgstr ""
+
+msgctxt "selection:party.party,iibb_condition:"
+msgid "Régimen Simplificado"
+msgstr ""
+
+msgctxt "selection:party.party,iva_condition:"
+msgid "Cliente del Exterior"
+msgstr ""
 
 msgctxt "selection:party.party,iva_condition:"
 msgid "Consumidor Final"
-msgstr "Consumidor Final"
+msgstr ""
 
 msgctxt "selection:party.party,iva_condition:"
-msgid "Exento"
-msgstr "Exento"
+msgid "No Alcanzado"
+msgstr ""
 
 msgctxt "selection:party.party,iva_condition:"
-msgid "Monotributo"
-msgstr "Monotributo"
-
-msgctxt "selection:party.party,iva_condition:"
-msgid "No alcanzado"
-msgstr "No alcanzado"
+msgid "Proveedor del Exterior"
+msgstr ""
 
 msgctxt "selection:party.party,iva_condition:"
 msgid "Responsable Inscripto"
-msgstr "Responsable Inscripto"
+msgstr ""
+
+msgctxt "selection:party.party,iva_condition:"
+msgid "Responsable Monotributo"
+msgstr ""
+
+msgctxt "selection:party.party,iva_condition:"
+msgid "Sujeto Exento"
+msgstr ""
 
 msgctxt "selection:party.party,primary_activity_code:"
 msgid " 919900 - SERVICIOS DE ASOCIACIONES N.C.P."
