@@ -1,8 +1,6 @@
 # This file is part of the party_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
-from pyafipws.wsaa import WSAA
-from pyafipws.ws_sr_padron import WSSrPadronA5
 import logging
 import os
 
