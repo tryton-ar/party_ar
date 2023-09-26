@@ -227,9 +227,17 @@ class Party(metaclass=PoolMeta):
         states={
             'required': Eval('iibb_condition').in_(['in', 'cm', 'rs'])
             })
+    ganancias_condition = fields.Selection([
+        (None, ''),
+        ('in', 'Inscripto'),
+        ('ex', 'Exento'),
+        ('ni', 'No Inscripto'),
+        ], 'Condición ante Ganancias', sort=False)
+    ganancias_condition_string = ganancias_condition.translated(
+        'ganancias_condition')
     company_name = fields.Char('Company Name')
     company_type = fields.Selection([
-        ('', ''),
+        (None, ''),
         ('cooperativa', 'Cooperativa'),
         ('srl', 'SRL'),
         ('sa', 'SA'),

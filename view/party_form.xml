@@ -32,6 +32,8 @@
             <field name="iibb_condition"/>
             <label name="iibb_number"/>
             <field name="iibb_number"/>
+            <label name="ganancias_condition"/>
+            <field name="ganancias_condition"/>
             <label name="start_activity_date"/>
             <field name="start_activity_date"/>
             <newline/>
