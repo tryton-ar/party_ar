@@ -205,8 +205,7 @@ class Party(metaclass=PoolMeta):
         ('monotributo', 'Monotributo'),
         ('no_alcanzado', 'No alcanzado'),
         ], 'Condicion ante IVA',
-        states={'required': Bool(Eval('vat_number'))},
-        depends=['vat_number'])
+        states={'required': Bool(Eval('vat_number'))})
     iva_condition_string = iva_condition.translated('iva_condition')
     company_name = fields.Char('Company Name')
     company_type = fields.Selection([
@@ -463,8 +462,7 @@ class PartyIdentifier(metaclass=PoolMeta):
     __name__ = 'party.identifier'
 
     afip_country = fields.Many2One('afip.country', 'Country',
-        states={'invisible': ~Equal(Eval('type'), 'ar_foreign')},
-        depends=['type'])
+        states={'invisible': ~Equal(Eval('type'), 'ar_foreign')})
 
     @classmethod
     def __register__(cls, module_name):
