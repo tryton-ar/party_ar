@@ -362,7 +362,7 @@ class Party(metaclass=PoolMeta):
         cache = Company.get_cache_dir()
 
         # set AFIP webservice credentials
-        ta = company.pyafipws_authenticate(service='ws_sr_padron_a5')
+        ta = company.pyafipws_authenticate(service='ws_sr_constancia_inscripcion')
         ws.SetTicketAcceso(ta)
         ws.Cuit = company.party.vat_number
 
