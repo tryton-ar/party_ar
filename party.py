@@ -402,6 +402,12 @@ class Party(metaclass=PoolMeta):
             else:
                 self.iva_condition = 'consumidor_final'
 
+        self.ganancias_condition = 'ni'
+        if any(item in [10, 11] for item in impuestos):
+            self.ganancias_condition = 'in'
+        elif 12 in impuestos:
+            self.ganancias_condition = 'ex'
+
         if button_afip:
             fecha_inscripcion = padron.data.get('fechaInscripcion', None)
             if fecha_inscripcion:
