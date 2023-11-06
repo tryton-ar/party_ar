@@ -53,12 +53,9 @@ download_url = 'https://github.com/tryton-ar/%s/tree/%s.%s' % (
 LINKS = {
     'pyafipws': ('git+https://github.com/PyAr/'
         'pyafipws.git@main#egg=pyafipws-main'),
-    'pysimplesoap': ('git+https://github.com/pysimplesoap/'
-        'pysimplesoap.git@stable_py3k#egg=pysimplesoap-stable_py3k'),
     }
 
-requires = ['httplib2==0.20.4', 'cryptography==41.0.1', 'Pillow>=2.0.0',
-    'certifi>=2020.4.5.1', 'qrcode==6.1', 'future==0.18.3']
+requires = []
 for dep in info.get('depends', []):
     if not re.match(r'(ir|res)(\W|$)', dep):
         module_name = '%s_%s' % (MODULE2PREFIX.get(dep, 'trytond'), dep)
@@ -66,7 +63,6 @@ for dep in info.get('depends', []):
 
 requires.append(get_require_version('trytond'))
 requires.append(get_require_version('pyafipws'))
-requires.append(get_require_version('pysimplesoap'))
 
 tests_require = [get_require_version('proteus')]
 dependency_links = list(LINKS.values())
