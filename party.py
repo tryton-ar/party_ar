@@ -362,7 +362,8 @@ class Party(metaclass=PoolMeta):
         cache = Company.get_cache_dir()
 
         # set AFIP webservice credentials
-        ta = company.pyafipws_authenticate(service='ws_sr_constancia_inscripcion')
+        ta = company.pyafipws_authenticate(
+            service='ws_sr_constancia_inscripcion')
         ws.SetTicketAcceso(ta)
         ws.Cuit = company.party.vat_number
 
@@ -481,7 +482,7 @@ class Party(metaclass=PoolMeta):
                 Transaction().commit()
             except Exception as e:
                 msg = str(e)
-                logger.error('Could not retrieve "%s" msg AFIP: "%s".',
+                logger.error('Could not retrieve "%s" msg AFIP: "%s".' %
                     (party.vat_number, msg))
 
     @classmethod
@@ -757,7 +758,7 @@ class GetAFIPData(Wizard):
                 raise ValueError(msg)
         except Exception as e:
             msg = str(e)
-            logger.error('Could not retrieve "%s" msg AFIP: "%s".',
+            logger.error('Could not retrieve "%s" msg AFIP: "%s".' %
                 (party.vat_number, msg))
             raise VatNumberNotFound(
                 gettext('party_ar.msg_vat_number_not_found',
@@ -808,7 +809,7 @@ class GetAFIPData(Wizard):
             party.set_padron(padron)
         except Exception as e:
             msg = str(e)
-            logger.error('Could not retrieve "%s" msg AFIP: "%s".',
+            logger.error('Could not retrieve "%s" msg AFIP: "%s".' %
                 (party.vat_number, msg))
         return 'end'
 
