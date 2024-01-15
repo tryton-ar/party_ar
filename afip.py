@@ -51,12 +51,14 @@ class PyAfipWsWrapper(Model):
                 logger.debug("Conectando a WSAA...")
                 ok = wsaa.Conectar(cache, wsdl, proxy, wrapper, cacert)
                 if not ok or wsaa.Excepcion:
-                    raise RuntimeError("Fallo la conexión: %s" % wsaa.Excepcion)
+                    raise RuntimeError("Fallo la conexión: %s" %
+                        wsaa.Excepcion)
                 # llamar al método remoto para solicitar el TA
                 logger.debug("Llamando WSAA...")
                 ta = wsaa.LoginCMS(cms)
                 if not ta:
-                    raise RuntimeError("Ticket de acceso vacio: %s" % WSAA.Excepcion)
+                    raise RuntimeError("Ticket de acceso vacio: %s" %
+                        WSAA.Excepcion)
                 # grabar el ticket de acceso para poder reutilizarlo luego
                 logger.debug("Grabando TA en %s...", fn)
                 try:
@@ -64,7 +66,8 @@ class PyAfipWsWrapper(Model):
                     f.write(ta)
                     f.close()
                 except IOError as e:
-                    wsaa.Excepcion = "Imposible grabar ticket de accesso: %s" % fn
+                    wsaa.Excepcion = (
+                        "Imposible grabar ticket de accesso: %s" % fn)
             else:
                 # leer el ticket de acceso del archivo en cache
                 logger.debug("Leyendo TA de %s...", fn)
@@ -75,7 +78,7 @@ class PyAfipWsWrapper(Model):
             wsaa.AnalizarXml(xml=ta)
             wsaa.Token = wsaa.ObtenerTagXml("token")
             wsaa.Sign = wsaa.ObtenerTagXml("sign")
-        except:
+        except Exception:
             ta = ""
             if wsaa.Excepcion:
                 # get the exception already parsed by the helper

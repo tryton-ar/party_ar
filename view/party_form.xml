@@ -28,10 +28,12 @@
             <field name="company_type"/>
             <label name="company_name"/>
             <field name="company_name"/>
-            <label name="iibb_type"/>
-            <field name="iibb_type"/>
+            <label name="iibb_condition"/>
+            <field name="iibb_condition"/>
             <label name="iibb_number"/>
             <field name="iibb_number"/>
+            <label name="ganancias_condition"/>
+            <field name="ganancias_condition"/>
             <label name="start_activity_date"/>
             <field name="start_activity_date"/>
             <newline/>

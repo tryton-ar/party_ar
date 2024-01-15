@@ -1,6 +1,9 @@
 # This file is part of the party_ar module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
+from sql.conditionals import Case
+from sql import Literal, Null
+
 from pyafipws.ws_sr_padron import WSSrPadronA5
 import stdnum.ar.cuit as cuit
 import stdnum.exceptions
@@ -9,7 +12,7 @@ import logging
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Bool, Eval, Equal, Not, And
+from trytond.pyson import Bool, Eval, Equal
 from trytond.transaction import Transaction
 from trytond.i18n import gettext
 from trytond.tools import cursor_dict
@@ -198,19 +201,43 @@ class Party(metaclass=PoolMeta):
     __name__ = 'party.party'
 
     iva_condition = fields.Selection([
-        ('', ''),
+        (None, ''),
         ('responsable_inscripto', 'Responsable Inscripto'),
-        ('exento', 'Exento'),
+        ('exento', 'Sujeto Exento'),
         ('consumidor_final', 'Consumidor Final'),
-        ('monotributo', 'Monotributo'),
-        ('no_alcanzado', 'No alcanzado'),
-        ], 'Condicion ante IVA',
-        states={'required': Bool(Eval('vat_number'))},
-        depends=['vat_number'])
+        ('monotributo', 'Responsable Monotributo'),
+        ('proveedor_exterior', 'Proveedor del Exterior'),
+        ('cliente_exterior', 'Cliente del Exterior'),
+        ('no_alcanzado', 'No Alcanzado'),
+        ], 'Condición ante IVA', sort=False,
+        states={'required': Bool(Eval('vat_number'))})
     iva_condition_string = iva_condition.translated('iva_condition')
+    iibb_condition = fields.Selection([
+        (None, ''),
+        ('in', 'Inscripto Jurisdicción Local'),
+        ('cm', 'Inscripto Convenio Multilateral'),
+        ('rs', 'Régimen Simplificado'),
+        ('ex', 'Exento'),
+        ('ni', 'No Inscripto'),
+        ('na', 'No Alcanzado'),
+        ('cs', 'Consumidor Final'),
+        ], 'Condición ante IIBB', sort=False)
+    iibb_condition_string = iibb_condition.translated('iibb_condition')
+    iibb_number = fields.Char('Nro. IIBB',
+        states={
+            'required': Eval('iibb_condition').in_(['in', 'cm', 'rs'])
+            })
+    ganancias_condition = fields.Selection([
+        (None, ''),
+        ('in', 'Inscripto'),
+        ('ex', 'Exento'),
+        ('ni', 'No Inscripto'),
+        ], 'Condición ante Ganancias', sort=False)
+    ganancias_condition_string = ganancias_condition.translated(
+        'ganancias_condition')
     company_name = fields.Char('Company Name')
     company_type = fields.Selection([
-        ('', ''),
+        (None, ''),
         ('cooperativa', 'Cooperativa'),
         ('srl', 'SRL'),
         ('sa', 'SA'),
@@ -218,19 +245,6 @@ class Party(metaclass=PoolMeta):
         ('estado', 'Estado'),
         ('exterior', 'Exterior'),
         ], 'Company Type')
-    iibb_type = fields.Selection([
-        ('', ''),
-        ('cm', 'Convenio Multilateral'),
-        ('rs', 'Regimen Simplificado'),
-        ('exento', 'Exento'),
-        ], 'Inscripcion II BB')
-    iibb_number = fields.Char('Nro. II BB',
-        states={
-            'required': And(
-                Not(Equal(Eval('iibb_type'), 'exento')),
-                Bool(Eval('iibb_type'))),
-            },
-        depends=['iibb_type'])
     primary_activity_code = fields.Selection(CODES,
         'Primary Activity Code')
     secondary_activity_code = fields.Selection(CODES,
@@ -244,15 +258,34 @@ class Party(metaclass=PoolMeta):
         'Tipo documento')
     vat_number = fields.Function(fields.Char('CUIT',
         states={
-            'required': ~Eval('iva_condition').in_(
-                ['', 'consumidor_final', 'no_alcanzado']),
-            },
-        depends=['iva_condition']),
-        'get_vat_number', setter='set_vat_number',
+            'required': Bool(Eval('iva_condition').in_(
+                ['responsable_inscripto', 'exento', 'monotributo'])),
+            }), 'get_vat_number', setter='set_vat_number',
         searcher='search_vat_number')
     vat_number_afip_foreign = fields.Function(fields.Char('CUIT AFIP Foreign'),
         'get_vat_number_afip_foreign',
         searcher='search_vat_number_afip_foreign')
+
+    @classmethod
+    def __register__(cls, module_name):
+        cursor = Transaction().connection.cursor()
+        sql_table = cls.__table__()
+        table_h = cls.__table_handler__(module_name)
+
+        iibb_type_exist = table_h.column_exist('iibb_type')
+        super().__register__(module_name)
+        if iibb_type_exist:
+            cursor.execute(*sql_table.update([sql_table.iibb_condition], [
+                Case((sql_table.iibb_type == 'cm', 'cm'),
+                else_=Case((sql_table.iibb_type == 'rs', 'rs'),
+                else_=Case((sql_table.iibb_type == 'exento', 'ex'),
+                else_=Null)))],
+                where=Literal(True)))
+            table_h.drop_column('iibb_type')
+
+            cursor.execute(*sql_table.update(
+                [sql_table.iva_condition], [Null],
+                where=sql_table.iva_condition == ''))
 
     @classmethod
     def __setup__(cls):
@@ -260,10 +293,6 @@ class Party(metaclass=PoolMeta):
         cls._buttons.update({
             'get_afip_data': {},
             })
-
-    @staticmethod
-    def default_iva_condition():
-        return ''
 
     @staticmethod
     def default_tipo_documento():
@@ -338,7 +367,8 @@ class Party(metaclass=PoolMeta):
         cache = Company.get_cache_dir()
 
         # set AFIP webservice credentials
-        ta = company.pyafipws_authenticate(service='ws_sr_padron_a5')
+        ta = company.pyafipws_authenticate(
+            service='ws_sr_constancia_inscripcion')
         ws.SetTicketAcceso(ta)
         ws.Cuit = company.party.vat_number
 
@@ -377,6 +407,12 @@ class Party(metaclass=PoolMeta):
                 self.iva_condition = 'responsable_inscripto'
             else:
                 self.iva_condition = 'consumidor_final'
+
+        self.ganancias_condition = 'ni'
+        if any(item in [10, 11] for item in impuestos):
+            self.ganancias_condition = 'in'
+        elif 12 in impuestos:
+            self.ganancias_condition = 'ex'
 
         if button_afip:
             fecha_inscripcion = padron.data.get('fechaInscripcion', None)
@@ -451,7 +487,7 @@ class Party(metaclass=PoolMeta):
                 Transaction().commit()
             except Exception as e:
                 msg = str(e)
-                logger.error('Could not retrieve "%s" msg AFIP: "%s".',
+                logger.error('Could not retrieve "%s" msg AFIP: "%s".' %
                     (party.vat_number, msg))
 
     @classmethod
@@ -468,8 +504,7 @@ class PartyIdentifier(metaclass=PoolMeta):
     __name__ = 'party.identifier'
 
     afip_country = fields.Many2One('afip.country', 'Country',
-        states={'invisible': ~Equal(Eval('type'), 'ar_foreign')},
-        depends=['type'])
+        states={'invisible': ~Equal(Eval('type'), 'ar_foreign')})
 
     @classmethod
     def __register__(cls, module_name):
@@ -678,6 +713,7 @@ class PartyIdentifier(metaclass=PoolMeta):
             ('afip_country.code', '=', self.afip_country.code),
             ('vat_number', '=', self.code),
             ])
+
         if not vat_numbers:
             raise InvalidIdentifierCode(
                 gettext('party.msg_invalid_vat_number',
@@ -727,7 +763,7 @@ class GetAFIPData(Wizard):
                 raise ValueError(msg)
         except Exception as e:
             msg = str(e)
-            logger.error('Could not retrieve "%s" msg AFIP: "%s".',
+            logger.error('Could not retrieve "%s" msg AFIP: "%s".' %
                 (party.vat_number, msg))
             raise VatNumberNotFound(
                 gettext('party_ar.msg_vat_number_not_found',
@@ -778,7 +814,7 @@ class GetAFIPData(Wizard):
             party.set_padron(padron)
         except Exception as e:
             msg = str(e)
-            logger.error('Could not retrieve "%s" msg AFIP: "%s".',
+            logger.error('Could not retrieve "%s" msg AFIP: "%s".' %
                 (party.vat_number, msg))
         return 'end'
 
