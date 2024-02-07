@@ -311,6 +311,8 @@ class Party(metaclass=PoolMeta):
 
     @classmethod
     def set_vat_number(cls, partys, name, value):
+        identifier_type = {'80': 'ar_cuit'
+                           '': }
         party_id = partys[0].id
         PartyIdentifier = Pool().get('party.identifier')
         identifiers = PartyIdentifier.search([
