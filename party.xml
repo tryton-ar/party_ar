@@ -63,12 +63,7 @@
             <field name="model" search="[('model', '=', 'party.party')]"/>
         </record>
 
-        <!-- user cron afip -->
-        <record model="res.user" id="user_afip">
-            <field name="login">user_afip</field>
-            <field name="name">Cron AFIP</field>
-            <field name="active" eval="False"/>
-        </record>
+        <!-- cron afip -->
         <record model="ir.cron" id="cron_afip_census_scheduler">
             <field name="active" eval="True"/>
             <field name="interval_number" eval="1"/>
