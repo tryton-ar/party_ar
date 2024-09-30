@@ -97,7 +97,7 @@ class Configuration(metaclass=PoolMeta):
     @classmethod
     def __setup__(cls):
         super().__setup__()
-        cls.identifier_types.selection = [
+        cls.identifier_types.selection += [
                 ('ar_cuit', 'CUIT'),
                 ('ar_dni', 'DNI'),
                 ('ar_foreign', 'CUIT AFIP Foreign'),
