@@ -52,7 +52,7 @@ download_url = 'https://github.com/tryton-ar/%s/tree/%s.%s' % (
     MODULE, major_version, minor_version)
 
 LINKS = {
-    'pyafipws': ('git+https://github.com/PyAr/'
+    'pyafipws': ('git+https://github.com/tryton-ar/'
         'pyafipws.git@main#egg=pyafipws-main'),
     }
 
