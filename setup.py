@@ -53,7 +53,7 @@ else:
 download_url = 'https://github.com/tryton-ar/party_ar/tree/%s' % branch
 
 LINKS = {
-    'pyafipws': ('git+https://github.com/PyAr/'
+    'pyafipws': ('git+https://github.com/tryton-ar/'
         'pyafipws.git@main#egg=pyafipws-main'),
     }
 
