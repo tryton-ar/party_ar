@@ -98,8 +98,6 @@ class Configuration(metaclass=PoolMeta):
     def __setup__(cls):
         super().__setup__()
         cls.identifier_types.selection += [
-                ('ar_cuit', 'CUIT'),
-                ('ar_dni', 'DNI'),
                 ('ar_foreign', 'CUIT AFIP Foreign'),
                 ]
 
@@ -301,12 +299,12 @@ class Party(metaclass=PoolMeta):
     @classmethod
     def tax_identifier_types(cls):
         types = super().tax_identifier_types()
-        types.extend(['ar_cuit', 'ar_dni', 'ar_foreign'])
+        types.extend(['ar_dni', 'ar_foreign'])
         return types
 
     def get_vat_number(self, name):
         for identifier in self.identifiers:
-            if identifier.type == 'ar_cuit':
+            if identifier.type in ['ar_cuit', 'ar_vat']:
                 return identifier.code
 
     @classmethod
@@ -315,14 +313,14 @@ class Party(metaclass=PoolMeta):
         PartyIdentifier = Pool().get('party.identifier')
         identifiers = PartyIdentifier.search([
             ('party', 'in', partys),
-            ('type', '=', 'ar_cuit'),
+            ('type', 'in', ['ar_cuit', 'ar_vat']),
             ])
         PartyIdentifier.delete(identifiers)
         if not value:
             return
         PartyIdentifier.create([{
             'code': cuit.compact(value),
-            'type': 'ar_cuit',
+            'type': 'ar_vat',
             'party': party_id,
             }])
 
@@ -330,7 +328,7 @@ class Party(metaclass=PoolMeta):
     def search_vat_number(cls, name, clause):
         return [
             ('identifiers.code',) + tuple(clause[1:]),
-            ('identifiers.type', '=', 'ar_cuit'),
+            ('identifiers.type', '=', 'ar_vat'),
             ]
 
     def get_vat_number_afip_foreign(self, name):
@@ -675,7 +673,7 @@ class PartyIdentifier(metaclass=PoolMeta):
     @fields.depends('type', 'code')
     def on_change_with_code(self):
         code = super().on_change_with_code()
-        if self.type == 'ar_cuit':
+        if self.type in ['ar_cuit', 'ar_vat']:
             try:
                 return cuit.compact(code)
             except stdnum.exceptions.ValidationError:
@@ -690,7 +688,7 @@ class PartyIdentifier(metaclass=PoolMeta):
 
     def check_code(self):
         super().check_code()
-        if self.type == 'ar_cuit':
+        if self.type in ['ar_cuit', 'ar_vat']:
             if not cuit.is_valid(self.code):
                 raise InvalidIdentifierCode(
                     gettext('party.msg_invalid_vat_number',
