@@ -7,7 +7,6 @@ import io
 import os
 import re
 from configparser import ConfigParser
-
 from setuptools import find_packages, setup
 
 MODULE = 'party_ar'
@@ -27,10 +26,7 @@ def read(fname):
 def get_require_version(name):
     if name in LINKS:
         return '%s @ %s' % (name, LINKS[name])
-    if minor_version % 2:
-        require = '%s >= %s.%s.dev0, < %s.%s'
-    else:
-        require = '%s >= %s.%s, < %s.%s'
+    require = '%s >= %s.%s, < %s.%s'
     require %= (name, major_version, minor_version,
         major_version, minor_version + 1)
     return require
@@ -61,14 +57,13 @@ for dep in info.get('depends', []):
     if not re.match(r'(ir|res)(\W|$)', dep):
         module_name = '%s_%s' % (MODULE2PREFIX.get(dep, 'trytond'), dep)
         requires.append(get_require_version(module_name))
-
 requires.append(get_require_version('trytond'))
 requires.append(get_require_version('pyafipws'))
 
 tests_require = [get_require_version('proteus')]
-dependency_links = list(LINKS.values())
-if minor_version % 2:
-    dependency_links.append('https://trydevpi.tryton.org/')
+for dep in info.get('extras_depend', []):
+    module_name = '%s_%s' % (MODULE2PREFIX.get(dep, 'trytond'), dep)
+    tests_require.append(get_require_version(module_name))
 
 setup(name='%s_%s' % (PREFIX, MODULE),
     version=version,
@@ -83,6 +78,7 @@ setup(name='%s_%s' % (PREFIX, MODULE),
         "Forum": 'https://www.tryton.org/forum',
         "Source Code": url,
         },
+    keywords='',
     package_dir={'trytond.modules.%s' % MODULE: '.'},
     packages=(
         ['trytond.modules.%s' % MODULE]
@@ -121,7 +117,6 @@ setup(name='%s_%s' % (PREFIX, MODULE),
     extras_require={
         'test': tests_require,
         },
-    dependency_links=dependency_links,
     zip_safe=False,
     entry_points="""
     [trytond.modules]
