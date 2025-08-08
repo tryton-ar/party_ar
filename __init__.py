@@ -8,6 +8,8 @@ from . import party
 from . import address
 from . import afip
 
+__all__ = ['register']
+
 
 def register():
     Pool.register(
