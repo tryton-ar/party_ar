@@ -53,7 +53,7 @@ TIPO_DOCUMENTO = [
     ('89', 'LE'),
     ('90', 'LC'),
     ('91', 'CI extranjera'),
-    ('92', 'en trámite'),
+    ('92', 'En trámite'),
     ('93', 'Acta nacimiento'),
     ('94', 'Pasaporte'),
     ('95', 'CI Bs. As. RNP'),
@@ -109,8 +109,8 @@ class AFIPVatCountry(ModelSQL, ModelView):
     vat_number = fields.Char('VAT Number')
     afip_country = fields.Many2One('afip.country', 'Country')
     type_code = fields.Selection([
-        ('0', 'Juridica'),
-        ('1', 'Fisica'),
+        ('0', 'Jurídica'),
+        ('1', 'Física'),
         ('2', 'Otro Tipo de Entidad'),
         ], 'Type Code')
 
@@ -250,7 +250,7 @@ class Party(metaclass=PoolMeta):
     start_activity_date = fields.Date('Start activity date')
     controlling_entity = fields.Char('Entidad controladora',
         help='Controlling entity')
-    controlling_entity_number = fields.Char('Nro. entidad controladora',
+    controlling_entity_number = fields.Char('Nro. Entidad controladora',
         help='Controlling entity number')
     tipo_documento = fields.Selection(TIPO_DOCUMENTO,
         'Tipo documento')
@@ -717,12 +717,12 @@ class GetAFIPDataStart(ModelView):
     'Get AFIP Data Start'
     __name__ = 'party.get_afip_data.start'
 
-    name = fields.Char('Name', readonly=True)
-    direccion = fields.Char('Direccion', readonly=True)
+    name = fields.Char('Nombre', readonly=True)
+    direccion = fields.Char('Dirección', readonly=True)
     localidad = fields.Char('Localidad', readonly=True)
-    codigo_postal = fields.Char('Codigo Postal', readonly=True)
-    fecha_inscripcion = fields.Date('Fecha de Inscripcion', readonly=True)
-    subdivision_code = fields.Integer('Subdivision', readonly=True)
+    codigo_postal = fields.Char('Código Postal', readonly=True)
+    fecha_inscripcion = fields.Date('Fecha de Inscripción', readonly=True)
+    subdivision_code = fields.Integer('Provincia', readonly=True)
     primary_activity_code = fields.Selection(CODES, 'Actividad primaria',
         readonly=True)
     secondary_activity_code = fields.Selection(CODES, 'Actividad secundaria',
@@ -737,8 +737,8 @@ class GetAFIPData(Wizard):
     start = StateView(
         'party.get_afip_data.start',
         'party_ar.get_afip_data_start_view', [
-            Button('Cancelar', 'end', 'tryton-cancel'),
-            Button('OK', 'update_party', 'tryton-ok', default=True),
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Ok', 'update_party', 'tryton-ok', default=True),
         ])
     update_party = StateTransition()
 

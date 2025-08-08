@@ -23,7 +23,7 @@ class Company(metaclass=PoolMeta):
         ('', 'n/a'),
         ('homologacion', 'Homologación'),
         ('produccion', 'Producción'),
-        ], 'Modo de certificacion',
+        ], 'Modo de certificación',
         help=('El objetivo de Homologación (testing), es facilitar las '
             'pruebas. Los certificados de Homologación y Producción son '
             'distintos.'))

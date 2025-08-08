@@ -1,0 +1,11 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "selection:party.configuration,identifier_types:party."
+msgid "Argentinian National Identity Number"
+msgstr "DNI"
+
+msgctxt "selection:party.configuration,identifier_types:party."
+msgid "Argentinian Tax Number"
+msgstr "CUIT"
