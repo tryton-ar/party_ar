@@ -3,32 +3,30 @@ AFIP Scenario
 =============
 
 Imports::
-    >>> import datetime
+    >>> import datetime as dt
     >>> from proteus import Model, Wizard
     >>> from trytond.tests.tools import activate_modules
+    >>> from trytond.modules.currency.tests.tools import get_currency
     >>> from trytond.modules.company.tests.tools import create_company, \
     ...     get_company
     >>> from trytond.modules.party_ar.tests.tools import set_afip_certs
     >>> from pyafipws.wsaa import WSAA
-    >>> today = datetime.date.today()
+    >>> today = dt.date.today()
 
-Install account_invoice::
+Install party_ar::
 
     >>> config = activate_modules('party_ar')
 
 Create company::
 
-    >>> _ = create_company()
+    >>> currency = get_currency('ARS')
+    >>> _ = create_company(currency=currency)
     >>> company = get_company()
     >>> tax_identifier = company.party.identifiers.new()
-    >>> tax_identifier.type = 'ar_cuit'
+    >>> tax_identifier.type = 'ar_vat'
     >>> tax_identifier.code = '30710158254' # gcoop CUIT
     >>> company.party.iva_condition = 'responsable_inscripto'
     >>> company.party.save()
-
-Import models::
-
-    >>> Party = Model.get('party.party')
 
 Configure AFIP certificates::
 
