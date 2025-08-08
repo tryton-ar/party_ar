@@ -2,7 +2,7 @@
 <data>
     <xpath expr="/tree/field[@name='name']" position="after">
         <field name="iva_condition"/>
-        <field name="company_name"/>
+        <field name="company_name" optional="1"/>
     </xpath>
 </data>
 
