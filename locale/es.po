@@ -15,8 +15,8 @@ msgid "Certificado AFIP WS"
 msgstr ""
 
 msgctxt "field:company.company,pyafipws_mode_cert:"
-msgid "Modo de certificacion"
-msgstr "Modo de certificación"
+msgid "Modo de certificación"
+msgstr ""
 
 msgctxt "field:company.company,pyafipws_private_key:"
 msgid "Clave Privada AFIP WS"
@@ -35,40 +35,40 @@ msgid "VAT Number"
 msgstr "CUIT"
 
 msgctxt "field:party.get_afip_data.start,codigo_postal:"
-msgid "Codigo Postal"
-msgstr "Código Postal"
+msgid "Código Postal"
+msgstr ""
 
 msgctxt "field:party.get_afip_data.start,direccion:"
-msgid "Direccion"
-msgstr "Dirección"
+msgid "Dirección"
+msgstr ""
 
 msgctxt "field:party.get_afip_data.start,estado:"
 msgid "Estado"
-msgstr "Estado"
+msgstr ""
 
 msgctxt "field:party.get_afip_data.start,fecha_inscripcion:"
-msgid "Fecha de Inscripcion"
-msgstr "Fecha de Inscripción"
+msgid "Fecha de Inscripción"
+msgstr ""
 
 msgctxt "field:party.get_afip_data.start,localidad:"
 msgid "Localidad"
-msgstr "Localidad"
+msgstr ""
 
 msgctxt "field:party.get_afip_data.start,name:"
-msgid "Name"
-msgstr "Nombre"
+msgid "Nombre"
+msgstr ""
 
 msgctxt "field:party.get_afip_data.start,primary_activity_code:"
 msgid "Actividad primaria"
-msgstr "Actividad primaria"
+msgstr ""
 
 msgctxt "field:party.get_afip_data.start,secondary_activity_code:"
 msgid "Actividad secundaria"
-msgstr "Actividad secundaria"
+msgstr ""
 
 msgctxt "field:party.get_afip_data.start,subdivision_code:"
-msgid "Subdivision"
-msgstr "Subdivisión"
+msgid "Provincia"
+msgstr ""
 
 msgctxt "field:party.identifier,afip_country:"
 msgid "Country"
@@ -84,11 +84,11 @@ msgstr "Tipo Empresa"
 
 msgctxt "field:party.party,controlling_entity:"
 msgid "Entidad controladora"
-msgstr "Entidad controladora"
+msgstr ""
 
 msgctxt "field:party.party,controlling_entity_number:"
-msgid "Nro. entidad controladora"
-msgstr "Nro. entidad controladora"
+msgid "Nro. Entidad controladora"
+msgstr ""
 
 msgctxt "field:party.party,ganancias_condition:"
 msgid "Condición ante Ganancias"
@@ -120,11 +120,11 @@ msgstr "Fecha inicio actividades"
 
 msgctxt "field:party.party,tipo_documento:"
 msgid "Tipo documento"
-msgstr "Tipo documento"
+msgstr ""
 
 msgctxt "field:party.party,vat_number:"
 msgid "CUIT"
-msgstr "CUIT"
+msgstr ""
 
 msgctxt "field:party.party,vat_number_afip_foreign:"
 msgid "CUIT AFIP Foreign"
@@ -150,7 +150,7 @@ msgstr "Entidad controladora"
 
 msgctxt "help:party.party,controlling_entity_number:"
 msgid "Controlling entity number"
-msgstr "Nro. entidad controladora"
+msgstr "Nro. Entidad controladora"
 
 msgctxt "model:afip.country,name:"
 msgid "AFIP Country"
@@ -215,28 +215,20 @@ msgid "Import AFIP Census"
 msgstr "Importar Censo AFIP"
 
 msgctxt "selection:party.afip.vat.country,type_code:"
-msgid "Fisica"
-msgstr "Física"
+msgid "Física"
+msgstr ""
 
 msgctxt "selection:party.afip.vat.country,type_code:"
-msgid "Juridica"
-msgstr "Jurídica"
+msgid "Jurídica"
+msgstr ""
 
 msgctxt "selection:party.afip.vat.country,type_code:"
 msgid "Otro Tipo de Entidad"
-msgstr "Otro Tipo de Entidad"
-
-msgctxt "selection:party.configuration,identifier_types:"
-msgid "CUIT"
-msgstr "CUIT"
+msgstr ""
 
 msgctxt "selection:party.configuration,identifier_types:"
 msgid "CUIT AFIP Foreign"
 msgstr "CUIT País"
-
-msgctxt "selection:party.configuration,identifier_types:"
-msgid "DNI"
-msgstr "DNI"
 
 msgctxt "selection:party.get_afip_data.start,primary_activity_code:"
 msgid " 919900 - SERVICIOS DE ASOCIACIONES N.C.P."
@@ -9387,40 +9379,32 @@ msgid "990000 - Servicios de organizaciones y órganos extraterritoriales"
 msgstr ""
 
 msgctxt "selection:party.identifier,type:"
-msgid "CUIT"
-msgstr "CUIT"
-
-msgctxt "selection:party.identifier,type:"
 msgid "CUIT AFIP Foreign"
 msgstr "CUIT País"
-
-msgctxt "selection:party.identifier,type:"
-msgid "DNI"
-msgstr "DNI"
 
 msgctxt "selection:party.party,company_type:"
 msgid "Cooperativa"
-msgstr "Cooperativa"
+msgstr ""
 
 msgctxt "selection:party.party,company_type:"
 msgid "Estado"
-msgstr "Estado"
+msgstr ""
 
 msgctxt "selection:party.party,company_type:"
 msgid "Exterior"
-msgstr "Exterior"
+msgstr ""
 
 msgctxt "selection:party.party,company_type:"
 msgid "S de H"
-msgstr "S de H"
+msgstr ""
 
 msgctxt "selection:party.party,company_type:"
 msgid "SA"
-msgstr "SA"
+msgstr ""
 
 msgctxt "selection:party.party,company_type:"
 msgid "SRL"
-msgstr "SRL"
+msgstr ""
 
 msgctxt "selection:party.party,ganancias_condition:"
 msgid "Exento"
@@ -18640,155 +18624,155 @@ msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "Acta nacimiento"
-msgstr "Acta nacimiento"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CDI"
-msgstr "CDI"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Bs. As. RNP"
-msgstr "CI Bs. As. RNP"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Buenos Aires"
-msgstr "CI Buenos Aires"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Catamarca"
-msgstr "CI Catamarca"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Chaco"
-msgstr "CI Chaco"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Chubut"
-msgstr "CI Chubut"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Corrientes"
-msgstr "CI Corrientes"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Córdoba"
-msgstr "CI Córdoba"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Entre Ríos"
-msgstr "CI Entre Ríos"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Formosa"
-msgstr "CI Formosa"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Jujuy"
-msgstr "CI Jujuy"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI La Pampa"
-msgstr "CI La Pampa"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI La Rioja"
-msgstr "CI La Rioja"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Mendoza"
-msgstr "CI Mendoza"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Misiones"
-msgstr "CI Misiones"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Neuquén"
-msgstr "CI Neuquén"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Policía Federal"
-msgstr "CI Policía Federal"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Río Negro"
-msgstr "CI Río Negro"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Salta"
-msgstr "CI Salta"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI San Juan"
-msgstr "CI San Juan"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI San Luis"
-msgstr "CI San Luis"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Santa Cruz"
-msgstr "CI Santa Cruz"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Santa Fe"
-msgstr "CI Santa Fe"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Santiago del Estero"
-msgstr "CI Santiago del Estero"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Tierra del Fuego"
-msgstr "CI Tierra del Fuego"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI Tucumán"
-msgstr "CI Tucumán"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CI extranjera"
-msgstr "CI extranjera"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CUIL"
-msgstr "CUIL"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "CUIT"
-msgstr "CUIT"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "Certificado de Migración"
-msgstr "Certificado de Migración"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "DNI"
-msgstr "DNI"
+msgstr ""
+
+msgctxt "selection:party.party,tipo_documento:"
+msgid "En trámite"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "LC"
-msgstr "LC"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "LE"
-msgstr "LE"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "Pasaporte"
-msgstr "Pasaporte"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "Sin identificar/venta global diaria"
-msgstr "Sin identificar/venta global diaria"
+msgstr ""
 
 msgctxt "selection:party.party,tipo_documento:"
 msgid "Usado por Anses para Padrón"
-msgstr "Usado por Anses para Padrón"
-
-msgctxt "selection:party.party,tipo_documento:"
-msgid "en trámite"
-msgstr "En trámite"
+msgstr ""
 
 msgctxt "view:company.company:"
 msgid "Afip WS"
@@ -18803,19 +18787,19 @@ msgid "Clave Privada AFIP WS"
 msgstr ""
 
 msgctxt "view:company.company:"
-msgid "Modo de Certificacion"
-msgstr "Modo de Certificación"
+msgid "Modo de Certificación"
+msgstr ""
 
 msgctxt "view:party.party:"
 msgid "AFIP"
-msgstr "AFIP"
+msgstr ""
 
 msgctxt "view:party.party:"
 msgid "Datos"
-msgstr "Datos"
+msgstr ""
 
 msgctxt "wizard_button:party.get_afip_data,start,end:"
-msgid "Cancelar"
+msgid "Cancel"
 msgstr "Cancelar"
 
 msgctxt "wizard_button:party.get_afip_data,start,update_party:"
