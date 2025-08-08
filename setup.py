@@ -7,6 +7,7 @@ import io
 import os
 import re
 from configparser import ConfigParser
+
 from setuptools import find_packages, setup
 
 MODULE = 'party_ar'
@@ -72,7 +73,7 @@ if minor_version % 2:
 setup(name='%s_%s' % (PREFIX, MODULE),
     version=version,
     description='Tryton module that integrates AFIP (Argentina) with party',
-    long_description=read('README'),
+    long_description=read('README.rst'),
     author='tryton-ar',
     url=url,
     download_url=download_url,
@@ -105,16 +106,17 @@ setup(name='%s_%s' % (PREFIX, MODULE),
         'Natural Language :: Spanish',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
         'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Office/Business',
         'Topic :: Office/Business :: Financial :: Accounting',
         ],
     license='GPL-3',
-    python_requires='>=3.7',
+    python_requires='>=3.8',
     install_requires=requires,
     extras_require={
         'test': tests_require,

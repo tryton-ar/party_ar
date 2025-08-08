@@ -26,6 +26,25 @@ Create company::
     >>> company.party.iva_condition = 'responsable_inscripto'
     >>> company.party.save()
 
+Import models::
+
+    >>> Party = Model.get('party.party')
+
 Configure AFIP certificates::
 
     >>> _ = set_afip_certs(company=company)
+
+Create party::
+
+    >>> Party = Model.get('party.party')
+    >>> party = Party(name='Party')
+    >>> party.iva_condition='responsable_inscripto'
+    >>> party.vat_number='30710158254'
+    >>> party.save()
+
+Get information from Padron::
+
+    >>> party.click('get_afip_data')  # doctest: +IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+        ...
+    VatNumberNotFound: ...
