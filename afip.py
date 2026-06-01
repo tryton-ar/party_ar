@@ -17,9 +17,9 @@ from .exceptions import PyAfipWsError
 logger = logging.getLogger(__name__)
 
 
-class PyAfipWsWrapper(Model):
-    'PyAfipWsWrapper'
-    __name__ = 'afip.wrapper'
+class PyAfipWsMixin:
+    """Mixin para trabajar con pyafipws."""
+    __slots__ = ()
 
     @classmethod
     def authenticate(cls, service, crt, key, wsdl=None, proxy=None,

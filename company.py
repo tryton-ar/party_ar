@@ -8,11 +8,12 @@ from trytond.model import fields
 from trytond.pool import PoolMeta, Pool
 from trytond.exceptions import UserError
 from trytond.i18n import gettext
+from .afip import PyAfipWsMixin
 
 logger = logging.getLogger(__name__)
 
 
-class Company(metaclass=PoolMeta):
+class Company(PyAfipWsMixin, metaclass=PoolMeta):
     __name__ = 'company.company'
 
     pyafipws_certificate = fields.Text('Certificado AFIP WS',
@@ -71,7 +72,6 @@ class Company(metaclass=PoolMeta):
         if not cache:
             cache = self.get_cache_dir()
 
-        PyAfipWsWrapper = pool.get('afip.wrapper')
-        ta = PyAfipWsWrapper.authenticate(service, crt, key, wsdl=WSAA_URL,
+        ta = self.authenticate(service, crt, key, wsdl=WSAA_URL,
                 cache=cache)
         return ta
