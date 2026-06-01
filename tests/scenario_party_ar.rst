@@ -39,6 +39,8 @@ Create party::
     >>> party.iva_condition='responsable_inscripto'
     >>> party.vat_number='30710158254'
     >>> party.save()
+    >>> party.vat_number
+    '30710158254'
 
 Get information from Padron::
 

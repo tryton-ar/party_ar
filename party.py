@@ -306,7 +306,7 @@ class Party(metaclass=PoolMeta):
         types = ['ar_vat', 'ar_dni']
         for identifier in self.identifiers:
             if identifier.type in types:
-                return identifier.code
+                return identifier.code_compact
 
     @classmethod
     def set_vat_number(cls, partys, name, value):
@@ -336,19 +336,19 @@ class Party(metaclass=PoolMeta):
     def search_vat_number(cls, name, clause):
         types = ['ar_vat', 'ar_dni']
         return [
-            ('identifiers.code',) + tuple(clause[1:]),
+            ('identifiers.code_compact',) + tuple(clause[1:]),
             ('identifiers.type', 'in', types),
             ]
 
     def get_vat_number_afip_foreign(self, name):
         for identifier in self.identifiers:
             if identifier.type == 'ar_foreign':
-                return identifier.code
+                return identifier.code_compact
 
     @classmethod
     def search_vat_number_afip_foreign(cls, name, clause):
         return [
-            ('identifiers.code',) + tuple(clause[1:]),
+            ('identifiers.code_compact',) + tuple(clause[1:]),
             ('identifiers.type', '=', 'ar_foreign'),
             ]
 
