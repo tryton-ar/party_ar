@@ -60,7 +60,7 @@
 
         <record model="ir.model.button" id="party_ar_get_afip_data_button">
             <field name="name">get_afip_data</field>
-            <field name="model" search="[('model', '=', 'party.party')]"/>
+            <field name="model">party.party</field>
         </record>
 
         <!-- cron afip -->
