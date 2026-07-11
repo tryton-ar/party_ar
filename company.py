@@ -54,15 +54,17 @@ class Company(PyAfipWsMixin, metaclass=PoolMeta):
 
         return os.path.join(get_module_install_dir(), 'cache')
 
-    @classmethod
-    @ModelView.button
-    def get_pyafipws_ta(cls, companies, service='wsfe', cache=''):
-        if len(companies) > 1:
-            raise ValueError('companies')
-
-        company, = companies
-        ta = company.pyafipws_authenticate(service, cache)
-        return ta
+    def pyafipws_get_base_url(self):
+        if self.pyafipws_mode_cert == 'homologacion':
+            base_url = 'https://wswhomo.afip.gov.ar'
+        elif self.pyafipws_mode_cert == 'produccion':
+            base_url = 'https://servicios1.afip.gov.ar'
+        else:
+            raise UserError(gettext(
+                'party_ar.msg_wrong_pyafipws_mode',
+                message=('El modo de certificación no es ni producción, ni '
+                    'homologación. Configure su Empresa')))
+        return base_url
 
     def pyafipws_authenticate(self, service='wsfe', cache=''):
         'Authenticate against AFIP, returns token, sign, err_msg (dict)'
@@ -82,6 +84,32 @@ class Company(PyAfipWsMixin, metaclass=PoolMeta):
         if not cache:
             cache = self.get_cache_dir()
 
-        ta = self.authenticate(service, crt, key, wsdl=WSAA_URL,
-                cache=cache)
+        ta = self.authenticate(service, crt, key, wsdl=WSAA_URL, cache=cache)
         return ta
+
+    def pyafipws_connect(self, ta, service):
+        '''
+        Connect to webservices
+        '''
+        base_url = self.pyafipws_get_base_url()
+        if service == 'wsfe':
+            wsdl = f'{base_url}/wsfev1/service.asmx?WSDL'
+        elif service == 'wsfex':
+            wsdl = f'{base_url}/wsfexv1/service.asmx?WSDL'
+        else:
+            logger.critical('AFIP ws is not yet supported! %s', service)
+            raise UserError(gettext(
+                'party_ar.msg_webservice_not_supported',
+                service=service))
+
+        cache = self.get_cache_dir()
+        cacert = True
+        try:
+            ws = self.connect(ta, wsdl, service, self.party.vat_number, cache, cacert)
+        except Exception as e:
+            msg = ws.Excepcion + ' ' + str(e)
+            logger.error('WSAA connecting to afip: %s' % msg)
+            raise UserError(gettext(
+                'party_ar.msg_wsaa_error', msg=msg))
+
+        return ws
