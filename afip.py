@@ -2,6 +2,8 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 
+from pyafipws.wsfev1 import WSFEv1
+from pyafipws.wsfexv1 import WSFEXv1
 from pyafipws.wsaa import WSAA
 import hashlib
 import time
@@ -30,13 +32,15 @@ class PyAfipWsMixin:
         wsaa = WSAA()
         wsaa.LanzarExcepciones = True
         try:
+            # cache default compartido con party_ar (para tests y prod)
+            if not cache:
+                _dir = os.path.dirname(os.path.abspath(__file__))
+                cache = os.path.join(_dir, 'cache')
+                os.makedirs(cache, exist_ok=True)
+
             # creo el nombre para el archivo del TA (según credenciales y ws)
             ta_src = (service + crt + key).encode("utf8")
-            fn = "TA-%s.xml" % hashlib.md5(ta_src).hexdigest()
-            if cache:
-                fn = os.path.join(cache, fn)
-            else:
-                fn = os.path.join(wsaa.InstallDir, "cache", fn)
+            fn = os.path.join(cache, "TA-%s.xml" % hashlib.md5(ta_src).hexdigest())
 
             # leer el ticket de acceso (si fue previamente solicitado)
             if not os.path.exists(fn) or os.path.getsize(fn) == 0 or \
@@ -90,6 +94,30 @@ class PyAfipWsMixin:
             raise PyAfipWsError(gettext('party_ar.msg_pyafipws_error',
                     message=str(err_msg)))
         return ta
+
+    @classmethod
+    def connect(cls, ta, wsdl, service, vat_number, cache=None, cacert=True):
+        "Método unificado para connectarse a webservices desde pyafipws"
+        if service == 'wsfe':
+            ws = WSFEv1()
+        elif service == 'wsfex':
+            ws = WSFEXv1()
+        else:
+            msg = 'webservice_not_supported',
+            raise PyAfipWsError(gettext(
+                'party_ar.msg_pyafipws_error', message=msg))
+
+        # cache default compartido con party_ar
+        if not cache:
+            _dir = os.path.dirname(os.path.abspath(__file__))
+            cache = os.path.join(_dir, 'cache')
+            os.makedirs(cache, exist_ok=True)
+
+        ws.LanzarExcepciones = True
+        ws.SetTicketAcceso(ta)
+        ws.Cuit = vat_number
+        ws.Conectar(wsdl=wsdl, cache=cache, cacert=True)
+        return ws
 
 
 class AFIPCountry(ModelSQL, ModelView):
