@@ -4,8 +4,14 @@
 
 from trytond.tools import file_open
 from trytond.modules.company.tests.tools import get_company
+from ..afip import PyAfipWsMixin
 
-__all__ = ['set_afip_certs']
+__all__ = ['set_afip_certs', 'get_wsfev1', 'get_wsfexv1']
+
+
+URL_WSAA = "https://wsaahomo.afip.gov.ar/ws/services/LoginCms?wsdl"
+URL_WSFEX = "https://wswhomo.afip.gov.ar/wsfexv1/service.asmx?WSDL"
+URL_WSFE = "https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL"
 
 
 def set_afip_certs(company=None, config=None):
@@ -21,3 +27,29 @@ def set_afip_certs(company=None, config=None):
     company.pyafipws_mode_cert = 'homologacion'
     company.save()
     return company
+
+
+def get_wsfev1(company=None, config=None):
+    "Obtiene instancia WSFEv1 autenticada para tests"
+    company = set_afip_certs(company, config)
+    service = 'wsfe'
+    ta = PyAfipWsMixin.authenticate(
+        service,
+        str(company.pyafipws_certificate),
+        str(company.pyafipws_private_key),
+        wsdl=URL_WSAA,
+    )
+    return PyAfipWsMixin.connect(ta, URL_WSFE, service, company.party.vat_number)
+
+
+def get_wsfexv1(company=None, config=None):
+    "Obtiene instancia WSFEXv1 autenticada para tests"
+    company = set_afip_certs(company, config)
+    service = 'wsfex'
+    ta = PyAfipWsMixin.authenticate(
+        service,
+        str(company.pyafipws_certificate),
+        str(company.pyafipws_private_key),
+        wsdl=URL_WSAA,
+    )
+    return PyAfipWsMixin.connect(ta, URL_WSFEX, service, company.party.vat_number)
