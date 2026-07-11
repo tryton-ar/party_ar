@@ -4,7 +4,7 @@
 import logging
 import os
 
-from trytond.model import fields
+from trytond.model import ModelView, fields
 from trytond.pool import PoolMeta, Pool
 from trytond.exceptions import UserError
 from trytond.i18n import gettext
@@ -53,6 +53,16 @@ class Company(PyAfipWsMixin, metaclass=PoolMeta):
             return os.path.dirname(os.path.abspath(basepath))
 
         return os.path.join(get_module_install_dir(), 'cache')
+
+    @classmethod
+    @ModelView.button
+    def get_pyafipws_ta(cls, companies, service='wsfe', cache=''):
+        if len(companies) > 1:
+            raise ValueError('companies')
+
+        company, = companies
+        ta = company.pyafipws_authenticate(service, cache)
+        return ta
 
     def pyafipws_authenticate(self, service='wsfe', cache=''):
         'Authenticate against AFIP, returns token, sign, err_msg (dict)'
